@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c79904c7f5726a2458841c5d95da3c9f, type: 3}
+  m_Name: UISettingsInstaller
+  m_EditorClassIdentifier: 
+  MapSettings:
+    PixelsPerUnit: 5
+    PrefabTeleportIcon: {fileID: 7553850417055091670, guid: c79f2d6c90c557143a691b42aa889b7f,
+      type: 3}

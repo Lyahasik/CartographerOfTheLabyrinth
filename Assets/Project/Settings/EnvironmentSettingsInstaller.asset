@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef4e5e4b45d62eb429c6d65af8a5b1a6, type: 3}
+  m_Name: EnvironmentSettingsInstaller
+  m_EditorClassIdentifier: 
+  EnvironmentSettings:
+    CountChunksX: 100
+    CountChunksZ: 100
+    SizeChunk: 5
+    DistantionRender: 2
+    BlocksData:
+    - EnvironmentObjectType: 1
+      BlockPrefab: {fileID: 1173303401894928399, guid: 6a2e71ae6f7267945b8a3c6a42a6a731,
+        type: 3}
+    - EnvironmentObjectType: 6
+      BlockPrefab: {fileID: 7252648729409580317, guid: 9b86d8f6e41155a42ad3f95aaec5c642,
+        type: 3}
+    Teleport: {fileID: 7252648729409580317, guid: 9b86d8f6e41155a42ad3f95aaec5c642,
+      type: 3}
