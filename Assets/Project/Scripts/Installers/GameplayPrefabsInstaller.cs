@@ -1,3 +1,4 @@
+using CartographerOfTheLabyrinth.FiniteStateMachine;
 using CartographerOfTheLabyrinth.Gameplay.Player;
 using CartographerOfTheLabyrinth.OS;
 using CartographerOfTheLabyrinth.UI.Map;
@@ -31,7 +32,7 @@ namespace CartographerOfTheLabyrinth.Installers
                 .NonLazy();
         
             Container
-                .BindInterfacesAndSelfTo<MapController>()
+                .BindInterfacesAndSelfTo<GameMashine>()
                 .AsSingle()
                 .NonLazy();
         }

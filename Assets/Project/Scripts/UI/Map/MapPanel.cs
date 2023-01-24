@@ -4,15 +4,9 @@ namespace CartographerOfTheLabyrinth.UI.Map
 {
     public class MapPanel : MonoBehaviour
     {
-        // private void Start()
-        // {
-        //     //TODO FSM
-        //     gameObject.SetActive(false);
-        // }
-
-        public void SwitchActive()
+        public void Activate(bool value)
         {
-            gameObject.SetActive(!gameObject.activeSelf);
+            gameObject.SetActive(value);
         }
     }
 }

@@ -15,6 +15,13 @@ namespace CartographerOfTheLabyrinth.Gameplay.Player
 
         private Vector2Int _currentChunkId;
 
+        private bool _isFreeze;
+
+        public bool IsFreeze
+        {
+            set => _isFreeze = value;
+        }
+
         [Inject]
         public void Construct(EnvironmentHandler environmentHandler)
         {
@@ -34,6 +41,9 @@ namespace CartographerOfTheLabyrinth.Gameplay.Player
 
         public void TakeStepMove(Vector2 stepMove)
         {
+            if (_isFreeze)
+                return;
+            
             Vector3 step = new Vector3(stepMove.x, 0f, stepMove.y);
             step *= _speedMove * Time.deltaTime;
 
@@ -69,6 +79,9 @@ namespace CartographerOfTheLabyrinth.Gameplay.Player
 
         public void TakeStepTurn(Vector2 stepTurn)
         {
+            if (_isFreeze)
+                return;
+            
             transform.Rotate(Vector3.up, stepTurn.x * _speedTurn * Time.deltaTime, Space.World);
         }
     }
