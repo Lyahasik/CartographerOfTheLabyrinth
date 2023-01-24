@@ -7,6 +7,7 @@ namespace CartographerOfTheLabyrinth.Environment.Level.Teleport
 {
     public class TeleportHandler : ITickable
     {
+        private PlayerWatcher _playerWatcher;
         private PlayerMovement _playerMovement;
     
         private TeleportData[] _teleportsData;
@@ -14,9 +15,10 @@ namespace CartographerOfTheLabyrinth.Environment.Level.Teleport
         public TeleportData[] TeleportsData => _teleportsData;
 
         [Inject]
-        public void Construct(PlayerMovement playerMovement)
+        public void Construct(PlayerMovement playerMovement, PlayerWatcher playerWatcher)
         {
             _playerMovement = playerMovement;
+            _playerWatcher = playerWatcher;
         }
 
         public void Tick()
@@ -63,6 +65,7 @@ namespace CartographerOfTheLabyrinth.Environment.Level.Teleport
             Vector3 teleportPoint = new Vector3(_teleportsData[levelId].Position.x, 0f, _teleportsData[levelId].Position.y);
         
             _playerMovement.SetPosition(teleportPoint);
+            _playerWatcher.ResetPosition();
         }
     }
 }
