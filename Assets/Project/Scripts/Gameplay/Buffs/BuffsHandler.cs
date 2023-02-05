@@ -1,30 +1,40 @@
+using Gameplay.Items;
 using Gameplay.Player;
 using UnityEngine;
 using Zenject;
 
-public class BuffsHandler : ITickable
+namespace Gameplay.Buffs
 {
-    private PlayerMovement _playerMovement;
-
-    [Inject]
-    public void Construct(PlayerMovement playerMovement)
+    public class BuffsHandler : ITickable
     {
-        _playerMovement = playerMovement;
-    }
+        private PlayerInventory _playerInventory;
+        private PlayerMovement _playerMovement;
 
-    public void Tick()
-    {
-        ProcessInput();
-    }
+        [Inject]
+        public void Construct(PlayerInventory playerInventory, PlayerMovement playerMovement)
+        {
+            _playerInventory = playerInventory;
+            _playerMovement = playerMovement;
+        }
 
-    private void ProcessInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            TryActivateSpeedBoost();
-    }
+        public void Tick()
+        {
+            ProcessInput();
+        }
 
-    public bool TryActivateSpeedBoost()
-    {
-        return _playerMovement.TryActivateBoost();
+        private void ProcessInput()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                TryActivateBuff(ItemType.SpeedBuff);
+        }
+
+        public void TryActivateBuff(ItemType type)
+        {
+            if (!_playerInventory.ContainsItem(type))
+                return;
+        
+            if (_playerMovement.TryActivateBoost())
+                _playerInventory.UseItem(type);
+        }
     }
 }

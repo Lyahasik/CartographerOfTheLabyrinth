@@ -20,3 +20,6 @@ MonoBehaviour:
     - ItemType: 1
       ItemPrefab: {fileID: 3498827778963379004, guid: e0c3cadd7df6ede44bbbb5db10a74638,
         type: 3}
+    - ItemType: 2
+      ItemPrefab: {fileID: 3498827778963379004, guid: 39786107f70223649a819f1814e90bfa,
+        type: 3}

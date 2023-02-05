@@ -1,4 +1,4 @@
-namespace Gameplay
+namespace Gameplay.Items
 {
     public struct ItemData
     {

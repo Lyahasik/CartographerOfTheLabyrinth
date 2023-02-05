@@ -1,5 +1,6 @@
 using System;
 using Gameplay;
+using Gameplay.Items;
 using UnityEngine;
 
 namespace Serialization.Gameplay.Items

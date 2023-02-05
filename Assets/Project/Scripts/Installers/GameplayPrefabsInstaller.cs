@@ -1,5 +1,6 @@
 using FiniteStateMachine;
 using Gameplay;
+using Gameplay.Buffs;
 using Gameplay.Items;
 using Gameplay.Player;
 using OS;

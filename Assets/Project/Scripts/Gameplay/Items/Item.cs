@@ -10,8 +10,16 @@ namespace Gameplay.Items
         protected PlayerInventory PlayerInventory;
         protected GameplayHandler GameplayHandler;
 
-        public int LevelId;
-        public ItemType Type; 
+        private int _levelId;
+        private ItemType _type;
+
+        public int LevelId => _levelId;
+
+        public ItemType Type
+        {
+            get => _type;
+            set => _type = value;
+        }
 
         [Inject]
         public void Construct(PlayerInventory playerInventory, GameplayHandler gameplayHandler)
@@ -22,7 +30,7 @@ namespace Gameplay.Items
 
         public void Init()
         {
-            LevelId = Int32.Parse(transform.parent.name.Replace("Level", String.Empty)) - 1;
+            _levelId = Int32.Parse(transform.parent.name.Replace("Level", String.Empty)) - 1;
         }
     }
 }

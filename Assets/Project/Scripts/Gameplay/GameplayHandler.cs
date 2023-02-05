@@ -67,7 +67,7 @@ namespace Gameplay
         
             foreach (ItemData itemData in _itemsDataLevel[levelNumber])
             {
-                Item teleportKey = _gameplayPool.GetItem(ItemType.TeleportKey);
+                Item teleportKey = _gameplayPool.GetItem((ItemType) itemData.Type);
             
                 Vector3 itemPosition = new Vector3(itemData.Position[0], 0f, itemData.Position[1]);
                 teleportKey.transform.position = itemPosition;
