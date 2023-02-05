@@ -1,11 +1,12 @@
-using CartographerOfTheLabyrinth.FiniteStateMachine;
-using CartographerOfTheLabyrinth.Gameplay.Player;
-using CartographerOfTheLabyrinth.OS;
-using CartographerOfTheLabyrinth.UI.Map;
+using FiniteStateMachine;
+using Gameplay;
+using Gameplay.Items;
+using Gameplay.Player;
+using OS;
 using UnityEngine;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.Installers
+namespace Installers
 {
     public class GameplayPrefabsInstaller : MonoInstaller
     {
@@ -30,11 +31,28 @@ namespace CartographerOfTheLabyrinth.Installers
                 .UnderTransform(_parent.transform)
                 .AsSingle()
                 .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<PlayerInventory>()
+                .AsSingle()
+                .NonLazy();
         
             Container
                 .BindInterfacesAndSelfTo<GameMashine>()
                 .AsSingle()
                 .NonLazy();
+            
+            Container
+                .BindInterfacesAndSelfTo<GameplayHandler>()
+                .AsSingle();
+            Container
+                .BindInterfacesAndSelfTo<GameplayPool>()
+                .AsSingle()
+                .WithArguments(_parent);
+            
+            Container
+                .BindFactory<ItemType, Item, ItemFactory>()
+                .FromFactory<ItemFactory>();
         }
 
         private void ParentInitialize()

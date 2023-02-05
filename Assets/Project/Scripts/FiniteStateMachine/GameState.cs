@@ -1,15 +1,16 @@
-using CartographerOfTheLabyrinth.FiniteStateMachine;
-
-public abstract class GameState
+namespace FiniteStateMachine
 {
-    protected GameMashine _gameMashine;
-    
-    public virtual void Enter(GameMashine gameMashine)
+    public abstract class GameState
     {
-        _gameMashine = gameMashine;
-    }
+        protected GameMashine _gameMashine;
     
-    public virtual void HandleInput() {}
+        public virtual void Enter(GameMashine gameMashine)
+        {
+            _gameMashine = gameMashine;
+        }
+    
+        public virtual void HandleInput() {}
 
-    public virtual void Exit() {}
+        public virtual void Exit() {}
+    }
 }

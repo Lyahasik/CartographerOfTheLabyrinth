@@ -1,11 +1,11 @@
-using CartographerOfTheLabyrinth.OS;
-using CartographerOfTheLabyrinth.UI.Map;
-using CartographerOfTheLabyrinth.UI.Map.Icons;
-using CartographerOfTheLabyrinth.UI.Movement;
+using OS;
+using UI.Map;
+using UI.Map.Icons;
+using UI.Movement;
 using UnityEngine;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.Installers
+namespace Installers
 {
     public class UIPrefabsInstaller : MonoInstaller
     {

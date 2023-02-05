@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace CartographerOfTheLabyrinth.UI.Movement.Joystick
+namespace UI.Movement.Joystick
 {
     public class Stick : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
     {

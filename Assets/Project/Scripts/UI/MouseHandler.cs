@@ -1,7 +1,7 @@
-using CartographerOfTheLabyrinth.OS;
+using OS;
 using UnityEngine;
 
-namespace CartographerOfTheLabyrinth.UI
+namespace UI
 {
     public class MouseHandler : MonoBehaviour
     {

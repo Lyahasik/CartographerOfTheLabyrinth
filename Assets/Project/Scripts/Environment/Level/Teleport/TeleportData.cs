@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CartographerOfTheLabyrinth.Environment.Level.Teleport
+namespace Environment.Level.Teleport
 {
     public struct TeleportData
     {

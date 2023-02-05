@@ -1,8 +1,8 @@
-using CartographerOfTheLabyrinth.Gameplay.Player;
+using Gameplay.Player;
 using UnityEngine;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.UI.Map.Icons
+namespace UI.Map.Icons
 {
     public class ArrowPlayer : MonoBehaviour
     {

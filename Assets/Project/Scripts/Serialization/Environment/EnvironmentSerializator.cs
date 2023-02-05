@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.IO;
-using CartographerOfTheLabyrinth.Environment.Level;
+using Environment.Level;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace CartographerOfTheLabyrinth.Serialization.Environment
+namespace Serialization.Environment
 {
     public class EnvironmentSerializator
     {

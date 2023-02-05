@@ -2,11 +2,11 @@ using UnityEngine;
 using UnityEngine.Events;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.Gameplay.Player
+namespace Gameplay.Player
 {
     public class PCMovementController : IInitializable, ITickable
     {
-        private PlayerSettings _playerSettings;
+        private GameplaySettings _gameplaySettings;
 
         private PlayerMovement _playerMovement;
     
@@ -14,9 +14,9 @@ namespace CartographerOfTheLabyrinth.Gameplay.Player
         private UnityEvent<Vector2> _onInputTurn = new ();
 
         [Inject]
-        public void Construct(PlayerSettings playerSettings, PlayerMovement playerMovement)
+        public void Construct(GameplaySettings gameplaySettings, PlayerMovement playerMovement)
         {
-            _playerSettings = playerSettings;
+            _gameplaySettings = gameplaySettings;
             _playerMovement = playerMovement;
         }
 
@@ -41,7 +41,7 @@ namespace CartographerOfTheLabyrinth.Gameplay.Player
 
         private void ProcessingMouse()
         {
-            Vector2 vectorMove = new Vector2(Input.GetAxis("Mouse X") * _playerSettings.MouseSensitivity, 0f);
+            Vector2 vectorMove = new Vector2(Input.GetAxis("Mouse X") * _gameplaySettings.MouseSensitivity, 0f);
         
             _onInputTurn?.Invoke(vectorMove);
         }

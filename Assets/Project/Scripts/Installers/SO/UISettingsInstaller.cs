@@ -1,8 +1,8 @@
-using CartographerOfTheLabyrinth.UI.Map;
+using UI.Map;
 using UnityEngine;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.Installers.SO
+namespace Installers.SO
 {
     [CreateAssetMenu(fileName = "UISettingsInstaller", menuName = "Installers/UISettingsInstaller")]
     public class UISettingsInstaller : ScriptableObjectInstaller<UISettingsInstaller>

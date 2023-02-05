@@ -1,13 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
-using CartographerOfTheLabyrinth.Environment.Level.Teleport;
 using UnityEngine;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.Environment.Level
+using Environment.Level.Blocks;
+using Environment.Level.Teleport;
+
+namespace Environment.Level
 {
     public class LevelHandler
     {
+        private DiContainer _container;
         private EnvironmentPool _environmentPool;
         private TeleportPool _teleportPool;
     
@@ -15,7 +18,6 @@ namespace CartographerOfTheLabyrinth.Environment.Level
 
         private Dictionary<int, Level> _levels = new ();
         private List<ChunkData> _chunks = new ();
-        private Teleport.Teleport _teleport;
 
         public LevelHandler(GameObject parentEnvironment)
         {
@@ -23,8 +25,9 @@ namespace CartographerOfTheLabyrinth.Environment.Level
         }
     
         [Inject]
-        public void Construct(EnvironmentPool environmentPool, TeleportPool teleportPool)
+        public void Construct(DiContainer container, EnvironmentPool environmentPool, TeleportPool teleportPool)
         {
+            _container = container;
             _environmentPool = environmentPool;
             _teleportPool = teleportPool;
         }
@@ -70,7 +73,7 @@ namespace CartographerOfTheLabyrinth.Environment.Level
                 || objectData.Type >= (int) EnvironmentObjectType.Teleport)
                 return;
         
-            Block.Block block = _environmentPool.GetBlock((EnvironmentObjectType) objectData.Type);
+            Block block = _environmentPool.GetBlock((EnvironmentObjectType) objectData.Type);
         
             Vector3 blockPosition = new Vector3(objectData.Position[0], 0f, objectData.Position[1]);
             block.transform.position = blockPosition;
@@ -90,12 +93,15 @@ namespace CartographerOfTheLabyrinth.Environment.Level
             }
             
             objectChunk.transform.parent = _levels[environmentObjectData.LevelNumber].transform;
+            _levels[environmentObjectData.LevelNumber].AddObject(objectChunk);
         }
 
         private void CreateLevel(in EnvironmentObjectData environmentObjectData)
         {
-            Level level = new GameObject($"Level{environmentObjectData.LevelNumber}").AddComponent<Level>();
+            Level level = _container
+                .InstantiateComponentOnNewGameObject<Level>($"Level{environmentObjectData.LevelNumber}");
             level.transform.parent = _parentEnvironment.transform;
+            level.Number = environmentObjectData.LevelNumber;
 
             _levels.Add(environmentObjectData.LevelNumber, level);
         }
@@ -132,7 +138,7 @@ namespace CartographerOfTheLabyrinth.Environment.Level
             {
                 if (_chunks[i].ForRemoving)
                 {
-                    foreach (Block.Block block in _chunks[i].Blocks)
+                    foreach (Block block in _chunks[i].Blocks)
                     {
                         _environmentPool.ReturnBlock(block);
                     }
@@ -157,9 +163,13 @@ namespace CartographerOfTheLabyrinth.Environment.Level
         
             foreach (KeyValuePair<int, Level> keyValue in levelsArray)
             {
-                if (keyValue.Value.transform.childCount == 0)
+                Level value = keyValue.Value;
+                
+                value.UpdateObjects();
+
+                if (value.CountObjects <= 0)
                 {
-                    keyValue.Value.Destroy();
+                    value.Destroy();
                     _levels.Remove(keyValue.Key);
                 }
             }

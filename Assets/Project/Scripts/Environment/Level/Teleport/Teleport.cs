@@ -1,14 +1,23 @@
-using CartographerOfTheLabyrinth.Gameplay.Player;
 using UnityEngine;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.Environment.Level.Teleport
+using Gameplay.Player;
+
+namespace Environment.Level.Teleport
 {
     public class Teleport : MonoBehaviour
     {
-        [Inject] private TeleportHandler _teleportHandler;
+        private TeleportHandler _teleportHandler;
+        private PlayerInventory _playerInventory;
 
         private int _levelId;
+
+        [Inject]
+        public void Construct(TeleportHandler teleportHandler, PlayerInventory playerInventory)
+        {
+            _teleportHandler = teleportHandler;
+            _playerInventory = playerInventory;
+        }
 
         public int LevelId
         {
@@ -19,7 +28,8 @@ namespace CartographerOfTheLabyrinth.Environment.Level.Teleport
         {
             if (other.GetComponent<PlayerMovement>())
             {
-                _teleportHandler.TeleportActivate(_levelId);
+                if (_playerInventory.TryFindKey(_levelId))
+                    _teleportHandler.TeleportActivate(_levelId);
             }
         }
     }

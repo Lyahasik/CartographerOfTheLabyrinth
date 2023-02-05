@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using CartographerOfTheLabyrinth.Environment.Level.Teleport;
+using Environment.Level.Teleport;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.UI.Map.Icons
+namespace UI.Map.Icons
 {
     [RequireComponent(typeof(RectTransform))]
     [RequireComponent(typeof(Image))]
@@ -23,8 +23,6 @@ namespace CartographerOfTheLabyrinth.UI.Map.Icons
         [Inject]
         public void Consrtuct(MapSettings settings, TeleportHandler teleportHandler, int levelId, Vector2 position)
         {
-            HashSet<string> test;
-
             _settings = settings;
             _teleportHandler = teleportHandler;
             _levelId = levelId;

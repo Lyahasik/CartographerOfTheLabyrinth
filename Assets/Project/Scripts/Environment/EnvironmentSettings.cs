@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CartographerOfTheLabyrinth.Environment
+namespace Environment
 {
     [Serializable]
     public class EnvironmentSettings
@@ -14,7 +14,7 @@ namespace CartographerOfTheLabyrinth.Environment
         public int DistantionRender;
 
         [Header("Prefabs")]
-        public List<PrefabData> BlocksData;
+        public List<EnvironmentPrefabData> BlocksData;
         public GameObject Teleport;
     }
 }

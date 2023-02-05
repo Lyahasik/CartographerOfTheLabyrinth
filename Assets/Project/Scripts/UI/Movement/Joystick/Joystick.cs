@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace CartographerOfTheLabyrinth.UI.Movement.Joystick
+namespace UI.Movement.Joystick
 {
     public class Joystick : MonoBehaviour
     {

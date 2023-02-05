@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-namespace CartographerOfTheLabyrinth.Environment
+namespace Environment
 {
     [Serializable]
-    public class PrefabData
+    public class EnvironmentPrefabData
     {
         public EnvironmentObjectType EnvironmentObjectType;
         public GameObject BlockPrefab;

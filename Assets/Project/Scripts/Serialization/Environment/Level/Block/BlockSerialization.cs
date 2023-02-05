@@ -1,8 +1,8 @@
 using System;
-using CartographerOfTheLabyrinth.Environment;
+using Environment;
 using UnityEngine;
 
-namespace CartographerOfTheLabyrinth.Serialization.Environment.Level.Block
+namespace Serialization.Environment.Level.Block
 {
     public class BlockSerialization : MonoBehaviour
     {

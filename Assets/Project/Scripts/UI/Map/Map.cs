@@ -1,14 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using CartographerOfTheLabyrinth.Environment.Level.Teleport;
-using CartographerOfTheLabyrinth.Gameplay.Player;
-using CartographerOfTheLabyrinth.UI.Map.Icons;
+using Environment.Level.Teleport;
+using Gameplay.Player;
+using UI.Map.Icons;
 using UnityEngine;
 using UnityEngine.Events;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.UI.Map
+namespace UI.Map
 {
     public class Map : MonoBehaviour
     {

@@ -1,11 +1,11 @@
-using CartographerOfTheLabyrinth.Environment;
-using CartographerOfTheLabyrinth.Environment.Level;
-using CartographerOfTheLabyrinth.Environment.Level.Block;
-using CartographerOfTheLabyrinth.Environment.Level.Teleport;
+using Environment;
+using Environment.Level;
+using Environment.Level.Blocks;
+using Environment.Level.Teleport;
 using UnityEngine;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.Installers
+namespace Installers
 {
     public class EnvironmentPrefabsInstaller : MonoInstaller
     {

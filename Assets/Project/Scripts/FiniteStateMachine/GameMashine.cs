@@ -1,6 +1,6 @@
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.FiniteStateMachine
+namespace FiniteStateMachine
 {
     public class GameMashine : IInitializable, ITickable
     {
@@ -27,32 +27,23 @@ namespace CartographerOfTheLabyrinth.FiniteStateMachine
 
         public void Enter(GameState gameState)
         {
-            if (gameState == null)
-            {
-                ResetState();
-                return;
-            }
-
             if (_currentState == gameState)
                 return;
             
+            _currentState?.Exit();
             _previousState = _currentState;
-            _currentState = gameState;
             
-            gameState.Enter(this);
+            _currentState = gameState;
+            _currentState.Enter(this);
         }
 
-        private void ResetState()
+        public void ResetState()
         {
+            _currentState.Exit();
             _currentState = null;
             
             if (_previousState != null)
-            {
-                GameState newState = _previousState;
-                _previousState = null;
-                
-                Enter(newState);
-            }
+                Enter(_previousState);
         }
 
         public void HandleInput()

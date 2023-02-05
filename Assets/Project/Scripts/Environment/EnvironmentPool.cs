@@ -1,18 +1,18 @@
 using System.Collections.Generic;
-using CartographerOfTheLabyrinth.Environment.Level.Block;
 using UnityEngine;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.Environment
+using Environment.Level.Blocks;
+
+namespace Environment
 {
     public class EnvironmentPool : IInitializable
     {
-        private DiContainer _container;
         private EnvironmentSettings _settings;
         private BlockFactory _blockFactory;
 
         private GameObject _parent;
-        private GameObject _environmentPool;
+        private GameObject _repositoryPool;
 
         private Dictionary<EnvironmentObjectType, GameObject> _prefabs = new ();
         private Dictionary<EnvironmentObjectType, Stack<Block>> _blocks = new ();
@@ -31,15 +31,15 @@ namespace CartographerOfTheLabyrinth.Environment
 
         public void Initialize()
         {
-            _environmentPool = new GameObject("EnvironmentPool");
-            _environmentPool.transform.parent = _parent.transform;
+            _repositoryPool = new GameObject("EnvironmentPool");
+            _repositoryPool.transform.parent = _parent.transform;
             
             CollectPrefabs();
         }
 
         private void CollectPrefabs()
         {
-            foreach (PrefabData prefabData in _settings.BlocksData)
+            foreach (EnvironmentPrefabData prefabData in _settings.BlocksData)
             {
                 _prefabs.Add(prefabData.EnvironmentObjectType, prefabData.BlockPrefab);
             }
@@ -66,7 +66,7 @@ namespace CartographerOfTheLabyrinth.Environment
         public void ReturnBlock(Block block)
         {
             block.gameObject.SetActive(false);
-            block.transform.parent = _environmentPool.transform;
+            block.transform.parent = _repositoryPool.transform;
         
             _blocks[block.Type].Push(block);
         }

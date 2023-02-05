@@ -1,8 +1,8 @@
-﻿using CartographerOfTheLabyrinth.Environment;
+﻿using Environment;
 using UnityEngine;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.Gameplay.Player
+namespace Gameplay.Player
 {
     [RequireComponent(typeof(CharacterController))]
     public class PlayerMovement : MonoBehaviour, IInitializable

@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b17f668d1cc334cb77ace892d25487, type: 3}
   m_Name: GameplaySettingsInstaller
   m_EditorClassIdentifier: 
-  PlayerSettings:
+  _gameplaySettings:
     MouseSensitivity: 3.5
+    ItemsData:
+    - ItemType: 1
+      ItemPrefab: {fileID: 3498827778963379004, guid: e0c3cadd7df6ede44bbbb5db10a74638,
+        type: 3}

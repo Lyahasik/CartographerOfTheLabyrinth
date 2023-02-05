@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.UI.Map.Icons
+namespace UI.Map.Icons
 {
     public class TeleportIconFactory : 
         PlaceholderFactory<Transform, int, Vector3, TeleportIcon>,

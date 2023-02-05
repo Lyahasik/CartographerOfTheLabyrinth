@@ -1,8 +1,8 @@
-using CartographerOfTheLabyrinth.Environment;
+using Environment;
 using UnityEngine;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.Installers.SO
+namespace Installers.SO
 {
     [CreateAssetMenu(fileName = "EnvironmentSettingsInstaller", menuName = "Installers/EnvironmentSettingsInstaller")]
     public class EnvironmentSettingsInstaller : ScriptableObjectInstaller<EnvironmentSettingsInstaller>

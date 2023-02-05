@@ -1,8 +1,8 @@
-using CartographerOfTheLabyrinth.Gameplay.Player;
+using Gameplay.Player;
 using UnityEngine;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.UI.Movement
+namespace UI.Movement
 {
     public class MovementPanel : MonoBehaviour
     {

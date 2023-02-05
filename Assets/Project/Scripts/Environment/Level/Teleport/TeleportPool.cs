@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.Environment.Level.Teleport
+namespace Environment.Level.Teleport
 {
     public class TeleportPool : IInitializable
     {

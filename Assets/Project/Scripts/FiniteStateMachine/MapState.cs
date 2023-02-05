@@ -1,38 +1,39 @@
-using CartographerOfTheLabyrinth.FiniteStateMachine;
-using CartographerOfTheLabyrinth.UI.Map;
 using UnityEngine;
 using Zenject;
 
-public class MapState : GameState
+using UI.Map;
+
+namespace FiniteStateMachine
 {
-    private MapPanel _mapPanel;
+    public class MapState : GameState
+    {
+        private MapPanel _mapPanel;
 
-    [Inject]
-    public void Construct(MapPanel mapPanel)
-    {
-        _mapPanel = mapPanel;
-    }
-    
-    public override void Enter(GameMashine gameMashine)
-    {
-        base.Enter(gameMashine);
-        
-        _mapPanel.Activate(true);
-    }
-
-    public override void HandleInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape)
-            || Input.GetKeyDown(KeyCode.M))
+        [Inject]
+        public void Construct(MapPanel mapPanel)
         {
-            Exit();
+            _mapPanel = mapPanel;
         }
-    }
-
-    public override void Exit()
-    {
-        _mapPanel.Activate(false);
+    
+        public override void Enter(GameMashine gameMashine)
+        {
+            base.Enter(gameMashine);
         
-        _gameMashine.Enter(null);
+            _mapPanel.Activate(true);
+        }
+
+        public override void HandleInput()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape)
+                || Input.GetKeyDown(KeyCode.M))
+            {
+                _gameMashine.ResetState();
+            }
+        }
+
+        public override void Exit()
+        {
+            _mapPanel.Activate(false);
+        }
     }
 }

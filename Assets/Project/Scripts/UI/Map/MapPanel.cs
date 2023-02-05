@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CartographerOfTheLabyrinth.UI.Map
+namespace UI.Map
 {
     public class MapPanel : MonoBehaviour
     {

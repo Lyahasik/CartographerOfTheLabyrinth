@@ -1,11 +1,10 @@
 using UnityEngine;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.Environment.Level.Teleport
+namespace Environment.Level.Teleport
 {
     public class TeleportFactory : 
-        PlaceholderFactory<GameObject, Teleport>, 
-        IFactory<GameObject, Teleport>
+        PlaceholderFactory<GameObject, Teleport>
     {
         private DiContainer _container;
     
@@ -15,7 +14,7 @@ namespace CartographerOfTheLabyrinth.Environment.Level.Teleport
             _container = container;
         }
     
-        public Teleport Create(GameObject prefab)
+        public override Teleport Create(GameObject prefab)
         {
             return _container.InstantiatePrefabForComponent<Teleport>(prefab);
         }

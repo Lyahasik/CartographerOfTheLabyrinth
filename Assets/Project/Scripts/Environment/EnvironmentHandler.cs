@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
-using CartographerOfTheLabyrinth.Environment.Level;
-using CartographerOfTheLabyrinth.Environment.Level.Teleport;
 using Newtonsoft.Json;
 using UnityEngine;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.Environment
+using Environment.Level;
+using Environment.Level.Teleport;
+
+namespace Environment
 {
     public class EnvironmentHandler : IInitializable
     {
@@ -40,19 +41,6 @@ namespace CartographerOfTheLabyrinth.Environment
             ParseEnvironmentData();
         }
 
-        private void LoadEnvironmentData()
-        {
-            TextAsset file = Resources.Load<TextAsset>(_fullFileName);
-
-            if (!file)
-            {
-                Debug.LogError("File: " + _fullFileName + " not found");
-                return;
-            }
-    
-            _environmentData = JsonConvert.DeserializeObject<List<LevelData>>(file.text);
-        }
-
         private void CreatingDataWarehouse()
         {
             _chunks = new List<EnvironmentObjectData>[_settings.CountChunksX][];
@@ -66,6 +54,19 @@ namespace CartographerOfTheLabyrinth.Environment
                     _chunks[x][z] = new List<EnvironmentObjectData>();
                 }
             }
+        }
+
+        private void LoadEnvironmentData()
+        {
+            TextAsset file = Resources.Load<TextAsset>(_fullFileName);
+
+            if (!file)
+            {
+                Debug.LogError("File: " + _fullFileName + " not found");
+                return;
+            }
+    
+            _environmentData = JsonConvert.DeserializeObject<List<LevelData>>(file.text);
         }
 
         private void ParseEnvironmentData()

@@ -1,9 +1,10 @@
 using System.Collections.Generic;
-using CartographerOfTheLabyrinth.Gameplay.Player;
 using UnityEngine;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.Environment.Level.Teleport
+using Gameplay.Player;
+
+namespace Environment.Level.Teleport
 {
     public class TeleportHandler : ITickable
     {

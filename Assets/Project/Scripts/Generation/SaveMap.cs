@@ -1,7 +1,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace CartographerOfTheLabyrinth.Generation
+namespace Generation
 {
     public class SaveMap : MonoBehaviour
     {

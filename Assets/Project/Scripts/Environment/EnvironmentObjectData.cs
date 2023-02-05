@@ -1,4 +1,4 @@
-namespace CartographerOfTheLabyrinth.Environment
+namespace Environment
 {
     public struct EnvironmentObjectData
     {

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace CartographerOfTheLabyrinth.UI.Map
+namespace UI.Map
 {
     [Serializable]
     public class MapSettings

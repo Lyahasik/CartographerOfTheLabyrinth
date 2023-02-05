@@ -1,7 +1,7 @@
-using CartographerOfTheLabyrinth.OS;
+using OS;
 using UnityEngine;
 
-namespace CartographerOfTheLabyrinth.Gameplay.Player
+namespace Gameplay.Player
 {
     public class MobileMovementController : MonoBehaviour
     {

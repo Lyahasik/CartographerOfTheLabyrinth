@@ -1,9 +1,9 @@
 using UnityEngine;
 using Zenject;
 
-namespace CartographerOfTheLabyrinth.Environment.Level.Block
+namespace Environment.Level.Blocks
 {
-    public class BlockFactory : PlaceholderFactory<GameObject, Block>, IFactory<GameObject, Block>
+    public class BlockFactory : PlaceholderFactory<GameObject, Block>
     {
         private DiContainer _container;
     
@@ -13,7 +13,7 @@ namespace CartographerOfTheLabyrinth.Environment.Level.Block
             _container = container;
         }
     
-        public Block Create(GameObject prefab)
+        public override Block Create(GameObject prefab)
         {
             return _container.InstantiatePrefabForComponent<Block>(prefab);
         }
