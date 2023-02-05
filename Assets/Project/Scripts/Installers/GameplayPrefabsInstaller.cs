@@ -51,6 +51,11 @@ namespace Installers
                 .WithArguments(_parent);
             
             Container
+                .BindInterfacesAndSelfTo<BuffsHandler>()
+                .AsSingle()
+                .NonLazy();
+            
+            Container
                 .BindFactory<ItemType, Item, ItemFactory>()
                 .FromFactory<ItemFactory>();
         }

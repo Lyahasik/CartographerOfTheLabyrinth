@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameplaySettings:
     MouseSensitivity: 3.5
+    ScaleBoost: 2
+    TimeBoost: 5
     ItemsData:
     - ItemType: 1
       ItemPrefab: {fileID: 3498827778963379004, guid: e0c3cadd7df6ede44bbbb5db10a74638,

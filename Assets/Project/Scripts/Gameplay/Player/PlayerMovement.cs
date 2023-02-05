@@ -1,4 +1,5 @@
-﻿using Environment;
+﻿using System.Collections;
+using Environment;
 using UnityEngine;
 using Zenject;
 
@@ -7,11 +8,16 @@ namespace Gameplay.Player
     [RequireComponent(typeof(CharacterController))]
     public class PlayerMovement : MonoBehaviour, IInitializable
     {
+        private const float _baseScale = 1f;
+
+        private GameplaySettings _settings;
+        private EnvironmentHandler _environmentHandler;
+        
+        private CharacterController _characterController;
+        
         [SerializeField] private float _speedMove;
         [SerializeField] private float _speedTurn;
-
-        private CharacterController _characterController;
-        private EnvironmentHandler _environmentHandler;
+        private float _scaleSpeed = _baseScale;
 
         private Vector2Int _currentChunkId;
 
@@ -23,8 +29,9 @@ namespace Gameplay.Player
         }
 
         [Inject]
-        public void Construct(EnvironmentHandler environmentHandler)
+        public void Construct(GameplaySettings settings, EnvironmentHandler environmentHandler)
         {
+            _settings = settings;
             _environmentHandler = environmentHandler;
         }
 
@@ -45,7 +52,7 @@ namespace Gameplay.Player
                 return;
             
             Vector3 step = new Vector3(stepMove.x, 0f, stepMove.y);
-            step *= _speedMove * Time.deltaTime;
+            step *= _speedMove * _scaleSpeed * Time.deltaTime;
 
             step = transform.TransformDirection(step);
         
@@ -83,6 +90,23 @@ namespace Gameplay.Player
                 return;
             
             transform.Rotate(Vector3.up, stepTurn.x * _speedTurn * Time.deltaTime, Space.World);
+        }
+
+        public bool TryActivateBoost()
+        {
+            if (_scaleSpeed != _baseScale)
+                return false;
+            
+            _scaleSpeed = _settings.ScaleBoost;
+            StartCoroutine(DeactivateBoost());
+            return true;
+        }
+
+        private IEnumerator DeactivateBoost()
+        {
+            yield return new WaitForSeconds(_settings.TimeBoost);
+
+            _scaleSpeed = _baseScale;
         }
     }
 }

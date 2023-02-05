@@ -11,6 +11,10 @@ namespace Gameplay
         [Header("Movement")]
         public float MouseSensitivity;
         
+        [Header("Buffs")]
+        public float ScaleBoost;
+        public float TimeBoost;
+
         [Header("Prefabs")]
         public List<ItemsPrefabData> ItemsData;
     }
