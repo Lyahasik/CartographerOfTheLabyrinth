@@ -1,7 +1,7 @@
 using System;
-using Gameplay;
-using Gameplay.Items;
 using UnityEngine;
+
+using Gameplay.Items;
 
 namespace Serialization.Gameplay.Items
 {

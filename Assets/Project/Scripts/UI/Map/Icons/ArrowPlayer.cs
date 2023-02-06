@@ -1,6 +1,7 @@
-using Gameplay.Player;
 using UnityEngine;
 using Zenject;
+
+using Gameplay.Player;
 
 namespace UI.Map.Icons
 {

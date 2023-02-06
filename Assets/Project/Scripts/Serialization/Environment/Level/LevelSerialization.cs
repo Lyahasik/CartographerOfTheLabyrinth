@@ -1,10 +1,10 @@
+using UnityEngine;
+
 using Environment;
 using Environment.Level;
-using Gameplay;
 using Gameplay.Items;
 using Serialization.Environment.Level.Block;
 using Serialization.Gameplay.Items;
-using UnityEngine;
 
 namespace Serialization.Environment.Level
 {

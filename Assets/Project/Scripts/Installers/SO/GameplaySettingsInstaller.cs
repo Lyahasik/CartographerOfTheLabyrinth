@@ -1,6 +1,7 @@
-using Gameplay;
 using UnityEngine;
 using Zenject;
+
+using Gameplay;
 
 namespace Installers.SO
 {

@@ -1,9 +1,10 @@
+using UnityEngine;
+using Zenject;
+
 using Environment;
 using Environment.Level;
 using Environment.Level.Blocks;
 using Environment.Level.Teleport;
-using UnityEngine;
-using Zenject;
 
 namespace Installers
 {

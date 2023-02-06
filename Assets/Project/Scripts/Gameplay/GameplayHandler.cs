@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Environment.Level;
-using Gameplay.Items;
 using Newtonsoft.Json;
 using UnityEngine;
 using Zenject;
+
+using Environment.Level;
+using Gameplay.Items;
 
 namespace Gameplay
 {

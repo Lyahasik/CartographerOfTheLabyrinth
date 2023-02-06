@@ -1,9 +1,10 @@
+using UnityEngine;
+using Zenject;
+
 using OS;
 using UI.Map;
 using UI.Map.Icons;
 using UI.Movement;
-using UnityEngine;
-using Zenject;
 
 namespace Installers
 {

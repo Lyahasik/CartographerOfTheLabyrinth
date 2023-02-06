@@ -1,7 +1,8 @@
 using System;
-using Gameplay.Player;
 using UnityEngine;
 using Zenject;
+
+using Gameplay.Player;
 
 namespace Gameplay.Items
 {

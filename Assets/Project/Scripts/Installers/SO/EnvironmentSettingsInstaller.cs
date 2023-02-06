@@ -1,6 +1,7 @@
-using Environment;
 using UnityEngine;
 using Zenject;
+
+using Environment;
 
 namespace Installers.SO
 {

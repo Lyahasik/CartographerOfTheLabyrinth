@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using Gameplay.Items;
 using UnityEngine;
 using Zenject;
+
+using Gameplay.Items;
 
 namespace Gameplay
 {

@@ -1,7 +1,8 @@
-using Gameplay.Items;
-using Gameplay.Player;
 using UnityEngine;
 using Zenject;
+
+using Gameplay.Items;
+using Gameplay.Player;
 
 namespace Gameplay.Buffs
 {
@@ -9,12 +10,16 @@ namespace Gameplay.Buffs
     {
         private PlayerInventory _playerInventory;
         private PlayerMovement _playerMovement;
+        private PlayerWatcher _playerWatcher;
 
         [Inject]
-        public void Construct(PlayerInventory playerInventory, PlayerMovement playerMovement)
+        public void Construct(PlayerInventory playerInventory, 
+            PlayerMovement playerMovement, 
+            PlayerWatcher playerWatcher)
         {
             _playerInventory = playerInventory;
             _playerMovement = playerMovement;
+            _playerWatcher = playerWatcher;
         }
 
         public void Tick()
@@ -25,16 +30,27 @@ namespace Gameplay.Buffs
         private void ProcessInput()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
-                TryActivateBuff(ItemType.SpeedBuff);
+                TryActivateSpeedBoostBuff();
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+                TryActivateVisibilityRangeUpBuff();
         }
 
-        public void TryActivateBuff(ItemType type)
+        public void TryActivateSpeedBoostBuff()
         {
-            if (!_playerInventory.ContainsItem(type))
+            if (!_playerInventory.ContainsItem(ItemType.SpeedBuff))
                 return;
         
             if (_playerMovement.TryActivateBoost())
-                _playerInventory.UseItem(type);
+                _playerInventory.UseItem(ItemType.SpeedBuff);
+        }
+
+        public void TryActivateVisibilityRangeUpBuff()
+        {
+            if (!_playerInventory.ContainsItem(ItemType.VisibilityRangeBuff))
+                return;
+        
+            if (_playerWatcher.TryActivateRangeUp())
+                _playerInventory.UseItem(ItemType.VisibilityRangeBuff);
         }
     }
 }

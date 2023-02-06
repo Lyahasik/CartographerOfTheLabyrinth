@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using Gameplay.Items;
 using Zenject;
+
+using Gameplay.Items;
 
 namespace Gameplay.Player
 {
@@ -17,6 +18,7 @@ namespace Gameplay.Player
         private void InitItems()
         {
             _items.Add(ItemType.SpeedBuff, 0);
+            _items.Add(ItemType.VisibilityRangeBuff, 0);
         }
 
         public void AddKey(int id)

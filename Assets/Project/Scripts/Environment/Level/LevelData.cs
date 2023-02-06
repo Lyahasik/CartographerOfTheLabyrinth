@@ -1,4 +1,3 @@
-using Gameplay;
 using Gameplay.Items;
 
 namespace Environment.Level

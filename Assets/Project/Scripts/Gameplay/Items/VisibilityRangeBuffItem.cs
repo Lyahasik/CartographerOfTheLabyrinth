@@ -4,11 +4,11 @@ using Gameplay.Player;
 
 namespace Gameplay.Items
 {
-    public class SpeedBuffItem : Item
+    public class VisibilityRangeBuffItem : Item
     {
         private void Awake()
         {
-            Type = ItemType.SpeedBuff;
+            Type = ItemType.VisibilityRangeBuff;
         }
 
         private void OnTriggerEnter(Collider other)

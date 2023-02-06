@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Environment.Level.Teleport;
-using Gameplay.Player;
-using UI.Map.Icons;
 using UnityEngine;
 using UnityEngine.Events;
 using Zenject;
+
+using Environment.Level.Teleport;
+using Gameplay.Player;
+using UI.Map.Icons;
 
 namespace UI.Map
 {

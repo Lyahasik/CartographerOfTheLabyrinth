@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using Environment.Level.Teleport;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
+
+using Environment.Level.Teleport;
 
 namespace UI.Map.Icons
 {
