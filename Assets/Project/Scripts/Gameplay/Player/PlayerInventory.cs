@@ -17,11 +17,13 @@ namespace Gameplay.Player
 
         private void InitItems()
         {
+            _items.Add(ItemType.DoorKey, 0);
+            
             _items.Add(ItemType.SpeedBuff, 0);
             _items.Add(ItemType.VisibilityRangeBuff, 0);
         }
 
-        public void AddKey(int id)
+        public void AddTeleportKey(int id)
         {
             _keys.Add(id);
         }

@@ -1,17 +1,27 @@
-using Environment.Level;
 using UnityEngine;
+using Zenject;
 
 using Gameplay.Player;
+using Environment.Level;
+using Gameplay.Items;
 
-[RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Animator))]
 public class LockedDoor : MonoBehaviour
 {
     private readonly int _openingId = Animator.StringToHash("Opening");
+
+    private PlayerInventory _playerInventory;
     
     private Animator _animator;
 
-    private Level _level; 
+    private Level _level;
+
+    [Inject]
+    public void Construct(PlayerInventory playerInventory)
+    {
+        _playerInventory = playerInventory;
+    }
 
     private void Awake()
     {
@@ -32,7 +42,11 @@ public class LockedDoor : MonoBehaviour
     {
         if (other.GetComponent<PlayerMovement>())
         {
-            _animator.SetTrigger(_openingId);
+            if (_playerInventory.ContainsItem(ItemType.DoorKey))
+            {
+                _animator.SetTrigger(_openingId);
+                _playerInventory.UseItem(ItemType.DoorKey);
+            }
         }
     }
 }
