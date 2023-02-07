@@ -7,6 +7,7 @@ namespace Environment
         InnerCorner1,
         InnerCorner2,
         Corner,
-        Teleport
+        Teleport,
+        LockedDoor
     }
 }

@@ -5,7 +5,7 @@ using Environment;
 
 namespace Serialization.Environment.Level.Block
 {
-    public class BlockSerialization : MonoBehaviour
+    public class EnvironmentObjectSerialization : MonoBehaviour
     {
         [SerializeField] private EnvironmentObjectType _environmentObjectType;
 

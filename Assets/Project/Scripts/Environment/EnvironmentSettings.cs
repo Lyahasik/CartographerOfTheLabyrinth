@@ -15,6 +15,6 @@ namespace Environment
 
         [Header("Prefabs")]
         public List<EnvironmentPrefabData> BlocksData;
-        public GameObject Teleport;
+        public GameObject LockedDoor;
     }
 }

@@ -38,7 +38,8 @@ namespace Environment.Level.Teleport
         {
             if (_teleports.Count <= 0)
             {
-                return _teleportFactory.Create(_settings.Teleport);
+                return _teleportFactory.Create(_settings.BlocksData
+                    .Find(prefab => prefab.EnvironmentObjectType == EnvironmentObjectType.Teleport).BlockPrefab);
             }
         
             Teleport poolingObject = _teleports.Pop();

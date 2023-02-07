@@ -41,11 +41,17 @@ namespace Environment.Level
             _objects.RemoveAll (obj => obj.transform.parent != transform);
         }
 
-        public void Destroy()
+        public void DestroyYourself()
         {
             _gameplayHandler.ClearItemsLevel(_number);
             
             Destroy(gameObject);
+        }
+
+        public void DestroyObject(GameObject obj)
+        {
+            _objects.Remove(obj);
+            Destroy(obj);
         }
     }
 }

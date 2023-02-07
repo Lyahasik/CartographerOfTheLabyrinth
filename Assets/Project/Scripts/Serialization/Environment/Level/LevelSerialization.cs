@@ -10,7 +10,7 @@ namespace Serialization.Environment.Level
 {
     public class LevelSerialization : MonoBehaviour
     {
-        private BlockSerialization[] _blocks;
+        private EnvironmentObjectSerialization[] _blocks;
         private ItemSerialization[] _items;
 
         private void Awake()
@@ -36,12 +36,12 @@ namespace Serialization.Environment.Level
 
         private void CollectBlocksData(ref LevelData data)
         {
-            _blocks = GetComponentsInChildren<BlockSerialization>();
+            _blocks = GetComponentsInChildren<EnvironmentObjectSerialization>();
 
             EnvironmentObjectData[] blocksData = new EnvironmentObjectData[_blocks.Length];
 
             int i = 0;
-            foreach (BlockSerialization block in _blocks)
+            foreach (EnvironmentObjectSerialization block in _blocks)
             {
                 blocksData[i] = block.EnvironmentObjectData;
                 i++;

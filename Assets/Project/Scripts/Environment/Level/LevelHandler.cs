@@ -11,6 +11,7 @@ namespace Environment.Level
     public class LevelHandler
     {
         private DiContainer _container;
+        private EnvironmentSettings _settings;
         private EnvironmentPool _environmentPool;
         private TeleportPool _teleportPool;
     
@@ -25,9 +26,13 @@ namespace Environment.Level
         }
     
         [Inject]
-        public void Construct(DiContainer container, EnvironmentPool environmentPool, TeleportPool teleportPool)
+        public void Construct(DiContainer container,
+            EnvironmentSettings settings,
+            EnvironmentPool environmentPool, 
+            TeleportPool teleportPool)
         {
             _container = container;
+            _settings = settings;
             _environmentPool = environmentPool;
             _teleportPool = teleportPool;
         }
@@ -44,9 +49,26 @@ namespace Environment.Level
 
             foreach (EnvironmentObjectData objectData in chunk)
             {
+                ProcessDoor(in objectData);
                 ProcessTeleport(chunkData, in objectData);
                 ProcessBlock(chunkData, in objectData);
             }
+        }
+
+        private void ProcessDoor(in EnvironmentObjectData objectData)
+        {
+            if (objectData.Type != (int) EnvironmentObjectType.LockedDoor)
+                return;
+
+            GameObject lockedDoor = _container.InstantiatePrefab(_settings.LockedDoor);
+        
+            Vector3 doorPosition = new Vector3(objectData.Position[0], 0f, objectData.Position[1]);
+            lockedDoor.transform.position = doorPosition;
+            Quaternion doorRotation = Quaternion.Euler(0f, objectData.Rotation, 0f);
+            lockedDoor.transform.rotation = doorRotation;
+
+            SetParent(lockedDoor.gameObject, objectData);
+            lockedDoor.GetComponentInChildren<LockedDoor>().Init(_levels[objectData.LevelNumber]);
         }
 
         private void ProcessTeleport(ChunkData chunkData, in EnvironmentObjectData objectData)
@@ -169,7 +191,7 @@ namespace Environment.Level
 
                 if (value.CountObjects <= 0)
                 {
-                    value.Destroy();
+                    value.DestroyYourself();
                     _levels.Remove(keyValue.Key);
                 }
             }

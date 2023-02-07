@@ -24,5 +24,5 @@ MonoBehaviour:
     - EnvironmentObjectType: 6
       BlockPrefab: {fileID: 7252648729409580317, guid: 9b86d8f6e41155a42ad3f95aaec5c642,
         type: 3}
-    Teleport: {fileID: 7252648729409580317, guid: 9b86d8f6e41155a42ad3f95aaec5c642,
+    LockedDoor: {fileID: 1173303401894928399, guid: cdf6c9993271e154caa252949856b46a,
       type: 3}
