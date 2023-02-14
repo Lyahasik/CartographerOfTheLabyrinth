@@ -13,7 +13,11 @@ namespace Environment.Level
         private int _number;
         private List<GameObject> _objects = new();
 
-        public int CountObjects => _objects.Count;
+        private bool _isDoorAvailable;
+        private int _countUncountable;
+
+        public int CountObjects => _objects.Count - _countUncountable;
+        public bool IsDoorAvailable => _isDoorAvailable;
 
         public int Number
         {
@@ -31,8 +35,14 @@ namespace Environment.Level
             _gameplayHandler.PlaceItemsLevel(_number, gameObject.transform);
         }
 
-        public void AddObject(GameObject environmentObject)
+        public void AddObject(GameObject environmentObject, bool isDoor)
         {
+            if (isDoor)
+            {
+                _isDoorAvailable = true;
+                _countUncountable++;
+            }
+            
             _objects.Add(environmentObject);
         }
 
@@ -48,8 +58,14 @@ namespace Environment.Level
             Destroy(gameObject);
         }
 
-        public void DestroyObject(GameObject obj)
+        public void DestroyObject(GameObject obj, bool isDoor = false)
         {
+            if (isDoor)
+            {
+                _isDoorAvailable = false;
+                _countUncountable--;
+            }
+            
             _objects.Remove(obj);
             Destroy(obj);
         }

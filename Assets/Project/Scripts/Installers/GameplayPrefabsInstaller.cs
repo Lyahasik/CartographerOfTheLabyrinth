@@ -6,6 +6,7 @@ using Gameplay;
 using Gameplay.Buffs;
 using Gameplay.Items;
 using Gameplay.Player;
+using Gameplay.Progress;
 using OS;
 
 namespace Installers
@@ -60,6 +61,11 @@ namespace Installers
             Container
                 .BindFactory<ItemType, Item, ItemFactory>()
                 .FromFactory<ItemFactory>();
+
+            Container
+                .BindInterfacesAndSelfTo<ProcessingProgress>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void ParentInitialize()

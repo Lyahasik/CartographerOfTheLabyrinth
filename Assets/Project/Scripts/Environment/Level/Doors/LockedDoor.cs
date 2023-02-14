@@ -1,51 +1,23 @@
-using UnityEngine;
-using Zenject;
-
-using Gameplay.Player;
-using Environment.Level;
 using Gameplay.Items;
+using Gameplay.Player;
+using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-[RequireComponent(typeof(Animator))]
-public class LockedDoor : MonoBehaviour
+namespace Environment.Level.Doors
 {
-    private readonly int _openingId = Animator.StringToHash("Opening");
-
-    private PlayerInventory _playerInventory;
-    
-    private Animator _animator;
-
-    private Level _level;
-
-    [Inject]
-    public void Construct(PlayerInventory playerInventory)
+    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Animator))]
+    public class LockedDoor : Door
     {
-        _playerInventory = playerInventory;
-    }
-
-    private void Awake()
-    {
-        _animator = GetComponent<Animator>();
-    }
-
-    public void Init(Level level)
-    {
-        _level = level;
-    }
-
-    private void DestroyYourself()
-    {
-        _level.DestroyObject(transform.parent.gameObject);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<PlayerMovement>())
+        private void OnTriggerEnter(Collider other)
         {
-            if (_playerInventory.ContainsItem(ItemType.DoorKey))
+            if (other.GetComponent<PlayerMovement>())
             {
-                _animator.SetTrigger(_openingId);
-                _playerInventory.UseItem(ItemType.DoorKey);
+                if (_playerInventory.ContainsItem(ItemType.DoorKey))
+                {
+                    _doorsHandler.OpenLockedDoor(transform.position);
+                    _animator.SetTrigger(_openingId);
+                    _playerInventory.UseItem(ItemType.DoorKey);
+                }
             }
         }
     }

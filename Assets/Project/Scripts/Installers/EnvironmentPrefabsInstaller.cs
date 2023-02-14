@@ -4,6 +4,7 @@ using Zenject;
 using Environment;
 using Environment.Level;
 using Environment.Level.Blocks;
+using Environment.Level.Doors;
 using Environment.Level.Teleport;
 
 namespace Installers
@@ -31,6 +32,9 @@ namespace Installers
                 .WithArguments(_parent);
             Container
                 .BindInterfacesAndSelfTo<TeleportHandler>()
+                .AsSingle();
+            Container
+                .BindInterfacesAndSelfTo<DoorsHandler>()
                 .AsSingle();
             Container
                 .BindInterfacesAndSelfTo<EnvironmentHandler>()

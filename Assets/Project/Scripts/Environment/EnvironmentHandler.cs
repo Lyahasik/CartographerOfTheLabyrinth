@@ -24,7 +24,9 @@ namespace Environment
         private int _halfNumberBlocksZ;
 
         [Inject]
-        public void Construct(EnvironmentSettings settings, LevelHandler levelHandler, TeleportHandler teleportHandler)
+        public void Construct(EnvironmentSettings settings,
+            LevelHandler levelHandler,
+            TeleportHandler teleportHandler)
         {
             _settings = settings;
             _levelHandler = levelHandler;
@@ -84,7 +86,7 @@ namespace Environment
                     _chunks[chunkId.x][chunkId.y].Add(objectData);
                 }
             }
-    
+
             _teleportHandler.CollectTeleports(teleportsData);
         }
 

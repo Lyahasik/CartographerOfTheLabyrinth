@@ -3,7 +3,6 @@ using UnityEngine;
 using Environment;
 using Environment.Level;
 using Gameplay.Items;
-using Serialization.Environment.Level.Block;
 using Serialization.Gameplay.Items;
 
 namespace Serialization.Environment.Level

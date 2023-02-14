@@ -1,9 +1,8 @@
 using System;
+using Environment;
 using UnityEngine;
 
-using Environment;
-
-namespace Serialization.Environment.Level.Block
+namespace Serialization.Environment.Level
 {
     public class EnvironmentObjectSerialization : MonoBehaviour
     {

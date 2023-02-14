@@ -4,6 +4,7 @@ using UnityEngine;
 using Zenject;
 
 using Environment.Level.Blocks;
+using Environment.Level.Doors;
 using Environment.Level.Teleport;
 
 namespace Environment.Level
@@ -14,6 +15,7 @@ namespace Environment.Level
         private EnvironmentSettings _settings;
         private EnvironmentPool _environmentPool;
         private TeleportPool _teleportPool;
+        private DoorsHandler _doorsHandler;
     
         private GameObject _parentEnvironment;
 
@@ -29,12 +31,14 @@ namespace Environment.Level
         public void Construct(DiContainer container,
             EnvironmentSettings settings,
             EnvironmentPool environmentPool, 
-            TeleportPool teleportPool)
+            TeleportPool teleportPool,
+            DoorsHandler doorsHandler)
         {
             _container = container;
             _settings = settings;
             _environmentPool = environmentPool;
             _teleportPool = teleportPool;
+            _doorsHandler = doorsHandler;
         }
 
         public void ProcessChunk(in Vector2Int chunkId, List<EnvironmentObjectData> chunk)
@@ -57,18 +61,51 @@ namespace Environment.Level
 
         private void ProcessDoor(in EnvironmentObjectData objectData)
         {
-            if (objectData.Type != (int) EnvironmentObjectType.LockedDoor)
+            GameObject door = null;
+
+            if (CheckDoorLevel(objectData.LevelNumber))
                 return;
+            
+            if (objectData.Type == (int) EnvironmentObjectType.ActivatedDoor)
+            {
+                if (!_doorsHandler.IsActivateDoorNeedPut())
+                    return;
+                
+                door = _container.InstantiatePrefab(_settings.BlocksData
+                    .Find(prefab => prefab.EnvironmentObjectType == EnvironmentObjectType.ActivatedDoor).BlockPrefab);
+            }
+            else if (objectData.Type == (int) EnvironmentObjectType.LockedDoor)
+            {
+                if (!_doorsHandler.IsLockedDoorNeedPut(new Vector3(objectData.Position[0], 0f, objectData.Position[1])))
+                    return;
+                
+                door = _container.InstantiatePrefab(_settings.BlocksData
+                    .Find(prefab => prefab.EnvironmentObjectType == EnvironmentObjectType.LockedDoor).BlockPrefab);
+            }
+            else
+            {
+                return;
+            }
 
-            GameObject lockedDoor = _container.InstantiatePrefab(_settings.LockedDoor);
-        
             Vector3 doorPosition = new Vector3(objectData.Position[0], 0f, objectData.Position[1]);
-            lockedDoor.transform.position = doorPosition;
+            door.transform.position = doorPosition;
             Quaternion doorRotation = Quaternion.Euler(0f, objectData.Rotation, 0f);
-            lockedDoor.transform.rotation = doorRotation;
+            door.transform.rotation = doorRotation;
 
-            SetParent(lockedDoor.gameObject, objectData);
-            lockedDoor.GetComponentInChildren<LockedDoor>().Init(_levels[objectData.LevelNumber]);
+            SetParent(door.gameObject, objectData, true);
+            
+            if (objectData.Type == (int) EnvironmentObjectType.ActivatedDoor)
+                door.GetComponentInChildren<ActivatedDoor>().Init(_levels[objectData.LevelNumber]);
+            else
+                door.GetComponentInChildren<LockedDoor>().Init(_levels[objectData.LevelNumber]);
+        }
+
+        private bool CheckDoorLevel(int levelNumber)
+        {
+            if (!_levels.ContainsKey(levelNumber))
+                return false;
+
+            return _levels[levelNumber].IsDoorAvailable;
         }
 
         private void ProcessTeleport(ChunkData chunkData, in EnvironmentObjectData objectData)
@@ -107,7 +144,7 @@ namespace Environment.Level
             SetParent(block.gameObject, in objectData);
         }
 
-        private void SetParent(GameObject objectChunk, in EnvironmentObjectData environmentObjectData)
+        private void SetParent(GameObject objectChunk, in EnvironmentObjectData environmentObjectData, bool isDoor = false)
         {
             if (!_levels.ContainsKey(environmentObjectData.LevelNumber))
             {
@@ -115,7 +152,7 @@ namespace Environment.Level
             }
             
             objectChunk.transform.parent = _levels[environmentObjectData.LevelNumber].transform;
-            _levels[environmentObjectData.LevelNumber].AddObject(objectChunk);
+            _levels[environmentObjectData.LevelNumber].AddObject(objectChunk, isDoor);
         }
 
         private void CreateLevel(in EnvironmentObjectData environmentObjectData)
