@@ -30,3 +30,9 @@ MonoBehaviour:
     - EnvironmentObjectType: 8
       BlockPrefab: {fileID: 1173303401894928399, guid: a7cf59d8219765740a35be5a66c6af2e,
         type: 3}
+    - EnvironmentObjectType: 9
+      BlockPrefab: {fileID: 1173303401894928399, guid: dc2d9981ea51aa54e938788fd11b4ce2,
+        type: 3}
+    - EnvironmentObjectType: 10
+      BlockPrefab: {fileID: 7557489643935210675, guid: e16f64fea29535541bd88ab6336a1bb7,
+        type: 3}

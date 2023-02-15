@@ -53,10 +53,27 @@ namespace Environment.Level
 
             foreach (EnvironmentObjectData objectData in chunk)
             {
+                ProcessBlockPower(in objectData);
                 ProcessDoor(in objectData);
                 ProcessTeleport(chunkData, in objectData);
                 ProcessBlock(chunkData, in objectData);
             }
+        }
+
+        private void ProcessBlockPower(in EnvironmentObjectData objectData)
+        {
+            if (objectData.Type != (int) EnvironmentObjectType.BlockPower)
+                return;
+        
+            GameObject blockPower = _container.InstantiatePrefab(_settings.BlocksData
+                .Find(prefab => prefab.EnvironmentObjectType == EnvironmentObjectType.BlockPower).BlockPrefab);
+        
+            Vector3 blockPosition = new Vector3(objectData.Position[0], 0f, objectData.Position[1]);
+            blockPower.transform.position = blockPosition;
+            Quaternion blockRotation = Quaternion.Euler(0f, objectData.Rotation, 0f);
+            blockPower.transform.rotation = blockRotation;
+            
+            SetParent(blockPower, objectData, true);
         }
 
         private void ProcessDoor(in EnvironmentObjectData objectData)
@@ -76,11 +93,19 @@ namespace Environment.Level
             }
             else if (objectData.Type == (int) EnvironmentObjectType.LockedDoor)
             {
-                if (!_doorsHandler.IsLockedDoorNeedPut(new Vector3(objectData.Position[0], 0f, objectData.Position[1])))
+                if (!_doorsHandler.IsDoorNeedPut(new Vector3(objectData.Position[0], 0f, objectData.Position[1])))
                     return;
                 
                 door = _container.InstantiatePrefab(_settings.BlocksData
                     .Find(prefab => prefab.EnvironmentObjectType == EnvironmentObjectType.LockedDoor).BlockPrefab);
+            }
+            else if (objectData.Type == (int) EnvironmentObjectType.ElectricDoor)
+            {
+                if (!_doorsHandler.IsDoorNeedPut(new Vector3(objectData.Position[0], 0f, objectData.Position[1])))
+                    return;
+                
+                door = _container.InstantiatePrefab(_settings.BlocksData
+                    .Find(prefab => prefab.EnvironmentObjectType == EnvironmentObjectType.ElectricDoor).BlockPrefab);
             }
             else
             {
@@ -94,10 +119,7 @@ namespace Environment.Level
 
             SetParent(door.gameObject, objectData, true);
             
-            if (objectData.Type == (int) EnvironmentObjectType.ActivatedDoor)
-                door.GetComponentInChildren<ActivatedDoor>().Init(_levels[objectData.LevelNumber]);
-            else
-                door.GetComponentInChildren<LockedDoor>().Init(_levels[objectData.LevelNumber]);
+            door.GetComponentInChildren<Door>().Init(_levels[objectData.LevelNumber]);
         }
 
         private bool CheckDoorLevel(int levelNumber)

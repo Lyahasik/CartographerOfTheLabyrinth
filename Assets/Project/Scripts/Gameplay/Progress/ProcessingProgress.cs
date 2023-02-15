@@ -9,15 +9,16 @@ namespace Gameplay.Progress
         //TODO tempory
         private string _fullFileName = "Progress";
 
-        private LockedDoorData[] _lockedDoors;
+        private DoorData[] _doors;
         private ActivateDoorData[] _activateDoors;
+        private PowerPointData[] _powerPoints;
 
-        public LockedDoorData[] LockedDoors
+        public DoorData[] Doors
         {
-            get => _lockedDoors;
+            get => _doors;
             set
             {
-                _lockedDoors = value;
+                _doors = value;
                 SaveData();
             }
         }
@@ -28,6 +29,16 @@ namespace Gameplay.Progress
             set
             {
                 _activateDoors = value;
+                SaveData();
+            }
+        }
+
+        public PowerPointData[] PowerPoints
+        {
+            get => _powerPoints;
+            set
+            {
+                _powerPoints = value;
                 SaveData();
             }
         }
@@ -47,31 +58,40 @@ namespace Gameplay.Progress
                 return;
             }
     
-            _lockedDoors = JsonConvert.DeserializeObject<LockedDoorData[]>(file.text);
+            _doors = JsonConvert.DeserializeObject<DoorData[]>(file.text);
             _activateDoors = JsonConvert.DeserializeObject<ActivateDoorData[]>(file.text);
+            _powerPoints = JsonConvert.DeserializeObject<PowerPointData[]>(file.text);
             IntegrityCheck();
         }
 
         private void IntegrityCheck()
         {
-            if (_lockedDoors == null)
+            if (_doors == null)
             {
-                _lockedDoors = new LockedDoorData[2];
+                _doors = new DoorData[6];
             }
         
             if (_activateDoors == null)
             {
                 _activateDoors = new ActivateDoorData[4];
             }
+        
+            if (_powerPoints == null)
+            {
+                _powerPoints = new PowerPointData[16];
+            }
         }
     
         private void SaveData()
         {
-            string json = JsonConvert.SerializeObject(_lockedDoors, new JsonSerializerSettings());
+            string json = JsonConvert.SerializeObject(_doors, new JsonSerializerSettings());
             Debug.Log("Locked doors: " + json);
         
             json = JsonConvert.SerializeObject(_activateDoors, new JsonSerializerSettings());
             Debug.Log("Activate doors: " + json);
+        
+            json = JsonConvert.SerializeObject(_powerPoints, new JsonSerializerSettings());
+            Debug.Log("Power points: " + json);
 
             // using (var stream = new FileStream(Application.dataPath + "//Project//Resources//" + _fullFileName + ".txt", FileMode.Open))
             // {

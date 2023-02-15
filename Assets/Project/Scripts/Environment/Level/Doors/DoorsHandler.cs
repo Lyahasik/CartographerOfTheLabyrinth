@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using Gameplay.Progress;
 using UnityEngine;
 using Zenject;
+
+using Gameplay.Progress;
 
 namespace Environment.Level.Doors
 {
@@ -9,8 +10,9 @@ namespace Environment.Level.Doors
     {
         private ProcessingProgress _processingProgress;
 
-        private LockedDoorData[] _lockedDoors;
+        private DoorData[] _doors;
         private ActivateDoorData[] _activateDoors;
+        private PowerPointData[] _powerPoints;
 
         private bool _isActivateDoorsOpen;
 
@@ -20,20 +22,20 @@ namespace Environment.Level.Doors
             _processingProgress = processingProgress;
         }
 
-        public bool IsLockedDoorNeedPut(Vector3 position)
+        public bool IsDoorNeedPut(Vector3 position)
         {
-            if (_lockedDoors == null)
-                LoadLockedDoors();
+            if (_doors == null)
+                LoadDoors();
 
             int hash = position.GetHashCode();
 
-            foreach (LockedDoorData lockedDoorData in _lockedDoors)
+            foreach (DoorData lockedDoorData in _doors)
             {
                 if (lockedDoorData.Hash == hash)
                     return lockedDoorData.IsOpened != 1;
             }
 
-            WriteLockedDoor(hash);
+            WriteDoor(hash);
             
             return true;
         }
@@ -60,17 +62,33 @@ namespace Environment.Level.Doors
             return true;
         }
 
-        public void OpenLockedDoor(Vector3 position)
+        public void OpenDoor(Vector3 position)
         {
             int hash = position.GetHashCode();
 
-            for (int i = 0; i < _lockedDoors.Length; i++)
+            for (int i = 0; i < _doors.Length; i++)
             {
-                if (hash == _lockedDoors[i].Hash)
-                    _lockedDoors[i].IsOpened = 1;
+                if (hash == _doors[i].Hash)
+                    _doors[i].IsOpened = 1;
             }
             
-            _processingProgress.LockedDoors = _lockedDoors;
+            _processingProgress.Doors = _doors;
+        }
+
+        private void WriteDoor(int hash)
+        {
+            for (int i = 0; i < _doors.Length; i++)
+            {
+                if (_doors[i].Hash != 0)
+                    continue;
+
+                _doors[i].Hash = hash;
+                _doors[i].IsOpened = 0;
+
+                break;
+            }
+
+            _processingProgress.Doors = _doors;
         }
 
         private void WriteActivateDoor(int hash, int direction)
@@ -92,30 +110,14 @@ namespace Environment.Level.Doors
             _processingProgress.ActivateDoors = _activateDoors;
         }
 
-        private void WriteLockedDoor(int hash)
-        {
-            for (int i = 0; i < _lockedDoors.Length; i++)
-            {
-                if (_lockedDoors[i].Hash != 0)
-                    continue;
-
-                _lockedDoors[i].Hash = hash;
-                _lockedDoors[i].IsOpened = 0;
-
-                break;
-            }
-
-            _processingProgress.LockedDoors = _lockedDoors;
-        }
-
         public bool AllowActivateOpen()
         {
             return _isActivateDoorsOpen;
         }
 
-        private void LoadLockedDoors()
+        private void LoadDoors()
         {
-            _lockedDoors = _processingProgress.LockedDoors;
+            _doors = _processingProgress.Doors;
         }
 
         private void LoadActivateDoors()
@@ -123,6 +125,11 @@ namespace Environment.Level.Doors
             _activateDoors = _processingProgress.ActivateDoors;
 
             UpdateActivateDoorOpen();
+        }
+        
+        private void LoadPowerPoints()
+        {
+            _powerPoints = _processingProgress.PowerPoints;
         }
 
         private void UpdateActivateDoorOpen()
@@ -150,6 +157,72 @@ namespace Environment.Level.Doors
             }
 
             return directions;
+        }
+
+        public void ActivatePower(Vector3 position, int direction)
+        {
+            if (_powerPoints == null)
+            {
+                LoadPowerPoints();
+            }
+            
+            int hash = position.GetHashCode();
+            
+            for (int i = 0; i < _powerPoints.Length; i++)
+            {
+                if (_powerPoints[i].Hash == hash)
+                    return;
+
+                if (_powerPoints[i].Hash == 0)
+                {
+                    _powerPoints[i].Hash = hash;
+                    _powerPoints[i].Direction = direction;
+                    _powerPoints[i].IsActive = 1;
+                    
+                    _processingProgress.PowerPoints = _powerPoints;
+                    
+                    return;
+                }
+            }
+        }
+
+        public bool IsActivePower(Vector3 position)
+        {
+            if (_powerPoints == null)
+            {
+                LoadPowerPoints();
+            }
+            
+            int hash = position.GetHashCode();
+
+            foreach (PowerPointData powerPointData in _powerPoints)
+            {
+                if (powerPointData.Hash == hash)
+                    return true;
+            }
+            
+            return false;
+        }
+
+        public int GetActivePowerInDirection(DoorDirectionType directionType)
+        {
+            if (_powerPoints == null)
+            {
+                LoadPowerPoints();
+            }
+
+            int countActivePower = 0;
+
+            foreach (PowerPointData powerPointData in _powerPoints)
+            {
+                if (powerPointData.Direction == (int) directionType
+                    && powerPointData.IsActive == 1)
+                {
+                    countActivePower++;
+                }
+            }
+
+            return countActivePower;
         }
     }
 }

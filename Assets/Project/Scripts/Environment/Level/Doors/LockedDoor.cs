@@ -14,7 +14,7 @@ namespace Environment.Level.Doors
             {
                 if (_playerInventory.ContainsItem(ItemType.DoorKey))
                 {
-                    _doorsHandler.OpenLockedDoor(transform.position);
+                    _doorsHandler.OpenDoor(transform.position);
                     _animator.SetTrigger(_openingId);
                     _playerInventory.UseItem(ItemType.DoorKey);
                 }

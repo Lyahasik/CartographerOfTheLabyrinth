@@ -1,6 +1,8 @@
 using System.Collections.Generic;
-using Gameplay.Player;
 using UnityEngine;
+
+using Gameplay.Player;
+using Helpers;
 
 namespace Environment.Level.Doors
 {
@@ -15,28 +17,8 @@ namespace Environment.Level.Doors
 
         private void Start()
         {
-            DetermineDirection();
+            _directionType = DoorHelper.DetermineDirection(transform.forward);
             ActivateProgress();
-        }
-
-        private void DetermineDirection()
-        {
-            if (transform.forward == Vector3.forward)
-            {
-                _directionType = DoorDirectionType.Top;
-            }
-            else if (transform.forward == Vector3.right)
-            {
-                _directionType = DoorDirectionType.Right;
-            }
-            else if (transform.forward == Vector3.back)
-            {
-                _directionType = DoorDirectionType.Bottom;
-            }
-            else if (transform.forward == Vector3.left)
-            {
-                _directionType = DoorDirectionType.Left;
-            }
         }
 
         private void ActivateProgress()

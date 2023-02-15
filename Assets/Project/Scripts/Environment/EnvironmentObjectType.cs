@@ -9,6 +9,8 @@ namespace Environment
         Corner,
         Teleport,
         LockedDoor,
-        ActivatedDoor
+        ActivatedDoor,
+        ElectricDoor,
+        BlockPower
     }
 }
