@@ -50,3 +50,5 @@ MonoBehaviour:
     type: 3}
   MessagePanel: {fileID: 9043151200674597389, guid: 54f65da3eb7b3314e8ce6166fd801efc,
     type: 3}
+  TeleportPanel: {fileID: 5612542634430227085, guid: 3cbb0bf585f6887499957043509c5326,
+    type: 3}

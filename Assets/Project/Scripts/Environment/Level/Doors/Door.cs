@@ -2,6 +2,7 @@ using UnityEngine;
 using Zenject;
 
 using Gameplay.Player;
+using UI.Alerts;
 
 namespace Environment.Level.Doors
 {

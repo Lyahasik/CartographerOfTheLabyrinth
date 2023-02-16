@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
@@ -14,6 +15,8 @@ namespace Environment.Level.Teleport
         private TeleportData[] _teleportsData;
 
         public TeleportData[] TeleportsData => _teleportsData;
+
+        public event Action<int> OnActivate; 
 
         [Inject]
         public void Construct(PlayerMovement playerMovement, PlayerWatcher playerWatcher)
@@ -51,6 +54,7 @@ namespace Environment.Level.Teleport
         public void TeleportActivate(int levelId)
         {
             _teleportsData[levelId].IsActive = true;
+            OnActivate?.Invoke(levelId);
         }
 
         public bool TeleportIsActive(int levelId)

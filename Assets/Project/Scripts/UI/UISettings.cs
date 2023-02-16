@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace UI.Map
+namespace UI
 {
     [Serializable]
     public class UISettings

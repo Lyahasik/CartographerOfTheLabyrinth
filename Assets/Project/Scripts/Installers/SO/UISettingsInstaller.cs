@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-using UI.Map;
+using UI;
 
 namespace Installers.SO
 {

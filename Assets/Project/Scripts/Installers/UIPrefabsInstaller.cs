@@ -2,6 +2,7 @@ using UnityEngine;
 using Zenject;
 
 using OS;
+using UI.Alerts;
 using UI.Map;
 using UI.Map.Icons;
 using UI.Movement;
@@ -15,6 +16,7 @@ namespace Installers
         public MovementPanel MovementPanel;
         public MapPanel MapPanel;
         public MessagePanel MessagePanel;
+        public TeleportPanel TeleportPanel;
     
         public override void InstallBindings()
         {
@@ -31,6 +33,13 @@ namespace Installers
             Container
                 .Bind<MessagePanel>()
                 .FromComponentInNewPrefab(MessagePanel)
+                .UnderTransform(_canvas.transform)
+                .AsSingle()
+                .NonLazy();
+        
+            Container
+                .Bind<TeleportPanel>()
+                .FromComponentInNewPrefab(TeleportPanel)
                 .UnderTransform(_canvas.transform)
                 .AsSingle()
                 .NonLazy();
