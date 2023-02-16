@@ -36,7 +36,13 @@ namespace Environment.Level.Teleport
 
         public int LevelId
         {
-            set => _levelId = value;
+            set
+            {
+                _levelId = value;
+                
+                if (_teleportHandler.TeleportIsActive(_levelId))
+                    _mesh.material.color = Color.green;
+            }
         }
 
         private void Activate(int levelId)
@@ -49,25 +55,38 @@ namespace Environment.Level.Teleport
 
         private void OnTriggerEnter(Collider other)
         {
-            if (_teleportHandler.TeleportIsActive(_levelId)
-                || other.GetComponent<PlayerMovement>() == null)
+            if (other.GetComponent<PlayerMovement>() == null)
                 return;
-            
-            if (_playerInventory.TryFindKey(_levelId))
+
+            if (_teleportHandler.TeleportIsActive(_levelId))
             {
-                _teleportHandler.TeleportActivate(_levelId);
+                _teleportHandler.IsFreeTeleport = true;
+                _teleportPanel.ActivateStartTeleportWindow();
             }
             else
-                _teleportPanel.ActivateActivationWindow(_levelId);
+            {
+                if (_playerInventory.TryFindKey(_levelId))
+                {
+                    _teleportHandler.TeleportActivate(_levelId);
+                    _teleportPanel.ActivateStartTeleportWindow();
+                }
+                else
+                    _teleportPanel.ActivateActivationWindow(_levelId);
+            }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (_teleportHandler.TeleportIsActive(_levelId)
-                || other.GetComponent<PlayerMovement>() == null)
+            if (other.GetComponent<PlayerMovement>() == null)
                 return;
-            
-            _teleportPanel.DeactivateActivationWindow();
+
+            if (_teleportHandler.TeleportIsActive(_levelId))
+            {
+                _teleportPanel.DeactivateStartTeleportWindow();
+                _teleportHandler.IsFreeTeleport = false;
+            }
+            else
+                _teleportPanel.DeactivateActivationWindow();
         }
     }
 }

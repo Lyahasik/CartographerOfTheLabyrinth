@@ -3,6 +3,7 @@ using UnityEngine;
 using Zenject;
 
 using Environment.Level.Teleport;
+using FiniteStateMachine;
 
 namespace UI.Alerts
 {
@@ -10,20 +11,32 @@ namespace UI.Alerts
     {
         //TODO локализовать
         private const string _keyMissingMessage = "Отсутствует активатор зоны телепорта"; 
+        private const string _paidTeleportMessage = "Вы далеко от телепорта. Активировать карманный телепорт?"; 
         private const string _advertisingButtonMessage = "Смотреть"; 
+        private const string _teleportButtonMessage = "Телепортироваться"; 
+        
+        private DiContainer _container;
+        private GameMashine _gameMashine;
+        private TeleportHandler _teleportHandler;
     
         [SerializeField] private GameObject _activationWindow;
         [SerializeField] private TMP_Text _teleportActivationText;
         [SerializeField] private TMP_Text _advertisingButtonText;
+        
+        [SerializeField] private GameObject _startTeleportWindow;
+        [SerializeField] private TMP_Text _startTeleportButtonText;
+        
+        [SerializeField] private GameObject _paidTeleportWindow;
+        [SerializeField] private TMP_Text _paidTeleportText;
+        [SerializeField] private TMP_Text _paidTeleportButtonText;
 
-        private bool _isActiveActivationWindow;
         private int _levelId;
 
-        private TeleportHandler _teleportHandler;
-
         [Inject]
-        public void Construct(TeleportHandler teleportHandler)
+        public void Construct(DiContainer container, GameMashine gameMashine, TeleportHandler teleportHandler)
         {
+            _container = container;
+            _gameMashine = gameMashine;
             _teleportHandler = teleportHandler;
         }
 
@@ -31,29 +44,70 @@ namespace UI.Alerts
         {
             _teleportActivationText.text = _keyMissingMessage;
             _advertisingButtonText.text = _advertisingButtonMessage;
+            
+            _startTeleportButtonText.text = _teleportButtonMessage;
+            
+            _paidTeleportText.text = _paidTeleportMessage;
+            _paidTeleportButtonText.text = _advertisingButtonMessage;
         }
 
         public void ActivateActivationWindow(int levelId)
         {
             _activationWindow.SetActive(true);
-            _isActiveActivationWindow = true;
             _levelId = levelId;
         }
     
         public void DeactivateActivationWindow()
         {
-            if (!_isActiveActivationWindow)
-                return;
-        
             _activationWindow.SetActive(false);
-            _isActiveActivationWindow = false;
         }
 
-        public void ViewingAds()
+        public void ViewingAdsActivate()
         {
             Debug.Log("View ads");
             _teleportHandler.TeleportActivate(_levelId);
             DeactivateActivationWindow();
+            ActivateStartTeleportWindow();
+        }
+        
+        public void ActivateStartTeleportWindow()
+        {
+            _startTeleportWindow.SetActive(true);
+        }
+        
+        public void DeactivateStartTeleportWindow()
+        {
+            _startTeleportWindow.SetActive(false);
+        }
+        
+        public void ActivatePaidTeleportWindow()
+        {
+            _paidTeleportWindow.SetActive(true);
+        }
+        
+        public void DeactivatePaidTeleportWindow()
+        {
+            _paidTeleportWindow.SetActive(false);
+        }
+
+        public void OpenMap()
+        {
+            DeactivateStartTeleportWindow();
+            _gameMashine.Enter(_container.Instantiate<MapState>());
+        }
+
+        public void ViewingAdsTeleport()
+        {
+            Debug.Log("View ads");
+            _teleportHandler.Teleport(_levelId);
+            DeactivatePaidTeleportWindow();
+        }
+
+        public void DeactivateAllWindows()
+        {
+            DeactivateActivationWindow();
+            DeactivateStartTeleportWindow();
+            DeactivatePaidTeleportWindow();
         }
     }
 }

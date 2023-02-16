@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7191271931878724297}
   - component: {fileID: 676657016914535938}
   - component: {fileID: 8461327504905230691}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VisibilityRangeBuffSerialization
   m_TagString: Untagged
   m_Icon: {fileID: 0}

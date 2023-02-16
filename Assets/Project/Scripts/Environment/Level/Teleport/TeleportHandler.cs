@@ -4,41 +4,40 @@ using UnityEngine;
 using Zenject;
 
 using Gameplay.Player;
+using FiniteStateMachine;
 
 namespace Environment.Level.Teleport
 {
-    public class TeleportHandler : ITickable
+    public class TeleportHandler
     {
+        private DiContainer _container;
+        private GameMashine _gameMashine;
         private PlayerWatcher _playerWatcher;
         private PlayerMovement _playerMovement;
     
         private TeleportData[] _teleportsData;
+        private bool _isFreeTeleport;
 
         public TeleportData[] TeleportsData => _teleportsData;
+
+        public bool IsFreeTeleport
+        {
+            get => _isFreeTeleport;
+            set => _isFreeTeleport = value;
+        }
 
         public event Action<int> OnActivate; 
 
         [Inject]
-        public void Construct(PlayerMovement playerMovement, PlayerWatcher playerWatcher)
+        public void Construct(DiContainer container,
+            GameMashine gameMashine,
+            PlayerMovement playerMovement,
+            PlayerWatcher playerWatcher)
         {
+            _container = container;
+            _gameMashine = gameMashine;
             _playerMovement = playerMovement;
             _playerWatcher = playerWatcher;
-        }
-
-        public void Tick()
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                Teleport(0);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                Teleport(1);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                Teleport(2);
-            }
         }
 
         public void CollectTeleports(List<TeleportData> teleportsData)
@@ -54,6 +53,7 @@ namespace Environment.Level.Teleport
         public void TeleportActivate(int levelId)
         {
             _teleportsData[levelId].IsActive = true;
+            _isFreeTeleport = true;
             OnActivate?.Invoke(levelId);
         }
 
@@ -71,6 +71,8 @@ namespace Environment.Level.Teleport
         
             _playerMovement.SetPosition(teleportPoint);
             _playerWatcher.ResetPosition();
+            
+            _gameMashine.Enter(_container.Instantiate<PlayingState>());
         }
     }
 }

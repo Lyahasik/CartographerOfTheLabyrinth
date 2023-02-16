@@ -2,18 +2,21 @@ using UnityEngine;
 using Zenject;
 
 using Gameplay.Player;
+using UI.Alerts;
 
 namespace FiniteStateMachine
 {
     public class PlayingState : GameState
     {
         private DiContainer _container;
+        private TeleportPanel _teleportPanel;
         private PlayerMovement _playerMovement;
 
         [Inject]
-        public void Construct(DiContainer container, PlayerMovement playerMovement)
+        public void Construct(DiContainer container, TeleportPanel teleportPanel, PlayerMovement playerMovement)
         {
             _container = container;
+            _teleportPanel = teleportPanel;
             _playerMovement = playerMovement;
         }
     
@@ -35,6 +38,7 @@ namespace FiniteStateMachine
         public override void Exit()
         {
             _playerMovement.IsFreeze = true;
+            _teleportPanel.DeactivateAllWindows();
         }
     }
 }

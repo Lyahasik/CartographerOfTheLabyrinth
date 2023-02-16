@@ -3,15 +3,18 @@ using UnityEngine.UI;
 using Zenject;
 
 using Environment.Level.Teleport;
+using UI.Alerts;
+using UnityEngine.EventSystems;
 
 namespace UI.Map.Icons
 {
     [RequireComponent(typeof(RectTransform))]
     [RequireComponent(typeof(Image))]
-    public class TeleportIcon : MonoBehaviour
+    public class TeleportIcon : MonoBehaviour, IPointerClickHandler
     {
         private UISettings _settings;
         private TeleportHandler _teleportHandler;
+        private TeleportPanel _teleportPanel;
     
         private RectTransform _rectTransform;
         private Image _image;
@@ -21,10 +24,16 @@ namespace UI.Map.Icons
         private int _levelId;
     
         [Inject]
-        public void Consrtuct(UISettings settings, TeleportHandler teleportHandler, int levelId, Vector2 position)
+        public void Consrtuct(UISettings settings,
+            TeleportHandler teleportHandler,
+            TeleportPanel teleportPanel,
+            int levelId,
+            Vector2 position)
         {
             _settings = settings;
             _teleportHandler = teleportHandler;
+            _teleportPanel = teleportPanel;
+            
             _levelId = levelId;
             _initialPosition = position;
         }
@@ -52,6 +61,21 @@ namespace UI.Map.Icons
         {
             _rectTransform.sizeDelta *= differenceMultiplier;
             _rectTransform.localPosition *= differenceMultiplier;
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (!_teleportHandler.TeleportIsActive(_levelId))
+                return;
+            
+            if (_teleportHandler.IsFreeTeleport)
+            {
+                _teleportHandler.Teleport(_levelId);
+            }
+            else
+            {
+                _teleportPanel.ActivatePaidTeleportWindow();
+            }
         }
     }
 }
