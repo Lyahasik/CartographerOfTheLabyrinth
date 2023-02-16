@@ -14,6 +14,7 @@ namespace Installers
 
         public MovementPanel MovementPanel;
         public MapPanel MapPanel;
+        public MessagePanel MessagePanel;
     
         public override void InstallBindings()
         {
@@ -23,6 +24,13 @@ namespace Installers
             Container
                 .Bind<MapPanel>()
                 .FromComponentInNewPrefab(MapPanel)
+                .UnderTransform(_canvas.transform)
+                .AsSingle()
+                .NonLazy();
+        
+            Container
+                .Bind<MessagePanel>()
+                .FromComponentInNewPrefab(MessagePanel)
                 .UnderTransform(_canvas.transform)
                 .AsSingle()
                 .NonLazy();

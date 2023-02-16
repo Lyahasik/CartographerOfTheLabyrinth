@@ -1,6 +1,7 @@
-using Gameplay.Player;
 using UnityEngine;
 using Zenject;
+
+using Gameplay.Player;
 
 namespace Environment.Level.Doors
 {
@@ -12,16 +13,18 @@ namespace Environment.Level.Doors
 
         protected DoorsHandler _doorsHandler;
         protected PlayerInventory _playerInventory;
+        protected MessagePanel _messagePanel;
     
         protected Animator _animator;
     
         protected Level _level;
 
         [Inject]
-        public void Construct(DoorsHandler doorsHandler, PlayerInventory playerInventory)
+        public void Construct(DoorsHandler doorsHandler, PlayerInventory playerInventory, MessagePanel messagePanel)
         {
             _doorsHandler = doorsHandler;
             _playerInventory = playerInventory;
+            _messagePanel = messagePanel;
         }
 
         private void Awake()

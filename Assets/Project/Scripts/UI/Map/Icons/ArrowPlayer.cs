@@ -7,14 +7,14 @@ namespace UI.Map.Icons
 {
     public class ArrowPlayer : MonoBehaviour
     {
-        private MapSettings _settings;
+        private UISettings _settings;
         private PlayerMovement _player;
 
         private RectTransform _rectTransform;
         private Vector2 _initialSize;
 
         [Inject]
-        public void Consrtuct(MapSettings settings, PlayerMovement playerMovement)
+        public void Consrtuct(UISettings settings, PlayerMovement playerMovement)
         {
             _settings = settings;
             _player = playerMovement;

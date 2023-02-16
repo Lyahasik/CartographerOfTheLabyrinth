@@ -19,7 +19,7 @@ namespace UI.Map
 
         [SerializeField] private UnityEvent<float> _onSliderValue;
     
-        private MapSettings _settings;
+        private UISettings _settings;
         private PlayerMovement _player;
         private TeleportHandler _teleportHandler;
         private TeleportIconFactory _teleportIconFactory;
@@ -33,7 +33,7 @@ namespace UI.Map
         private bool _isFirstStart;
     
         [Inject]
-        public void Consrtuct(MapSettings settings,
+        public void Consrtuct(UISettings settings,
             PlayerMovement playerMovement,
             TeleportHandler teleportHandler,
             TeleportIconFactory teleportIconFactory)

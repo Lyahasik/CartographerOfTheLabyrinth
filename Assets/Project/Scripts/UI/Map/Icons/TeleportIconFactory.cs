@@ -8,10 +8,10 @@ namespace UI.Map.Icons
         IFactory<Transform, int, Vector3, TeleportIcon>
     {
         private DiContainer _container;
-        private MapSettings _settings;
+        private UISettings _settings;
     
         [Inject]
-        public TeleportIconFactory(DiContainer container, MapSettings settings)
+        public TeleportIconFactory(DiContainer container, UISettings settings)
         {
             _container = container;
             _settings = settings;

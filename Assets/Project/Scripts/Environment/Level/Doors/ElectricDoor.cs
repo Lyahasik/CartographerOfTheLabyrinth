@@ -7,6 +7,9 @@ namespace Environment.Level.Doors
 {
     public class ElectricDoor : Door
     {
+        //TODO локализовать
+        private const string _warningMessage = "Недостаточно энергии";
+        
         [SerializeField] private PowerSymbol[] _symbolsPower;
         
         private DoorDirectionType _directionType;
@@ -44,6 +47,10 @@ namespace Environment.Level.Doors
                 {
                     _doorsHandler.OpenDoor(transform.position);
                     _animator.SetTrigger(_openingId);
+                }
+                else
+                {
+                    _messagePanel.TemporarilyActivateMessage(_warningMessage);
                 }
             }
         }

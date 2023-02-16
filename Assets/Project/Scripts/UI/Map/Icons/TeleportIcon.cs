@@ -10,7 +10,7 @@ namespace UI.Map.Icons
     [RequireComponent(typeof(Image))]
     public class TeleportIcon : MonoBehaviour
     {
-        private MapSettings _settings;
+        private UISettings _settings;
         private TeleportHandler _teleportHandler;
     
         private RectTransform _rectTransform;
@@ -21,7 +21,7 @@ namespace UI.Map.Icons
         private int _levelId;
     
         [Inject]
-        public void Consrtuct(MapSettings settings, TeleportHandler teleportHandler, int levelId, Vector2 position)
+        public void Consrtuct(UISettings settings, TeleportHandler teleportHandler, int levelId, Vector2 position)
         {
             _settings = settings;
             _teleportHandler = teleportHandler;

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c79904c7f5726a2458841c5d95da3c9f, type: 3}
   m_Name: UISettingsInstaller
   m_EditorClassIdentifier: 
-  MapSettings:
+  _uiSettings:
+    MessageTimeLife: 3
     PixelsPerUnit: 5
     PrefabTeleportIcon: {fileID: 7553850417055091670, guid: c79f2d6c90c557143a691b42aa889b7f,
       type: 3}

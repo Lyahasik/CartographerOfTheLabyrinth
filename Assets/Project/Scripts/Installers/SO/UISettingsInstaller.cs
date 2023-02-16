@@ -8,11 +8,11 @@ namespace Installers.SO
     [CreateAssetMenu(fileName = "UISettingsInstaller", menuName = "Installers/UISettingsInstaller")]
     public class UISettingsInstaller : ScriptableObjectInstaller<UISettingsInstaller>
     {
-        public MapSettings MapSettings;
+        public UISettings _uiSettings;
     
         public override void InstallBindings()
         {
-            Container.BindInstance(MapSettings);
+            Container.BindInstance(_uiSettings);
         }
     }
 }
