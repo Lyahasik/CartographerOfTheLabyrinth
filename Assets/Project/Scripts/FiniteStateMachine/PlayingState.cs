@@ -45,6 +45,11 @@ namespace FiniteStateMachine
             {
                 _gameMashine.Enter(_container.Instantiate<SettingsState>());
             }
+            
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                _gameMashine.Enter(_container.Instantiate<ShopState>());
+            }
         }
 
         public override void Exit()

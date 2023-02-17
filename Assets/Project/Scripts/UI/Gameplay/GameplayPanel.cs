@@ -14,6 +14,9 @@ namespace UI.Gameplay
         
         [SerializeField] private IconSettings _iconSettings;
         [SerializeField] private IconMap _iconMap;
+        
+        [Header("Items")]
+        [SerializeField] private IconShop _iconShop;
         [SerializeField] private IconSpeedBuff _iconSpeedBuff;
         [SerializeField] private IconVisibilityRangeUpBuff _iconVisibilityRangeUpBuff;
 
@@ -29,6 +32,8 @@ namespace UI.Gameplay
         {
             _iconSettings.Init(_container, _gameMashine);
             _iconMap.Init(_container, _gameMashine);
+            
+            _iconShop.Init(_container, _gameMashine);
             _iconSpeedBuff.Init(_buffsHandler);
             _iconVisibilityRangeUpBuff.Init(_buffsHandler);
         }

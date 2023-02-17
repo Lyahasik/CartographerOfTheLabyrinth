@@ -8,6 +8,7 @@ using UI.Gameplay.Movement;
 using UI.Map;
 using UI.Map.Icons;
 using UI.Settings;
+using UI.Shop;
 
 namespace Installers
 {
@@ -19,6 +20,7 @@ namespace Installers
         public GameplayPanel GameplayPanel;
         public SettingsPanel SettingsPanel;
         public MapPanel MapPanel;
+        public ShopPanel ShopPanel;
         public MessagePanel MessagePanel;
         public TeleportPanel TeleportPanel;
     
@@ -44,6 +46,13 @@ namespace Installers
             Container
                 .Bind<MapPanel>()
                 .FromComponentInNewPrefab(MapPanel)
+                .UnderTransform(_canvas.transform)
+                .AsSingle()
+                .NonLazy();
+        
+            Container
+                .Bind<ShopPanel>()
+                .FromComponentInNewPrefab(ShopPanel)
                 .UnderTransform(_canvas.transform)
                 .AsSingle()
                 .NonLazy();
