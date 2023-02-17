@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using Environment;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
+
+using Environment;
 
 namespace Gameplay.Player
 {
@@ -92,20 +92,13 @@ namespace Gameplay.Player
             transform.Rotate(Vector3.up, stepTurn.x * _speedTurn * Time.deltaTime, Space.World);
         }
 
-        public bool TryActivateBoost()
+        public void ActivateBoost()
         {
-            if (_scaleSpeed != _baseScale)
-                return false;
-            
             _scaleSpeed = _settings.ScaleBoost;
-            StartCoroutine(DeactivateBoost());
-            return true;
         }
 
-        private IEnumerator DeactivateBoost()
+        public void DeactivateBoost()
         {
-            yield return new WaitForSeconds(_settings.TimeBoost);
-
             _scaleSpeed = _baseScale;
         }
     }

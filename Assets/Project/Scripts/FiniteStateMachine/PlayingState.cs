@@ -3,6 +3,7 @@ using Zenject;
 
 using Gameplay.Player;
 using UI.Alerts;
+using UI.Icons;
 
 namespace FiniteStateMachine
 {
@@ -10,13 +11,18 @@ namespace FiniteStateMachine
     {
         private DiContainer _container;
         private TeleportPanel _teleportPanel;
+        private IconsPanel _iconsPanel;
         private PlayerMovement _playerMovement;
 
         [Inject]
-        public void Construct(DiContainer container, TeleportPanel teleportPanel, PlayerMovement playerMovement)
+        public void Construct(DiContainer container,
+            TeleportPanel teleportPanel,
+            IconsPanel iconsPanel,
+            PlayerMovement playerMovement)
         {
             _container = container;
             _teleportPanel = teleportPanel;
+            _iconsPanel = iconsPanel;
             _playerMovement = playerMovement;
         }
     
@@ -25,6 +31,7 @@ namespace FiniteStateMachine
             base.Enter(gameMashine);
         
             _playerMovement.IsFreeze = false;
+            _iconsPanel.gameObject.SetActive(true);
         }
 
         public override void HandleInput()
@@ -38,6 +45,7 @@ namespace FiniteStateMachine
         public override void Exit()
         {
             _playerMovement.IsFreeze = true;
+            _iconsPanel.gameObject.SetActive(false);
             _teleportPanel.DeactivateAllWindows();
         }
     }

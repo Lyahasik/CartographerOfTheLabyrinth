@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Zenject;
 
@@ -9,7 +10,9 @@ namespace Gameplay.Player
     {
         private readonly HashSet<int> _keys = new ();
         private readonly Dictionary<ItemType, int> _items = new ();
-        
+
+        public static event Action<ItemType, int> OnSetNumberItem;
+
         public void Initialize()
         {
             InitItems();
@@ -20,6 +23,8 @@ namespace Gameplay.Player
             _items.Add(ItemType.DoorKey, 0);
             
             _items.Add(ItemType.SpeedBuff, 0);
+            OnSetNumberItem?.Invoke(ItemType.SpeedBuff, 0);
+            
             _items.Add(ItemType.VisibilityRangeBuff, 0);
         }
 
@@ -41,6 +46,7 @@ namespace Gameplay.Player
         public void AddItem(ItemType type)
         {
             _items[type] += 1;
+            OnSetNumberItem?.Invoke(type, _items[type]);
         }
 
         public bool ContainsItem(ItemType type)
@@ -54,6 +60,8 @@ namespace Gameplay.Player
         public void UseItem(ItemType type)
         {
             _items[type] -= 1;
+            
+            OnSetNumberItem?.Invoke(type, _items[type]);
         }
     }
 }

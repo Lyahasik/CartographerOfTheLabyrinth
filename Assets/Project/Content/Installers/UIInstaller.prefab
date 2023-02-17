@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementPanel: {fileID: 9193719305229282844, guid: 88c58b4b9249a2f4cad1038e90003b05,
     type: 3}
+  IconsPanel: {fileID: 7808481318606113571, guid: 218f6d906b96a904ca5f5ebad2c1bbd8,
+    type: 3}
   MapPanel: {fileID: 4198135009355329793, guid: be0443ea74452a54d8cbfb139bd8f488,
     type: 3}
   MessagePanel: {fileID: 9043151200674597389, guid: 54f65da3eb7b3314e8ce6166fd801efc,

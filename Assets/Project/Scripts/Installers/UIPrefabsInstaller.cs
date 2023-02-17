@@ -3,6 +3,7 @@ using Zenject;
 
 using OS;
 using UI.Alerts;
+using UI.Icons;
 using UI.Map;
 using UI.Map.Icons;
 using UI.Movement;
@@ -14,6 +15,7 @@ namespace Installers
         private GameObject _canvas;
 
         public MovementPanel MovementPanel;
+        public IconsPanel IconsPanel;
         public MapPanel MapPanel;
         public MessagePanel MessagePanel;
         public TeleportPanel TeleportPanel;
@@ -22,6 +24,13 @@ namespace Installers
         {
             ParentInitialize();
             MovementControllerInitialize();
+        
+            Container
+                .BindInterfacesAndSelfTo<IconsPanel>()
+                .FromComponentInNewPrefab(IconsPanel)
+                .UnderTransform(_canvas.transform)
+                .AsSingle()
+                .NonLazy();
         
             Container
                 .Bind<MapPanel>()
