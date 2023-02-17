@@ -2,7 +2,7 @@ using UnityEngine.EventSystems;
 
 using Gameplay.Items;
 
-namespace UI.Icons
+namespace UI.Gameplay
 {
     public class IconSpeedBuff : IconBuff, IPointerClickHandler
     {

@@ -3,7 +3,7 @@ using Zenject;
 
 using Gameplay.Player;
 
-namespace UI.Movement
+namespace UI.Gameplay.Movement
 {
     public class MovementPanel : MonoBehaviour
     {

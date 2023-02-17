@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace UI.Movement.Joystick
+namespace UI.Gameplay.Movement.Joystick
 {
     public class Stick : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
     {

@@ -6,7 +6,7 @@ using Gameplay.Buffs;
 using Gameplay.Items;
 using Gameplay.Player;
 
-namespace UI.Icons
+namespace UI.Gameplay
 {
     public abstract class IconBuff : MonoBehaviour
     {

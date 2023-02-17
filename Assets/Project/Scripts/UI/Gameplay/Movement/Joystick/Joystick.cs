@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace UI.Movement.Joystick
+namespace UI.Gameplay.Movement.Joystick
 {
     public class Joystick : MonoBehaviour
     {
