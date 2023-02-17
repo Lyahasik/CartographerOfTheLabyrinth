@@ -26,6 +26,7 @@ namespace Gameplay.Player
             OnSetNumberItem?.Invoke(ItemType.SpeedBuff, 0);
             
             _items.Add(ItemType.VisibilityRangeBuff, 0);
+            OnSetNumberItem?.Invoke(ItemType.VisibilityRangeBuff, 0);
         }
 
         public void AddTeleportKey(int id)

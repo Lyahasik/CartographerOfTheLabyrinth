@@ -4,21 +4,21 @@ using Gameplay.Items;
 
 namespace UI.Icons
 {
-    public class IconSpeedBuff : IconBuff, IPointerClickHandler
+    public class IconVisibilityRangeUpBuff : IconBuff, IPointerClickHandler
     {
         private void Awake()
         {
-            _type = ItemType.SpeedBuff;
+            _type = ItemType.VisibilityRangeBuff;
         }
 
         private void Update()
         {
-            UpdateTimeAction(_buffsHandler.PercentageCompletionSpeedBuff());
+            UpdateTimeAction(_buffsHandler.PercentageCompletionVisibilityRangeBuff());
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            _buffsHandler.TryActivateSpeedBoostBuff();
+            _buffsHandler.TryActivateVisibilityRangeUpBuff();
         }
     }
 }

@@ -60,23 +60,15 @@ namespace Gameplay.Player
             _cinemachine.ForceCameraPosition(_playerMovement.transform.position, _playerMovement.transform.rotation);
         }
 
-        public bool TryActivateRangeUp()
+        public void ActivateRangeUp()
         {
-            if (_targetFollowOffset != _baseFollowOffset)
-                return false;
-
             _currentFollowOffset = _baseFollowOffset;
             _targetFollowOffset = _settings.FollowOffsetUp;
             _distanceBetweenOffsets = Vector3.Distance(_currentFollowOffset, _targetFollowOffset);
-                
-            StartCoroutine(DeactivateRangeUp());
-            return true;
         }
 
-        private IEnumerator DeactivateRangeUp()
+        public void DeactivateRangeUp()
         {
-            yield return new WaitForSeconds(_settings.TimeFollowOffsetUp);
-            
             _currentFollowOffset = _settings.FollowOffsetUp;
             _targetFollowOffset = _baseFollowOffset;
         }

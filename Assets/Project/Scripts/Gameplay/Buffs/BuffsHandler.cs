@@ -14,8 +14,10 @@ namespace Gameplay.Buffs
         private PlayerWatcher _playerWatcher;
 
         private bool _isActiveSpeedBuff;
-        private float _startTimeSpeedBuff;
-        private float _endTimeSpeedBuff;
+        private float _elapsedTimeSpeedBuff;
+
+        private bool _isActiveVisibilityRangeBuff;
+        private float _elapsedTimeVisibilityRangeBuff;
 
         [Inject]
         public void Construct(GameplaySettings settings,
@@ -39,25 +41,71 @@ namespace Gameplay.Buffs
         {
             if (Input.GetKeyDown(KeyCode.Q))
                 TryActivateSpeedBoostBuff();
-            if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (Input.GetKeyDown(KeyCode.E))
                 TryActivateVisibilityRangeUpBuff();
         }
 
         private void UpdateBuffs()
         {
             UpdateSpeedBuff();
+            UpdateVisibilityRangeBuff();
         }
 
         private void UpdateSpeedBuff()
         {
             if (!_isActiveSpeedBuff
-                || _endTimeSpeedBuff > Time.time)
+                || _elapsedTimeSpeedBuff < _settings.TimeBoost)
                 return;
 
             _playerMovement.DeactivateBoost();
             _isActiveSpeedBuff = false;
         }
 
+        private void UpdateVisibilityRangeBuff()
+        {
+            if (!_isActiveVisibilityRangeBuff
+                || _elapsedTimeVisibilityRangeBuff < _settings.TimeFollowOffsetUp)
+                return;
+
+            _playerWatcher.DeactivateRangeUp();
+            _isActiveVisibilityRangeBuff = false;
+        }
+
+        public float PercentageCompletionSpeedBuff()
+        {
+            if (!_isActiveSpeedBuff)
+                return 0;
+
+            _elapsedTimeSpeedBuff += Time.deltaTime;
+
+            return _elapsedTimeSpeedBuff / _settings.TimeBoost;
+        }
+
+        public float PercentageCompletionVisibilityRangeBuff()
+        {
+            if (!_isActiveVisibilityRangeBuff)
+                return 0;
+
+            _elapsedTimeVisibilityRangeBuff += Time.deltaTime;
+
+            return _elapsedTimeVisibilityRangeBuff / _settings.TimeFollowOffsetUp;
+        }
+
+        public void TryActivateVisibilityRangeUpBuff()
+        {
+            if (!_playerInventory.ContainsItem(ItemType.VisibilityRangeBuff))
+                return;
+
+            if (!_isActiveVisibilityRangeBuff)
+            {
+                _playerWatcher.ActivateRangeUp();
+                _playerInventory.UseItem(ItemType.VisibilityRangeBuff);
+
+                _isActiveVisibilityRangeBuff = true;
+                _elapsedTimeVisibilityRangeBuff = 0f;
+            }
+        }
+        
         public void TryActivateSpeedBoostBuff()
         {
             if (!_playerInventory.ContainsItem(ItemType.SpeedBuff))
@@ -69,28 +117,8 @@ namespace Gameplay.Buffs
                 _playerInventory.UseItem(ItemType.SpeedBuff);
 
                 _isActiveSpeedBuff = true;
-                _startTimeSpeedBuff = Time.time;
-                _endTimeSpeedBuff = Time.time + _settings.TimeBoost;
+                _elapsedTimeSpeedBuff = 0f;
             }
-        }
-
-        public float PercentageCompletionSpeedBuff()
-        {
-            if (!_isActiveSpeedBuff)
-                return 0;
-
-            float elapsedTime = Time.time - _startTimeSpeedBuff;
-
-            return elapsedTime / _settings.TimeBoost;
-        }
-
-        public void TryActivateVisibilityRangeUpBuff()
-        {
-            if (!_playerInventory.ContainsItem(ItemType.VisibilityRangeBuff))
-                return;
-        
-            if (_playerWatcher.TryActivateRangeUp())
-                _playerInventory.UseItem(ItemType.VisibilityRangeBuff);
         }
     }
 }
