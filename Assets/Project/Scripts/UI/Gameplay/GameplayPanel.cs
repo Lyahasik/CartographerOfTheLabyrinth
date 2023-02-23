@@ -3,6 +3,7 @@ using Zenject;
 
 using FiniteStateMachine;
 using Gameplay.Buffs;
+using Gameplay.Player;
 
 namespace UI.Gameplay
 {
@@ -11,6 +12,7 @@ namespace UI.Gameplay
         private DiContainer _container;
         private GameMashine _gameMashine;
         private BuffsHandler _buffsHandler;
+        private PlayerInventory _playerInventory;
         
         [SerializeField] private IconSettings _iconSettings;
         [SerializeField] private IconMap _iconMap;
@@ -21,11 +23,15 @@ namespace UI.Gameplay
         [SerializeField] private IconVisibilityRangeUpBuff _iconVisibilityRangeUpBuff;
 
         [Inject]
-        public void Construct(DiContainer container, GameMashine gameMashine, BuffsHandler buffsHandler)
+        public void Construct(DiContainer container,
+            GameMashine gameMashine,
+            BuffsHandler buffsHandler,
+            PlayerInventory playerInventory)
         {
             _container = container;
             _gameMashine = gameMashine;
             _buffsHandler = buffsHandler;
+            _playerInventory = playerInventory;
         }
 
         public void Initialize()
@@ -34,8 +40,8 @@ namespace UI.Gameplay
             _iconMap.Init(_container, _gameMashine);
             
             _iconShop.Init(_container, _gameMashine);
-            _iconSpeedBuff.Init(_buffsHandler);
-            _iconVisibilityRangeUpBuff.Init(_buffsHandler);
+            _iconSpeedBuff.Init(_buffsHandler, _playerInventory);
+            _iconVisibilityRangeUpBuff.Init(_buffsHandler, _playerInventory);
         }
     }
 }

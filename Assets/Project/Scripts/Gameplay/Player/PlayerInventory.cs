@@ -44,10 +44,15 @@ namespace Gameplay.Player
             return isContained;
         }
 
-        public void AddItem(ItemType type)
+        public void AddItem(ItemType type, int number = 1)
         {
-            _items[type] += 1;
+            _items[type] += number;
             OnSetNumberItem?.Invoke(type, _items[type]);
+        }
+
+        public int GetNumberItem(ItemType type)
+        {
+            return _items[type];
         }
 
         public bool ContainsItem(ItemType type)
