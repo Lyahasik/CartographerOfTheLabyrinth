@@ -14,6 +14,7 @@ namespace UI.Map
     public class Map : MonoBehaviour
     {
         [SerializeField] private ArrowPlayer _arrow;
+        [SerializeField] private RectTransform _rectTransformFog;
     
         [SerializeField] private int[] _sizes;
 
@@ -65,6 +66,7 @@ namespace UI.Map
         private void OnDisable()
         {
             _rectTransform.sizeDelta = _initialSize;
+            _rectTransformFog.sizeDelta = _initialSize;
         }
 
         private IEnumerator Preparation()
@@ -73,7 +75,7 @@ namespace UI.Map
         
             Vector3 playerPosition = new Vector3(-_player.transform.position.x, -_player.transform.position.z, 0f);
             _rectTransform.localPosition = playerPosition * _settings.PixelsPerUnit;
-        
+
             SetZoom(0);
         }
 
@@ -88,8 +90,6 @@ namespace UI.Map
                     teleportData.LevelId,
                     teleportData.Position);
 
-                // teleportIcon.SetParent(transform);
-            
                 _teleportIcons.Add(teleportIcon);
             }
         }
@@ -119,11 +119,13 @@ namespace UI.Map
             float previousMultiplier = _sizes[0] / _rectTransform.sizeDelta.x;
         
             _rectTransform.sizeDelta = new Vector2(_sizes[_currentIdSize], _sizes[_currentIdSize]);
+            _rectTransformFog.sizeDelta = _rectTransform.sizeDelta;
 
             float currentMultiplier = _sizes[0] / _rectTransform.sizeDelta.x;
 
             float differenceMultiplier = previousMultiplier / currentMultiplier;
             _rectTransform.localPosition *= differenceMultiplier;
+            _rectTransformFog.localPosition *= differenceMultiplier;
         
             _arrow.Resize(differenceMultiplier);
         

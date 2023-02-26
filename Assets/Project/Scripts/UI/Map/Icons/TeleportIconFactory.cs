@@ -4,8 +4,7 @@ using Zenject;
 namespace UI.Map.Icons
 {
     public class TeleportIconFactory : 
-        PlaceholderFactory<Transform, int, Vector3, TeleportIcon>,
-        IFactory<Transform, int, Vector3, TeleportIcon>
+        PlaceholderFactory<Transform, int, Vector3, TeleportIcon>
     {
         private DiContainer _container;
         private UISettings _settings;
@@ -24,6 +23,8 @@ namespace UI.Map.Icons
                     _settings.PrefabTeleportIcon,
                     parent,
                     new object[] { levelId, position });
+            
+            teleportIcon.transform.SetSiblingIndex(0);
 
             return teleportIcon;
         }
