@@ -16,6 +16,8 @@ namespace Gameplay.Items
             if (other.GetComponent<PlayerMovement>())
             {
                 PlayerInventory.AddTeleportKey(LevelId);
+                ProcessingProgress.PickItem(Type, transform.position.GetHashCode());
+                ProcessingProgress.PickTeleportKey();
                 GameplayHandler.ClearItemLevel(this);
             }
         }

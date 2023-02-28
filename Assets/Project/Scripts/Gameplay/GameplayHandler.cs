@@ -6,6 +6,7 @@ using Zenject;
 
 using Environment.Level;
 using Gameplay.Items;
+using Gameplay.Progress;
 
 namespace Gameplay
 {
@@ -14,15 +15,17 @@ namespace Gameplay
         private const string _fullFileName = "EnvironmentData";
 
         private GameplayPool _gameplayPool;
+        private ProcessingProgress _processingProgress;
     
         private List<LevelData> _levelsData;
         private Dictionary<int, List<ItemData>> _itemsDataLevel;
         private Dictionary<int, List<Item>> _itemsLevel = new ();
 
         [Inject]
-        public void Construct(GameplayPool gameplayPool)
+        public void Construct(GameplayPool gameplayPool, ProcessingProgress processingProgress)
         {
             _gameplayPool = gameplayPool;
+            _processingProgress = processingProgress;
         }
 
         public void Initialize()
@@ -68,14 +71,17 @@ namespace Gameplay
         
             foreach (ItemData itemData in _itemsDataLevel[levelNumber])
             {
-                Item teleportKey = _gameplayPool.GetItem((ItemType) itemData.Type);
-            
                 Vector3 itemPosition = new Vector3(itemData.Position[0], 0f, itemData.Position[1]);
-                teleportKey.transform.position = itemPosition;
-                teleportKey.transform.parent = parent;
-                teleportKey.Init();
+                
+                if (_processingProgress.ContainsLiftedItem((ItemType) itemData.Type, itemPosition.GetHashCode()))
+                    continue;
+                
+                Item item = _gameplayPool.GetItem((ItemType) itemData.Type);
+                item.transform.position = itemPosition;
+                item.transform.parent = parent;
+                item.Init();
         
-                _itemsLevel[levelNumber].Add(teleportKey);
+                _itemsLevel[levelNumber].Add(item);
             }
         }
 
@@ -93,6 +99,19 @@ namespace Gameplay
         {
             _itemsLevel[item.LevelId + 1].Remove(item);
             _gameplayPool.ReturnItem(item);
+        }
+
+        public void ClearTeleportKeyLevel(int levelId)
+        {
+            foreach (Item item in _itemsLevel[levelId + 1])
+            {
+                if (item.Type == ItemType.TeleportKey)
+                {
+                    _processingProgress.PickItem(item.Type, item.transform.position.GetHashCode());
+                    ClearItemLevel(item);
+                    return;
+                }
+            }
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Gameplay.FogOfWar
         {
             if (_nextUpdateTime > Time.time)
                 return;
-        
+
             RenderTexture currentRT = RenderTexture.active;  			
             RenderTexture.active = _renderTexture;
             

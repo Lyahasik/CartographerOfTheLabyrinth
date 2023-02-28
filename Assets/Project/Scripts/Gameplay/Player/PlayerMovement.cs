@@ -2,6 +2,7 @@
 using Zenject;
 
 using Environment;
+using Gameplay.Progress;
 
 namespace Gameplay.Player
 {
@@ -11,6 +12,7 @@ namespace Gameplay.Player
         private const float _baseScale = 1f;
 
         private GameplaySettings _settings;
+        private ProcessingProgress _processingProgress;
         private EnvironmentHandler _environmentHandler;
         
         private CharacterController _characterController;
@@ -22,6 +24,7 @@ namespace Gameplay.Player
         private Vector2Int _currentChunkId;
 
         private bool _isFreeze;
+        private float _nextSaveTime;
 
         public bool IsFreeze
         {
@@ -29,9 +32,12 @@ namespace Gameplay.Player
         }
 
         [Inject]
-        public void Construct(GameplaySettings settings, EnvironmentHandler environmentHandler)
+        public void Construct(GameplaySettings settings,
+            ProcessingProgress processingProgress,
+            EnvironmentHandler environmentHandler)
         {
             _settings = settings;
+            _processingProgress = processingProgress;
             _environmentHandler = environmentHandler;
         }
 
@@ -42,8 +48,21 @@ namespace Gameplay.Player
 
         public void Initialize()
         {
+            Vector3 position = transform.position;
+            _processingProgress.TryLoadPlayerPosition(ref position);
+            transform.position = position;
+            
             _currentChunkId = _environmentHandler.TransformPositionByChunkId(transform.position.x, transform.position.z);
             _environmentHandler.UpdateChunks(in _currentChunkId);
+        }
+
+        private void Update()
+        {
+            if (_nextSaveTime > Time.time)
+                return;
+            
+            _processingProgress.SavePlayerPosition(transform.position);
+            _nextSaveTime = Time.time + _settings.DelaySave;
         }
 
         public void TakeStepMove(Vector2 stepMove)
@@ -66,6 +85,7 @@ namespace Gameplay.Player
             _characterController.enabled = false;
         
             transform.position = newPosition + Vector3.up * _characterController.height * 0.5f;
+            _processingProgress.SavePlayerPosition(transform.position);
         
             _characterController.enabled = true;
         

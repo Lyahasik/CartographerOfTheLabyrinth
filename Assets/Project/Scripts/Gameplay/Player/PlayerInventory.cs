@@ -3,15 +3,24 @@ using System.Collections.Generic;
 using Zenject;
 
 using Gameplay.Items;
+using Gameplay.Progress;
 
 namespace Gameplay.Player
 {
     public class PlayerInventory : IInitializable
     {
-        private readonly HashSet<int> _keys = new ();
-        private readonly Dictionary<ItemType, int> _items = new ();
+        private ProcessingProgress _processingProgress;
+        
+        private HashSet<int> _teleportKeys;
+        private Dictionary<ItemType, int> _items;
 
         public static event Action<ItemType, int> OnSetNumberItem;
+
+        [Inject]
+        public void Construct(ProcessingProgress processingProgress)
+        {
+            _processingProgress = processingProgress;
+        }
 
         public void Initialize()
         {
@@ -20,26 +29,27 @@ namespace Gameplay.Player
 
         private void InitItems()
         {
-            _items.Add(ItemType.DoorKey, 0);
+            _items = _processingProgress.NotUsedItems;
+            _teleportKeys = _processingProgress.NotUsedTeleportKeys;
             
-            _items.Add(ItemType.SpeedBuff, 0);
-            OnSetNumberItem?.Invoke(ItemType.SpeedBuff, 0);
-            
-            _items.Add(ItemType.VisibilityRangeBuff, 0);
-            OnSetNumberItem?.Invoke(ItemType.VisibilityRangeBuff, 0);
+            OnSetNumberItem?.Invoke(ItemType.SpeedBuff, _items[ItemType.SpeedBuff]);
+            OnSetNumberItem?.Invoke(ItemType.VisibilityRangeBuff, _items[ItemType.VisibilityRangeBuff]);
         }
 
         public void AddTeleportKey(int id)
         {
-            _keys.Add(id);
+            _teleportKeys.Add(id);
         }
 
         public bool TryFindKey(int id)
         {
-            bool isContained = _keys.Contains(id);
-        
+            bool isContained = _teleportKeys.Contains(id);
+
             if (isContained)
-                _keys.Remove(id);
+            {
+                _teleportKeys.Remove(id);
+                _processingProgress.UseTeleportKey();
+            }
 
             return isContained;
         }
@@ -65,7 +75,8 @@ namespace Gameplay.Player
 
         public void UseItem(ItemType type)
         {
-            _items[type] -= 1;
+            _items[type]--;
+            _processingProgress.UseItem(type);
             
             OnSetNumberItem?.Invoke(type, _items[type]);
         }

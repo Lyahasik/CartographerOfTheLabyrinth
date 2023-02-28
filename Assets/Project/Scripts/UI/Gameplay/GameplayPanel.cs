@@ -43,5 +43,12 @@ namespace UI.Gameplay
             _iconSpeedBuff.Init(_buffsHandler, _playerInventory);
             _iconVisibilityRangeUpBuff.Init(_buffsHandler, _playerInventory);
         }
+        
+        
+        //TODO удалить
+        public void ResetProgress()
+        {
+            PlayerPrefs.DeleteAll();
+        }
     }
 }

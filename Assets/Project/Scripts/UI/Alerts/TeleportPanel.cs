@@ -4,6 +4,7 @@ using Zenject;
 
 using Environment.Level.Teleport;
 using FiniteStateMachine;
+using Gameplay;
 
 namespace UI.Alerts
 {
@@ -17,6 +18,7 @@ namespace UI.Alerts
         
         private DiContainer _container;
         private GameMashine _gameMashine;
+        private GameplayHandler _gameplayHandler;
         private TeleportHandler _teleportHandler;
     
         [SerializeField] private GameObject _activationWindow;
@@ -33,10 +35,14 @@ namespace UI.Alerts
         private int _levelId;
 
         [Inject]
-        public void Construct(DiContainer container, GameMashine gameMashine, TeleportHandler teleportHandler)
+        public void Construct(DiContainer container,
+            GameMashine gameMashine,
+            GameplayHandler gameplayHandler,
+            TeleportHandler teleportHandler)
         {
             _container = container;
             _gameMashine = gameMashine;
+            _gameplayHandler = gameplayHandler;
             _teleportHandler = teleportHandler;
         }
 
@@ -66,6 +72,7 @@ namespace UI.Alerts
         {
             Debug.Log("View ads");
             _teleportHandler.TeleportActivate(_levelId);
+            _gameplayHandler.ClearTeleportKeyLevel(_levelId);
             DeactivateActivationWindow();
             ActivateStartTeleportWindow();
         }

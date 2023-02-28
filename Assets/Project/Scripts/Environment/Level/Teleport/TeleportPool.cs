@@ -52,6 +52,7 @@ namespace Environment.Level.Teleport
         {
             teleport.gameObject.SetActive(false);
             teleport.transform.parent = _teleportPool.transform;
+            teleport.Reset();
         
             _teleports.Push(teleport);
         }

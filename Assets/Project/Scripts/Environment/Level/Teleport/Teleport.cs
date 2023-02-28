@@ -16,6 +16,17 @@ namespace Environment.Level.Teleport
 
         private int _levelId;
 
+        public int LevelId
+        {
+            set
+            {
+                _levelId = value;
+                
+                if (_teleportHandler.TeleportIsActive(_levelId))
+                    _mesh.material.color = Color.green;
+            }
+        }
+
         [Inject]
         public void Construct(TeleportHandler teleportHandler, PlayerInventory playerInventory, TeleportPanel teleportPanel)
         {
@@ -34,15 +45,10 @@ namespace Environment.Level.Teleport
             _teleportHandler.OnActivate -= Activate;
         }
 
-        public int LevelId
+        public void UpdateActivate()
         {
-            set
-            {
-                _levelId = value;
-                
-                if (_teleportHandler.TeleportIsActive(_levelId))
-                    _mesh.material.color = Color.green;
-            }
+            if (_teleportHandler.TeleportIsActive(_levelId))
+                _mesh.material.color = Color.green;
         }
 
         private void Activate(int levelId)
@@ -51,6 +57,11 @@ namespace Environment.Level.Teleport
                 return;
             
             _mesh.material.color = Color.green;
+        }
+
+        public void Reset()
+        {
+            _mesh.material.color = Color.red;
         }
 
         private void OnTriggerEnter(Collider other)

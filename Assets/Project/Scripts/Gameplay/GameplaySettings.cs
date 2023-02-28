@@ -9,6 +9,9 @@ namespace Gameplay
     [Serializable]
     public class GameplaySettings
     {
+        [Header("Progress")]
+        public float DelaySave;
+        
         [Header("Movement")]
         public float MouseSensitivity;
         

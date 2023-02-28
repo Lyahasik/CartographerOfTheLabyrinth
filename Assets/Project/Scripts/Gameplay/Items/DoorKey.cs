@@ -15,7 +15,8 @@ namespace Gameplay.Items
         {
             if (other.GetComponent<PlayerMovement>())
             {
-                PlayerInventory.AddItem(ItemType.DoorKey);
+                PlayerInventory.AddItem(Type);
+                ProcessingProgress.PickItem(Type, transform.position.GetHashCode());
                 GameplayHandler.ClearItemLevel(this);
             }
         }

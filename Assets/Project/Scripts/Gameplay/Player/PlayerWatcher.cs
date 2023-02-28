@@ -1,4 +1,3 @@
-using System.Collections;
 using Cinemachine;
 using UnityEngine;
 using Zenject;

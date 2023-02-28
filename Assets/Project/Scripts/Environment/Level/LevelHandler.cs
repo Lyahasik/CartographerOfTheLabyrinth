@@ -142,6 +142,7 @@ namespace Environment.Level
             teleport.transform.position = teleportPosition;
             Quaternion teleportRotation = Quaternion.Euler(0f, objectData.Rotation, 0f);
             teleport.transform.rotation = teleportRotation;
+            teleport.UpdateActivate();
         
             chunkData.Teleport = teleport;
             

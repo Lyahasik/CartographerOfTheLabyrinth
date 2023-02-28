@@ -3,6 +3,7 @@ using UnityEngine;
 using Zenject;
 
 using Gameplay.Player;
+using Gameplay.Progress;
 
 namespace Gameplay.Items
 {
@@ -10,6 +11,7 @@ namespace Gameplay.Items
     {
         protected PlayerInventory PlayerInventory;
         protected GameplayHandler GameplayHandler;
+        protected ProcessingProgress ProcessingProgress;
 
         private int _levelId;
         private ItemType _type;
@@ -23,10 +25,13 @@ namespace Gameplay.Items
         }
 
         [Inject]
-        public void Construct(PlayerInventory playerInventory, GameplayHandler gameplayHandler)
+        public void Construct(PlayerInventory playerInventory,
+            GameplayHandler gameplayHandler,
+            ProcessingProgress processingProgress)
         {
             PlayerInventory = playerInventory;
             GameplayHandler = gameplayHandler;
+            ProcessingProgress = processingProgress;
         }
 
         public void Init()
