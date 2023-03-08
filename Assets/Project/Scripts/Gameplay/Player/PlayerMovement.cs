@@ -96,7 +96,7 @@ namespace Gameplay.Player
         {
             _characterController.enabled = false;
         
-            transform.position = newPosition + Vector3.up * _characterController.height * 0.5f;
+            transform.position = newPosition;
             _processingProgress.SavePlayerPosition(transform.position);
         
             _characterController.enabled = true;

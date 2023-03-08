@@ -75,7 +75,6 @@ namespace Environment.Level.Teleport
             if (!_teleportsData[levelId].IsActive)
                 return;
         
-            Debug.Log($"Teleport id {levelId}");
             Vector3 teleportPoint = new Vector3(_teleportsData[levelId].Position.x, 0f, _teleportsData[levelId].Position.y);
         
             _playerMovement.SetPosition(teleportPoint);
