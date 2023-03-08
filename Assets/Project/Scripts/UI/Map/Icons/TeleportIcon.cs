@@ -74,6 +74,7 @@ namespace UI.Map.Icons
             }
             else
             {
+                _teleportPanel.LevelId = _levelId;
                 _teleportPanel.ActivatePaidTeleportWindow();
             }
         }

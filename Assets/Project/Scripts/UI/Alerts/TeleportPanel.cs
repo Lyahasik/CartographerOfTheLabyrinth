@@ -34,6 +34,11 @@ namespace UI.Alerts
 
         private int _levelId;
 
+        public int LevelId
+        {
+            set => _levelId = value;
+        }
+
         [Inject]
         public void Construct(DiContainer container,
             GameMashine gameMashine,
