@@ -13,6 +13,7 @@ namespace Environment.Level.Teleport
         private TeleportPanel _teleportPanel;
 
         [SerializeField] private MeshRenderer _mesh;
+        private Color _baseColor;
 
         private int _levelId;
 
@@ -23,7 +24,7 @@ namespace Environment.Level.Teleport
                 _levelId = value;
                 
                 if (_teleportHandler.TeleportIsActive(_levelId))
-                    _mesh.material.color = Color.green;
+                    _mesh.material.color = Color.white;
             }
         }
 
@@ -33,6 +34,11 @@ namespace Environment.Level.Teleport
             _teleportHandler = teleportHandler;
             _playerInventory = playerInventory;
             _teleportPanel = teleportPanel;
+        }
+
+        private void Start()
+        {
+            _baseColor = _mesh.material.color;
         }
 
         private void OnEnable()
@@ -48,7 +54,7 @@ namespace Environment.Level.Teleport
         public void UpdateActivate()
         {
             if (_teleportHandler.TeleportIsActive(_levelId))
-                _mesh.material.color = Color.green;
+                _mesh.material.color = Color.white;
         }
 
         private void Activate(int levelId)
@@ -56,12 +62,12 @@ namespace Environment.Level.Teleport
             if (_levelId != levelId)
                 return;
             
-            _mesh.material.color = Color.green;
+            _mesh.material.color = Color.white;
         }
 
         public void Reset()
         {
-            _mesh.material.color = Color.red;
+            _mesh.material.color = _baseColor;
         }
 
         private void OnTriggerEnter(Collider other)

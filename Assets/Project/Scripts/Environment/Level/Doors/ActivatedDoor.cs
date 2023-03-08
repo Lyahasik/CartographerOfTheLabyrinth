@@ -39,16 +39,16 @@ namespace Environment.Level.Doors
             switch (direction)
             {
                 case DoorDirectionType.Top:
-                    _topDoorSymbol.SetActive(true);
+                    _topDoorSymbol.GetComponent<MeshRenderer>().material.color = Color.white;
                     break;
                 case DoorDirectionType.Right:
-                    _rightDoorSymbol.SetActive(true);
+                    _rightDoorSymbol.GetComponent<MeshRenderer>().material.color = Color.white;
                     break;
                 case DoorDirectionType.Bottom:
-                    _bottomDoorSymbol.SetActive(true);
+                    _bottomDoorSymbol.GetComponent<MeshRenderer>().material.color = Color.white;
                     break;
                 case DoorDirectionType.Left:
-                    _leftDoorSymbol.SetActive(true);
+                    _leftDoorSymbol.GetComponent<MeshRenderer>().material.color = Color.white;
                     break;
             }
         }

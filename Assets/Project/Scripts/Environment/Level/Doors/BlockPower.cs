@@ -33,7 +33,7 @@ namespace Environment.Level.Doors
             _direction = DoorHelper.DetermineDirection(transform.forward);
 
             if (_doorsHandler.IsActivePower(transform.position))
-                _meshRenderer.material.color = Color.green;
+                _meshRenderer.materials[1].color = Color.green;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -43,7 +43,7 @@ namespace Environment.Level.Doors
         
             if (other.GetComponent<PlayerMovement>())
             {
-                _meshRenderer.material.color = Color.green;
+                _meshRenderer.materials[1].color = Color.green;
                 _doorsHandler.ActivatePower(transform.position, (int) _direction);
             }
         }

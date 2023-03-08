@@ -161,6 +161,10 @@ namespace Environment.Level
             block.transform.position = blockPosition;
             Quaternion blockRotation = Quaternion.Euler(0f, objectData.Rotation, 0f);
             block.transform.rotation = blockRotation;
+
+            int materialId = GetMaterialId(objectData.LevelNumber);
+            if (materialId <= _settings.Materials.Count)
+                block.Material = _settings.Materials[materialId];
         
             chunkData.Blocks.Add(block);
             
@@ -176,6 +180,21 @@ namespace Environment.Level
             
             objectChunk.transform.parent = _levels[environmentObjectData.LevelNumber].transform;
             _levels[environmentObjectData.LevelNumber].AddObject(objectChunk, isDoor);
+        }
+
+        private int GetMaterialId(int levelNumber)
+        {
+            int i = 0;
+            
+            while (i < _settings.MaterialRanges.Count)
+            {
+                if (levelNumber <= _settings.MaterialRanges[i])
+                    break;
+                
+                i++;
+            }
+            
+            return i;
         }
 
         private void CreateLevel(in EnvironmentObjectData environmentObjectData)

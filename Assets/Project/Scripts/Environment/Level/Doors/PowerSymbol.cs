@@ -6,7 +6,7 @@ namespace Environment.Level.Doors
     {
         public void Activate()
         {
-            GetComponent<MeshRenderer>().material.color = Color.green;
+            GetComponent<MeshRenderer>().material.color = Color.white;
         }
     }
 }

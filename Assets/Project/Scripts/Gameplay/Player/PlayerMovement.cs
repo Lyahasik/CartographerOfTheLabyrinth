@@ -7,8 +7,10 @@ using Gameplay.Progress;
 namespace Gameplay.Player
 {
     [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(Animator))]
     public class PlayerMovement : MonoBehaviour, IInitializable
     {
+        private readonly int _walkingId = Animator.StringToHash("Walking");
         private const float _baseScale = 1f;
 
         private GameplaySettings _settings;
@@ -16,6 +18,7 @@ namespace Gameplay.Player
         private EnvironmentHandler _environmentHandler;
         
         private CharacterController _characterController;
+        private Animator _animator;
         
         [SerializeField] private float _speedMove;
         [SerializeField] private float _speedTurn;
@@ -44,6 +47,7 @@ namespace Gameplay.Player
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
+            _animator = GetComponent<Animator>();
         }
 
         public void Initialize()
@@ -71,6 +75,14 @@ namespace Gameplay.Player
                 return;
             
             Vector3 step = new Vector3(stepMove.x, 0f, stepMove.y);
+            if (step == Vector3.zero)
+            {
+                _animator.SetBool(_walkingId, false);
+                return;
+            }
+            
+            _animator.SetBool(_walkingId, true);
+            
             step *= _speedMove * _scaleSpeed * Time.deltaTime;
 
             step = transform.TransformDirection(step);
@@ -115,11 +127,13 @@ namespace Gameplay.Player
         public void ActivateBoost()
         {
             _scaleSpeed = _settings.ScaleBoost;
+            _animator.speed = _scaleSpeed;
         }
 
         public void DeactivateBoost()
         {
             _scaleSpeed = _baseScale;
+            _animator.speed = _scaleSpeed;
         }
     }
 }

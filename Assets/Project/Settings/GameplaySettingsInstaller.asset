@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GameplaySettingsInstaller
   m_EditorClassIdentifier: 
   _gameplaySettings:
+    DelaySave: 3
     MouseSensitivity: 3.5
     ScaleBoost: 2
     TimeBoost: 5

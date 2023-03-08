@@ -13,6 +13,8 @@ namespace Gameplay.Items
         protected GameplayHandler GameplayHandler;
         protected ProcessingProgress ProcessingProgress;
 
+        [SerializeField] private float _speedTurn;
+        
         private int _levelId;
         private ItemType _type;
 
@@ -37,6 +39,16 @@ namespace Gameplay.Items
         public void Init()
         {
             _levelId = Int32.Parse(transform.parent.name.Replace("Level", String.Empty)) - 1;
+        }
+
+        private void Update()
+        {
+            Drehen();
+        }
+
+        private void Drehen()
+        {
+            transform.Rotate(Vector3.up * _speedTurn * Time.deltaTime);
         }
     }
 }
