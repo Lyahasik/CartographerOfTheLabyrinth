@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: StringTable_en-US
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: 463d2e7f3ef9a364a8be7199cae12a41, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 3481674055680
+    m_Localized: You are far from the teleport. Activate pocket teleport?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2885353078784
+    m_Localized: Teleport zone activator missing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3745013432320
+    m_Localized: Teleport
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3715753967616
+    m_Localized: Look
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3933186686976
+    m_Localized: Sounds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3929831243776
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4120386863104
+    m_Localized: Missing key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4127601065984
+    m_Localized: Not enough energy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4124279177216
+    m_Localized: Activate other doors
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38651143782400
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

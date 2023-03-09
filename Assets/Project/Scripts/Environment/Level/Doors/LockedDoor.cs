@@ -9,10 +9,13 @@ namespace Environment.Level.Doors
     [RequireComponent(typeof(Animator))]
     public class LockedDoor : Door
     {
-        //TODO локализовать
-        private const string _warningMessage = "Отсутствует ключ";
-
         [SerializeField] private GameObject _key;
+        
+        private void Start()
+        {
+            _localeEntryKey = "LockedDoorMessage";
+            UpdateLocale();
+        }
 
         private void OnTriggerEnter(Collider other)
         {

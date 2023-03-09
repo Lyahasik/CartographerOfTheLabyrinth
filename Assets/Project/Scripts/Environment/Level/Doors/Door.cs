@@ -1,5 +1,7 @@
 using UnityEngine;
 using Zenject;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 using Gameplay.Player;
 using UI.Alerts;
@@ -10,6 +12,8 @@ namespace Environment.Level.Doors
     [RequireComponent(typeof(Animator))]
     public class Door : MonoBehaviour
     {
+        private LocalizedString _localizedString;
+        
         protected readonly int _openingId = Animator.StringToHash("Opening");
 
         protected DoorsHandler _doorsHandler;
@@ -19,6 +23,9 @@ namespace Environment.Level.Doors
         protected Animator _animator;
     
         protected Level _level;
+
+        protected string _localeEntryKey;
+        protected string _warningMessage;
 
         [Inject]
         public void Construct(DoorsHandler doorsHandler, PlayerInventory playerInventory, MessagePanel messagePanel)
@@ -31,6 +38,23 @@ namespace Environment.Level.Doors
         private void Awake()
         {
             _animator = GetComponent<Animator>();
+        }
+
+        private void OnEnable()
+        {
+            LocaleHadler.OnChange += UpdateLocale;
+        }
+
+        private void OnDisable()
+        {
+            LocaleHadler.OnChange -= UpdateLocale;
+        }
+
+        protected void UpdateLocale()
+        {
+            _warningMessage = LocalizationSettings
+                .StringDatabase
+                .GetLocalizedString("StringTable", _localeEntryKey);
         }
 
         public void Init(Level level)

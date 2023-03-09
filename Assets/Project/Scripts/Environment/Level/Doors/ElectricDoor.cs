@@ -7,9 +7,6 @@ namespace Environment.Level.Doors
 {
     public class ElectricDoor : Door
     {
-        //TODO локализовать
-        private const string _warningMessage = "Недостаточно энергии";
-        
         [SerializeField] private PowerSymbol[] _symbolsPower;
         
         private DoorDirectionType _directionType;
@@ -17,6 +14,9 @@ namespace Environment.Level.Doors
 
         private void Start()
         {
+            _localeEntryKey = "ElectricDoorMessage";
+            UpdateLocale();
+            
             _directionType = DoorHelper.DetermineDirection(transform.forward);
             ActivateProgress();
         }

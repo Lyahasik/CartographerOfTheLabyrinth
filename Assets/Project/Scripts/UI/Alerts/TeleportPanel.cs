@@ -10,12 +10,6 @@ namespace UI.Alerts
 {
     public class TeleportPanel : MonoBehaviour
     {
-        //TODO локализовать
-        private const string _keyMissingMessage = "Отсутствует активатор зоны телепорта"; 
-        private const string _paidTeleportMessage = "Вы далеко от телепорта. Активировать карманный телепорт?"; 
-        private const string _advertisingButtonMessage = "Смотреть"; 
-        private const string _teleportButtonMessage = "Телепортироваться"; 
-        
         private DiContainer _container;
         private GameMashine _gameMashine;
         private GameplayHandler _gameplayHandler;
@@ -49,17 +43,6 @@ namespace UI.Alerts
             _gameMashine = gameMashine;
             _gameplayHandler = gameplayHandler;
             _teleportHandler = teleportHandler;
-        }
-
-        private void Start()
-        {
-            _teleportActivationText.text = _keyMissingMessage;
-            _advertisingButtonText.text = _advertisingButtonMessage;
-            
-            _startTeleportButtonText.text = _teleportButtonMessage;
-            
-            _paidTeleportText.text = _paidTeleportMessage;
-            _paidTeleportButtonText.text = _advertisingButtonMessage;
         }
 
         public void ActivateActivationWindow(int levelId)
