@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using Gameplay.Player;
+using Gameplay.Education;
 
 namespace Gameplay.Items
 {
@@ -15,6 +16,7 @@ namespace Gameplay.Items
         {
             if (other.GetComponent<PlayerMovement>())
             {
+                _educationHandler.ActivateLesson(LessonType.Lesson4);
                 PlayerInventory.AddTeleportKey(LevelId);
                 ProcessingProgress.PickItem(Type, transform.position.GetHashCode());
                 ProcessingProgress.PickTeleportKey();

@@ -120,7 +120,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e34a7cbbdae829245ad8d39d323c0930, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1b8f1243d2bdc0a4e96fa8015d283b25, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

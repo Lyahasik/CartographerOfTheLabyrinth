@@ -4,11 +4,13 @@ using Zenject;
 
 using Gameplay.Player;
 using Gameplay.Progress;
+using Gameplay.Education;
 
 namespace Gameplay.Items
 {
     public class Item : MonoBehaviour
     {
+        protected EducationHandler _educationHandler;
         protected PlayerInventory PlayerInventory;
         protected GameplayHandler GameplayHandler;
         protected ProcessingProgress ProcessingProgress;
@@ -27,10 +29,12 @@ namespace Gameplay.Items
         }
 
         [Inject]
-        public void Construct(PlayerInventory playerInventory,
+        public void Construct(EducationHandler educationHandler,
+            PlayerInventory playerInventory,
             GameplayHandler gameplayHandler,
             ProcessingProgress processingProgress)
         {
+            _educationHandler = educationHandler;
             PlayerInventory = playerInventory;
             GameplayHandler = gameplayHandler;
             ProcessingProgress = processingProgress;

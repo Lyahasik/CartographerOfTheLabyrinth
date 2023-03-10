@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -16,15 +15,10 @@ namespace UI.Alerts
         private TeleportHandler _teleportHandler;
     
         [SerializeField] private GameObject _activationWindow;
-        [SerializeField] private TMP_Text _teleportActivationText;
-        [SerializeField] private TMP_Text _advertisingButtonText;
         
         [SerializeField] private GameObject _startTeleportWindow;
-        [SerializeField] private TMP_Text _startTeleportButtonText;
         
         [SerializeField] private GameObject _paidTeleportWindow;
-        [SerializeField] private TMP_Text _paidTeleportText;
-        [SerializeField] private TMP_Text _paidTeleportButtonText;
 
         private int _levelId;
 
@@ -43,6 +37,11 @@ namespace UI.Alerts
             _gameMashine = gameMashine;
             _gameplayHandler = gameplayHandler;
             _teleportHandler = teleportHandler;
+        }
+
+        private void Start()
+        {
+            transform.SetSiblingIndex(0);
         }
 
         public void ActivateActivationWindow(int levelId)

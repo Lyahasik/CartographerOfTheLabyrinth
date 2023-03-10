@@ -58,6 +58,63 @@ MonoBehaviour:
     m_Localized: Language
     m_Metadata:
       m_Items: []
+  - m_Id: 122015095848960
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 390596819812352
+    m_Localized: Congratulations, the first teleportation circle has been activated.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 388974551105536
+    m_Localized: 'Welcome aspiring cartographer
+
+      
+
+      Explore the maze
+      to draw a map of the entire maze and climb the player rankings
+
+      
+
+      Have
+      a good game'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 389253434572800
+    m_Localized: 'Moving the character to the W, A, S, D buttons
+
+      Rotate the
+      camera with the mouse'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 389497102663680
+    m_Localized: Below the menu icons, a button is displayed to activate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 389834261790720
+    m_Localized: In the labyrinth, you can find temporary abilities that simplify
+      the passage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 389990960988160
+    m_Localized: '- speeds up the character'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 390126520893440
+    m_Localized: '- increases visibility'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 390363448737792
+    m_Localized: 'This is a teleport activation stone.
+
+      Need to find a teleportation
+      circle'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 390773148352512
+    m_Localized: While in a circle, you can teleport between all activated teleports.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

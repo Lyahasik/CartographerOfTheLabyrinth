@@ -4,6 +4,7 @@ using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 
 using Gameplay.Player;
+using Localization;
 using UI.Alerts;
 
 namespace Environment.Level.Doors

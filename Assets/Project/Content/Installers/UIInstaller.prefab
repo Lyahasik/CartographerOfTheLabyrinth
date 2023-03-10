@@ -48,6 +48,8 @@ MonoBehaviour:
     type: 3}
   GameplayPanel: {fileID: 7808481318606113571, guid: 218f6d906b96a904ca5f5ebad2c1bbd8,
     type: 3}
+  EducationPanel: {fileID: 3833195771548757088, guid: 6cfe24c9aa89ebb40ad62326ada7f921,
+    type: 3}
   SettingsPanel: {fileID: -7241984858761995691, guid: 8e91fc9aaf22dcf44862b5f6026cc434,
     type: 3}
   MapPanel: {fileID: 4198135009355329793, guid: be0443ea74452a54d8cbfb139bd8f488,

@@ -12,6 +12,7 @@ namespace Gameplay.Progress
         private const string _preStringNotUsed = "NotUsed";
         
         private const string _stringSavePlayerPosition = "PlayerPosition";
+        private const string _stringSaveLessons = "Lessons";
         
         private const string _stringSaveDoors = "Doors";
         private const string _stringSaveActivateDoors = "ActivateDoors";
@@ -22,6 +23,8 @@ namespace Gameplay.Progress
         private readonly Dictionary<ItemType, HashSet<int>> _liftedItems = new ();
         private readonly Dictionary<ItemType, int> _notUsedItems = new ();
         
+        private HashSet<int> _lessons;
+        
         private HashSet<int> _notUsedTeleportKeys;
         private HashSet<int> _activateTeleports;
         
@@ -30,6 +33,7 @@ namespace Gameplay.Progress
         private PowerPointData[] _powerPoints;
         
         public Dictionary<ItemType, int> NotUsedItems => _notUsedItems;
+        public HashSet<int> Lessons => _lessons;
         public HashSet<int> NotUsedTeleportKeys => _notUsedTeleportKeys;
         public HashSet<int> ActivateTeleports => _activateTeleports;
 
@@ -79,6 +83,8 @@ namespace Gameplay.Progress
                 _liftedItems.Add(type, JsonConvert.DeserializeObject<HashSet<int>>(PlayerPrefs.GetString(type.ToString())));
                 _notUsedItems.Add(type, PlayerPrefs.GetInt(_preStringNotUsed + type));
             }
+            
+            _lessons = JsonConvert.DeserializeObject<HashSet<int>>(PlayerPrefs.GetString(_stringSaveLessons));
 
             _notUsedTeleportKeys = JsonConvert.DeserializeObject<HashSet<int>>(PlayerPrefs.GetString(_stringSaveNotUsedTeleportKeys));
             _activateTeleports = JsonConvert.DeserializeObject<HashSet<int>>(PlayerPrefs.GetString(_stringSaveActivateTeleports));
@@ -102,6 +108,9 @@ namespace Gameplay.Progress
                 if (_liftedItems[type] == null)
                     _liftedItems[type] = new HashSet<int>();
             }
+            
+            if (_lessons == null)
+                _lessons = new HashSet<int>();
             
             if (_notUsedTeleportKeys == null)
                 _notUsedTeleportKeys = new HashSet<int>();
@@ -184,6 +193,12 @@ namespace Gameplay.Progress
         {
             string json = JsonConvert.SerializeObject(_activateTeleports, new JsonSerializerSettings());
             PlayerPrefs.SetString(_stringSaveActivateTeleports, json);
+        }
+
+        public void SaveLessons()
+        {
+            string json = JsonConvert.SerializeObject(_lessons, new JsonSerializerSettings());
+            PlayerPrefs.SetString(_stringSaveLessons, json);
         }
 
         public void SaveLiftedItems(ItemType type)

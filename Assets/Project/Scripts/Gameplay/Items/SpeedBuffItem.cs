@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using Gameplay.Player;
+using Gameplay.Education;
 
 namespace Gameplay.Items
 {
@@ -15,6 +16,7 @@ namespace Gameplay.Items
         {
             if (other.GetComponent<PlayerMovement>())
             {
+                _educationHandler.ActivateLesson(LessonType.Lesson3);
                 PlayerInventory.AddItem(Type);
                 ProcessingProgress.PickItem(Type, transform.position.GetHashCode());
                 GameplayHandler.ClearItemLevel(this);

@@ -22,7 +22,8 @@ namespace Gameplay
         private Dictionary<int, List<Item>> _itemsLevel = new ();
 
         [Inject]
-        public void Construct(GameplayPool gameplayPool, ProcessingProgress processingProgress)
+        public void Construct(GameplayPool gameplayPool,
+            ProcessingProgress processingProgress)
         {
             _gameplayPool = gameplayPool;
             _processingProgress = processingProgress;

@@ -1,11 +1,14 @@
 using System;
 
-public class LocaleHadler
+namespace Localization
 {
-    public static event Action OnChange;
-
-    public static void Change()
+    public class LocaleHadler
     {
-        OnChange?.Invoke();
+        public static event Action OnChange;
+
+        public static void Change()
+        {
+            OnChange?.Invoke();
+        }
     }
 }

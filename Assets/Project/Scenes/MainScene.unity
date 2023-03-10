@@ -501,8 +501,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: FPS 999
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1b8f1243d2bdc0a4e96fa8015d283b25, type: 2}
+  m_sharedMaterial: {fileID: 3222933015604744047, guid: 1b8f1243d2bdc0a4e96fa8015d283b25,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -971,7 +972,7 @@ PrefabInstance:
     - target: {fileID: 9132531231077301605, guid: 7b38dec1867efe846ba00416f048ca72,
         type: 3}
       propertyPath: near clip plane
-      value: 0.1
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 9132531231077301607, guid: 7b38dec1867efe846ba00416f048ca72,
         type: 3}

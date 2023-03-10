@@ -4,6 +4,7 @@ using Zenject;
 using OS;
 using UI.Alerts;
 using UI.Gameplay;
+using UI.Gameplay.Education;
 using UI.Gameplay.Movement;
 using UI.Map;
 using UI.Map.Icons;
@@ -18,6 +19,7 @@ namespace Installers
 
         public MovementPanel MovementPanel;
         public GameplayPanel GameplayPanel;
+        public EducationPanel EducationPanel;
         public SettingsPanel SettingsPanel;
         public MapPanel MapPanel;
         public ShopPanel ShopPanel;
@@ -28,6 +30,13 @@ namespace Installers
         {
             ParentInitialize();
             MovementControllerInitialize();
+        
+            Container
+                .Bind<TeleportPanel>()
+                .FromComponentInNewPrefab(TeleportPanel)
+                .UnderTransform(_canvas.transform)
+                .AsSingle()
+                .NonLazy();
         
             Container
                 .BindInterfacesAndSelfTo<GameplayPanel>()
@@ -65,8 +74,8 @@ namespace Installers
                 .NonLazy();
         
             Container
-                .Bind<TeleportPanel>()
-                .FromComponentInNewPrefab(TeleportPanel)
+                .BindInterfacesAndSelfTo<EducationPanel>()
+                .FromComponentInNewPrefab(EducationPanel)
                 .UnderTransform(_canvas.transform)
                 .AsSingle()
                 .NonLazy();

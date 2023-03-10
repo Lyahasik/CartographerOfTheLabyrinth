@@ -4,6 +4,7 @@ using Zenject;
 using FiniteStateMachine;
 using Gameplay;
 using Gameplay.Buffs;
+using Gameplay.Education;
 using Gameplay.Items;
 using Gameplay.Player;
 using Gameplay.Progress;
@@ -64,6 +65,11 @@ namespace Installers
 
             Container
                 .BindInterfacesAndSelfTo<ProcessingProgress>()
+                .AsSingle()
+                .NonLazy();
+        
+            Container
+                .BindInterfacesAndSelfTo<EducationHandler>()
                 .AsSingle()
                 .NonLazy();
         }

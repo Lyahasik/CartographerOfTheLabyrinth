@@ -111,7 +111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 75}
   m_SizeDelta: {x: 300, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &942598028
@@ -317,8 +317,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u0422\u0435\u043B\u0435\u043F\u043E\u0440\u0442"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e34a7cbbdae829245ad8d39d323c0930, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1b8f1243d2bdc0a4e96fa8015d283b25, type: 2}
+  m_sharedMaterial: {fileID: 1267731823124003336, guid: e34a7cbbdae829245ad8d39d323c0930,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -493,7 +494,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e34a7cbbdae829245ad8d39d323c0930, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1b8f1243d2bdc0a4e96fa8015d283b25, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -920,7 +921,7 @@ MonoBehaviour:
     \u0410\u043A\u0442\u0438\u0432\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043A\u0430\u0440\u043C\u0430\u043D\u043D\u044B\u0439
     \u0442\u0435\u043B\u0435\u043F\u043E\u0440\u0442?"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e34a7cbbdae829245ad8d39d323c0930, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1b8f1243d2bdc0a4e96fa8015d283b25, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1037,6 +1038,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5612542634430227082}
   - component: {fileID: 5612542634430227085}
+  - component: {fileID: 2742882552857594408}
   m_Layer: 5
   m_Name: TeleportPanel
   m_TagString: Untagged
@@ -1087,6 +1089,17 @@ MonoBehaviour:
   _paidTeleportWindow: {fileID: 7983433068414613873}
   _paidTeleportText: {fileID: 6814374119503315074}
   _paidTeleportButtonText: {fileID: 9050518294620879867}
+--- !u!210 &2742882552857594408
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5612542634430227093}
+  m_Enabled: 1
+  m_SortingLayerID: -1952270993
+  m_SortingLayer: 2
+  m_SortingOrder: 1
 --- !u!1 &5612542635394196721
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,7 +1245,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e34a7cbbdae829245ad8d39d323c0930, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1b8f1243d2bdc0a4e96fa8015d283b25, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1581,7 +1594,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e34a7cbbdae829245ad8d39d323c0930, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1b8f1243d2bdc0a4e96fa8015d283b25, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

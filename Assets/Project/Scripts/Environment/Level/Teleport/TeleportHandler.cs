@@ -5,6 +5,7 @@ using Zenject;
 
 using Gameplay.Player;
 using FiniteStateMachine;
+using Gameplay.Education;
 using Gameplay.Progress;
 
 namespace Environment.Level.Teleport
@@ -13,6 +14,7 @@ namespace Environment.Level.Teleport
     {
         private DiContainer _container;
         private GameMashine _gameMashine;
+        private EducationHandler _educationHandler;
         private ProcessingProgress _processingProgress;
         private PlayerWatcher _playerWatcher;
         private PlayerMovement _playerMovement;
@@ -33,12 +35,14 @@ namespace Environment.Level.Teleport
         [Inject]
         public void Construct(DiContainer container,
             GameMashine gameMashine,
+            EducationHandler educationHandler,
             ProcessingProgress processingProgress,
             PlayerMovement playerMovement,
             PlayerWatcher playerWatcher)
         {
             _container = container;
             _gameMashine = gameMashine;
+            _educationHandler = educationHandler;
             _processingProgress = processingProgress;
             _playerMovement = playerMovement;
             _playerWatcher = playerWatcher;
@@ -59,6 +63,7 @@ namespace Environment.Level.Teleport
 
         public void TeleportActivate(int levelId)
         {
+            _educationHandler.ActivateLesson(LessonType.Lesson5);
             _teleportsData[levelId].IsActive = true;
             _processingProgress.ActivateTeleport(levelId);
             _isFreeTeleport = true;

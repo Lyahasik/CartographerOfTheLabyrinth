@@ -59,6 +59,53 @@ MonoBehaviour:
     m_Localized: Dil
     m_Metadata:
       m_Items: []
+  - m_Id: 390596819812352
+    m_Localized: "Tebrikler, ilk \u0131\u015F\u0131nlanma \xE7emberi etkinle\u015Ftirildi."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 122015095848960
+    m_Localized: Devam etmek
+    m_Metadata:
+      m_Items: []
+  - m_Id: 388974551105536
+    m_Localized: "Haritac\u0131 aday\u0131na ho\u015F geldiniz\r\n\r\nT\xFCm labirentin
+      bir haritas\u0131n\u0131 \xE7izmek ve oyuncu s\u0131ralamas\u0131nda y\xFCkselmek
+      i\xE7in labirenti ke\u015Ffedin.\r\n\r\nIyi oyunlar"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 389253434572800
+    m_Localized: "Karakteri W, A, S, D d\xFC\u011Fmelerine ta\u015F\u0131ma\r\nKameray\u0131
+      fare ile d\xF6nd\xFCr\xFCn"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 389497102663680
+    m_Localized: "Men\xFC simgelerinin alt\u0131nda, etkinle\u015Ftirmek i\xE7in
+      bir d\xFC\u011Fme g\xF6r\xFCnt\xFClenir"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 389834261790720
+    m_Localized: "Labirentte, labirentin ge\xE7i\u015Fini kolayla\u015Ft\u0131ran
+      ge\xE7ici yetenekler bulabilirsiniz"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 389990960988160
+    m_Localized: "- karakteri h\u0131zland\u0131r\u0131r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 390126520893440
+    m_Localized: "- g\xF6r\xFCn\xFCrl\xFC\u011F\xFC art\u0131r\u0131r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 390363448737792
+    m_Localized: "Bu bir \u0131\u015F\u0131nlanma aktivasyon ta\u015F\u0131d\u0131r.\r\nBir
+      \u0131\u015F\u0131nlanma \xE7emberi bulman\u0131z gerekiyor"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 390773148352512
+    m_Localized: "Bir daire i\xE7indeyken, etkinle\u015Ftirilmi\u015F t\xFCm \u0131\u015F\u0131nlanmalar
+      aras\u0131nda \u0131\u015F\u0131nlanabilirsiniz"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

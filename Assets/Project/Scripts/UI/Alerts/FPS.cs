@@ -1,32 +1,34 @@
-using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(TMP_Text))]
-public class FPS : MonoBehaviour
+namespace UI.Alerts
 {
-    private TMP_Text _text;
-
-    private void Awake()
+    [RequireComponent(typeof(TMP_Text))]
+    public class FPS : MonoBehaviour
     {
-        _text = GetComponent<TMP_Text>();
-    }
+        private TMP_Text _text;
 
-    private void Start()
-    {
-        StartCoroutine(UpdateFPS());
-    }
-
-    private IEnumerator UpdateFPS()
-    {
-        while (true)
+        private void Awake()
         {
-            yield return new WaitForSeconds(0.1f);
+            _text = GetComponent<TMP_Text>();
+        }
+
+        private void Start()
+        {
+            StartCoroutine(UpdateFPS());
+        }
+
+        private IEnumerator UpdateFPS()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(0.1f);
             
-            int fps = (int) (1f / Time.deltaTime);
+                int fps = (int) (1f / Time.deltaTime);
         
-            _text.text = $"FPS {fps}";
+                _text.text = $"FPS {fps}";
+            }
         }
     }
 }
