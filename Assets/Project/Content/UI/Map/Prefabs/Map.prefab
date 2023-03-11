@@ -276,7 +276,7 @@ PrefabInstance:
     - target: {fileID: 405338678773258921, guid: 08d070206f88dd742b520492dd44b43e,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 405338678773258921, guid: 08d070206f88dd742b520492dd44b43e,
         type: 3}
@@ -351,7 +351,7 @@ PrefabInstance:
     - target: {fileID: 3550590381429140855, guid: 08d070206f88dd742b520492dd44b43e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08d070206f88dd742b520492dd44b43e, type: 3}

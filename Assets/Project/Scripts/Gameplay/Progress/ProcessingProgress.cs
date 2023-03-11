@@ -13,6 +13,7 @@ namespace Gameplay.Progress
         
         private const string _stringSavePlayerPosition = "PlayerPosition";
         private const string _stringSaveLessons = "Lessons";
+        private const string _stringSaveLocaleId = "LocaleId";
         
         private const string _stringSaveDoors = "Doors";
         private const string _stringSaveActivateDoors = "ActivateDoors";
@@ -24,6 +25,7 @@ namespace Gameplay.Progress
         private readonly Dictionary<ItemType, int> _notUsedItems = new ();
         
         private HashSet<int> _lessons;
+        private int _localeId;
         
         private HashSet<int> _notUsedTeleportKeys;
         private HashSet<int> _activateTeleports;
@@ -34,6 +36,7 @@ namespace Gameplay.Progress
         
         public Dictionary<ItemType, int> NotUsedItems => _notUsedItems;
         public HashSet<int> Lessons => _lessons;
+        public int LocaleId => _localeId;
         public HashSet<int> NotUsedTeleportKeys => _notUsedTeleportKeys;
         public HashSet<int> ActivateTeleports => _activateTeleports;
 
@@ -85,6 +88,11 @@ namespace Gameplay.Progress
             }
             
             _lessons = JsonConvert.DeserializeObject<HashSet<int>>(PlayerPrefs.GetString(_stringSaveLessons));
+            
+            string localeId = PlayerPrefs.GetString(_stringSaveLocaleId);
+            if (localeId == string.Empty)
+                localeId = "0";
+            _localeId = JsonConvert.DeserializeObject<int>(localeId);
 
             _notUsedTeleportKeys = JsonConvert.DeserializeObject<HashSet<int>>(PlayerPrefs.GetString(_stringSaveNotUsedTeleportKeys));
             _activateTeleports = JsonConvert.DeserializeObject<HashSet<int>>(PlayerPrefs.GetString(_stringSaveActivateTeleports));
@@ -199,6 +207,13 @@ namespace Gameplay.Progress
         {
             string json = JsonConvert.SerializeObject(_lessons, new JsonSerializerSettings());
             PlayerPrefs.SetString(_stringSaveLessons, json);
+        }
+
+        public void SaveLocaleId(int id)
+        {
+            _localeId = id;
+            string json = JsonConvert.SerializeObject(id, new JsonSerializerSettings());
+            PlayerPrefs.SetString(_stringSaveLocaleId, json);
         }
 
         public void SaveLiftedItems(ItemType type)

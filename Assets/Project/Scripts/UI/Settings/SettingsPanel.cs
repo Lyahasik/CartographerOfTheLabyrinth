@@ -1,9 +1,8 @@
-using Audio;
-using TMPro;
 using UnityEngine;
 using Zenject;
 
 using FiniteStateMachine;
+using Audio;
 
 namespace UI.Settings
 {

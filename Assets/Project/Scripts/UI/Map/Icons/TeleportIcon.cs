@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using Zenject;
 
 using Environment.Level.Teleport;
 using UI.Alerts;
-using UnityEngine.EventSystems;
 
 namespace UI.Map.Icons
 {
@@ -49,7 +49,8 @@ namespace UI.Map.Icons
             _initialSize = _rectTransform.sizeDelta;
         
             _rectTransform.localPosition = _initialPosition * _settings.PixelsPerUnit;
-            _image.color = _teleportHandler.TeleportIsActive(_levelId) ? Color.blue : Color.gray;
+            if (_teleportHandler.TeleportIsActive(_levelId))
+                _image.color =  Color.blue;
         }
     
         private void OnDisable()

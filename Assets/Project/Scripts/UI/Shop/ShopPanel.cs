@@ -4,6 +4,7 @@ using Zenject;
 using FiniteStateMachine;
 using Gameplay.Items;
 using Gameplay.Player;
+using Gameplay.Progress;
 
 namespace UI.Shop
 {
@@ -11,13 +12,18 @@ namespace UI.Shop
     {
         private DiContainer _container;
         private GameMashine _gameMashine;
+        private ProcessingProgress _processingProgress;
         private PlayerInventory _playerInventory;
 
         [Inject]
-        public void Construct(DiContainer container, GameMashine gameMashine, PlayerInventory playerInventory)
+        public void Construct(DiContainer container,
+            GameMashine gameMashine,
+            ProcessingProgress processingProgress,
+            PlayerInventory playerInventory)
         {
             _container = container;
             _gameMashine = gameMashine;
+            _processingProgress = processingProgress;
             _playerInventory = playerInventory;
         }
     
@@ -34,11 +40,13 @@ namespace UI.Shop
         public void BuySpeedBuff(int number)
         {
             _playerInventory.AddItem(ItemType.SpeedBuff, number);
+            _processingProgress.SaveNotUsedItems(ItemType.SpeedBuff);
         }
 
         public void BuyVisibilityBuff(int number)
         {
             _playerInventory.AddItem(ItemType.VisibilityRangeBuff, number);
+            _processingProgress.SaveNotUsedItems(ItemType.VisibilityRangeBuff);
         }
 
         public void FreeSpeedBuff()

@@ -1,9 +1,12 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using Zenject;
 
 using FiniteStateMachine;
 using Gameplay.Buffs;
 using Gameplay.Player;
+using Gameplay.Progress;
 
 namespace UI.Gameplay
 {
@@ -11,6 +14,7 @@ namespace UI.Gameplay
     {
         private DiContainer _container;
         private GameMashine _gameMashine;
+        private ProcessingProgress _processingProgress;
         private BuffsHandler _buffsHandler;
         private PlayerInventory _playerInventory;
         
@@ -25,13 +29,22 @@ namespace UI.Gameplay
         [Inject]
         public void Construct(DiContainer container,
             GameMashine gameMashine,
+            ProcessingProgress processingProgress,
             BuffsHandler buffsHandler,
             PlayerInventory playerInventory)
         {
             _container = container;
             _gameMashine = gameMashine;
+            _processingProgress = processingProgress;
             _buffsHandler = buffsHandler;
             _playerInventory = playerInventory;
+        }
+        
+        IEnumerator Start()
+        {
+            yield return LocalizationSettings.InitializationOperation;
+            
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[_processingProgress.LocaleId];
         }
 
         public void Initialize()
@@ -43,8 +56,7 @@ namespace UI.Gameplay
             _iconSpeedBuff.Init(_buffsHandler, _playerInventory);
             _iconVisibilityRangeUpBuff.Init(_buffsHandler, _playerInventory);
         }
-        
-        
+
         //TODO удалить
         public void ResetProgress()
         {

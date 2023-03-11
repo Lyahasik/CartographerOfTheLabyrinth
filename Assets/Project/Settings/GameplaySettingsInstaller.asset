@@ -17,7 +17,7 @@ MonoBehaviour:
     MouseSensitivity: 3.5
     ScaleBoost: 2
     TimeBoost: 5
-    FollowOffsetUp: {x: 0, y: 2, z: -2}
+    FollowOffsetUp: {x: 0, y: 2.5, z: -2.5}
     SpeedChange: 0.01
     TimeFollowOffsetUp: 5
     ItemsData:
