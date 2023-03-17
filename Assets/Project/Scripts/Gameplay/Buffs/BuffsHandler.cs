@@ -72,6 +72,7 @@ namespace Gameplay.Buffs
                 return;
 
             _playerWatcher.DeactivateRangeUp();
+            _playerMovement.Blob.DownScale();
             _isActiveVisibilityRangeBuff = false;
         }
 
@@ -103,6 +104,7 @@ namespace Gameplay.Buffs
             if (!_isActiveVisibilityRangeBuff)
             {
                 _playerWatcher.ActivateRangeUp();
+                _playerMovement.Blob.UpScale();
                 _playerInventory.UseItem(ItemType.VisibilityRangeBuff);
                 AudioHandler.ActivateClip(_visibilityRadngeUpClipName);
 

@@ -4,6 +4,7 @@ using Zenject;
 using Environment;
 using Gameplay.Progress;
 using Audio;
+using Gameplay.FogOfWar;
 
 namespace Gameplay.Player
 {
@@ -23,6 +24,8 @@ namespace Gameplay.Player
         private CharacterController _characterController;
         private Animator _animator;
         
+        [SerializeField] private Blob _blob;
+        
         [SerializeField] private float _speedMove;
         [SerializeField] private float _speedTurn;
         private float _scaleSpeed = _baseScale;
@@ -31,6 +34,8 @@ namespace Gameplay.Player
 
         private bool _isFreeze;
         private float _nextSaveTime;
+
+        public Blob Blob => _blob;
 
         public bool IsFreeze
         {
