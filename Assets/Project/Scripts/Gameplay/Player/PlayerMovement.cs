@@ -3,6 +3,7 @@ using Zenject;
 
 using Environment;
 using Gameplay.Progress;
+using Audio;
 
 namespace Gameplay.Player
 {
@@ -10,8 +11,10 @@ namespace Gameplay.Player
     [RequireComponent(typeof(Animator))]
     public class PlayerMovement : MonoBehaviour, IInitializable
     {
-        private readonly int _walkingId = Animator.StringToHash("Walking");
         private const float _baseScale = 1f;
+        private const string _stepClipName = "Step";
+        
+        private readonly int _walkingId = Animator.StringToHash("Walking");
 
         private GameplaySettings _settings;
         private ProcessingProgress _processingProgress;
@@ -78,10 +81,12 @@ namespace Gameplay.Player
             if (step == Vector3.zero)
             {
                 _animator.SetBool(_walkingId, false);
+                AudioHandler.DeactivateClip(_stepClipName);
                 return;
             }
             
             _animator.SetBool(_walkingId, true);
+            AudioHandler.ActivateClip(_stepClipName);
             
             step *= _speedMove * _scaleSpeed * Time.deltaTime;
 

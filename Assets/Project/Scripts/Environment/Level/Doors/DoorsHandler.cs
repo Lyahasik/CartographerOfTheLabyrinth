@@ -3,11 +3,14 @@ using UnityEngine;
 using Zenject;
 
 using Gameplay.Progress;
+using Audio;
 
 namespace Environment.Level.Doors
 {
     public class DoorsHandler
     {
+        private const string _cristalActivateClipName = "CristalActivate";
+        
         private ProcessingProgress _processingProgress;
 
         private DoorData[] _doors;
@@ -180,6 +183,7 @@ namespace Environment.Level.Doors
                     _powerPoints[i].IsActive = 1;
                     
                     _processingProgress.PowerPoints = _powerPoints;
+                    AudioHandler.ActivateClip(_cristalActivateClipName);
                     
                     return;
                 }

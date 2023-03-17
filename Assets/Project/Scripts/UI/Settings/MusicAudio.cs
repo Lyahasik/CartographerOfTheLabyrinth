@@ -1,5 +1,6 @@
-using Audio;
 using UnityEngine;
+
+using Audio;
 
 namespace UI.Settings
 {
@@ -10,16 +11,36 @@ namespace UI.Settings
         private void OnEnable()
         {
             AudioHandler.OnSetValueMusic += SetValue;
+            AudioHandler.OnActivateClip += TryActivateClip;
+            AudioHandler.OnDeactivateClip += TryDeactivateClip;
         }
 
         private void OnDisable()
         {
             AudioHandler.OnSetValueMusic -= SetValue;
+            AudioHandler.OnActivateClip -= TryActivateClip;
+            AudioHandler.OnDeactivateClip -= TryDeactivateClip;
         }
 
         private void SetValue(float value)
         {
             _musicSource.volume = value;
+        }
+
+        private void TryActivateClip(string name)
+        {
+            if (_musicSource.clip.name == name)
+            {
+                _musicSource.Play();
+            }
+        }
+
+        private void TryDeactivateClip(string name)
+        {
+            if (_musicSource.clip.name == name)
+            {
+                _musicSource.Pause();
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 
 using Gameplay.Player;
 using Helpers;
+using Audio;
 
 namespace Environment.Level.Doors
 {
@@ -61,9 +62,12 @@ namespace Environment.Level.Doors
                 
                 if (activation)
                     ActivationSymbol(_directionType);
-                
+
                 if (_doorsHandler.AllowActivateOpen())
+                {
                     _animator.SetTrigger(_openingId);
+                    AudioHandler.ActivateClip(_doorOpeningClipName);
+                }
                 else
                     _messagePanel.TemporarilyActivateMessage(_warningMessage);
             }

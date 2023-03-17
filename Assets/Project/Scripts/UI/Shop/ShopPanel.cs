@@ -5,11 +5,14 @@ using FiniteStateMachine;
 using Gameplay.Items;
 using Gameplay.Player;
 using Gameplay.Progress;
+using Audio;
 
 namespace UI.Shop
 {
     public class ShopPanel : MonoBehaviour
     {
+        private const string _paperClipName = "Paper";
+        
         private DiContainer _container;
         private GameMashine _gameMashine;
         private ProcessingProgress _processingProgress;
@@ -35,6 +38,7 @@ namespace UI.Shop
         public void Activate(bool value)
         {
             gameObject.SetActive(value);
+            AudioHandler.ActivateClip(_paperClipName);
         }
 
         public void BuySpeedBuff(int number)

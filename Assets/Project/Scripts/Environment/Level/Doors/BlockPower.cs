@@ -1,7 +1,8 @@
-using Gameplay.Player;
-using Helpers;
 using UnityEngine;
 using Zenject;
+
+using Gameplay.Player;
+using Helpers;
 
 namespace Environment.Level.Doors
 {

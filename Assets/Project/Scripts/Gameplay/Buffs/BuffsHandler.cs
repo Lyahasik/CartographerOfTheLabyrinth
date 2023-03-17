@@ -3,11 +3,15 @@ using Zenject;
 
 using Gameplay.Items;
 using Gameplay.Player;
+using Audio;
 
 namespace Gameplay.Buffs
 {
     public class BuffsHandler : ITickable
     {
+        private const string _visibilityRadngeUpClipName = "VisibilityRangeUp";
+        private const string _speedUpClipName = "SpeedUp";
+        
         private GameplaySettings _settings;
         private PlayerInventory _playerInventory;
         private PlayerMovement _playerMovement;
@@ -100,6 +104,7 @@ namespace Gameplay.Buffs
             {
                 _playerWatcher.ActivateRangeUp();
                 _playerInventory.UseItem(ItemType.VisibilityRangeBuff);
+                AudioHandler.ActivateClip(_visibilityRadngeUpClipName);
 
                 _isActiveVisibilityRangeBuff = true;
                 _elapsedTimeVisibilityRangeBuff = 0f;
@@ -115,6 +120,7 @@ namespace Gameplay.Buffs
             {
                 _playerMovement.ActivateBoost();
                 _playerInventory.UseItem(ItemType.SpeedBuff);
+                AudioHandler.ActivateClip(_speedUpClipName);
 
                 _isActiveSpeedBuff = true;
                 _elapsedTimeSpeedBuff = 0f;

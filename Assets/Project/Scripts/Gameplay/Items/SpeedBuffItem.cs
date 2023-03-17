@@ -2,6 +2,7 @@ using UnityEngine;
 
 using Gameplay.Player;
 using Gameplay.Education;
+using Audio;
 
 namespace Gameplay.Items
 {
@@ -18,6 +19,8 @@ namespace Gameplay.Items
             {
                 _educationHandler.ActivateLesson(LessonType.Lesson3);
                 PlayerInventory.AddItem(Type);
+                AudioHandler.ActivateClip(_pickClipName);
+                
                 ProcessingProgress.PickItem(Type, transform.position.GetHashCode());
                 GameplayHandler.ClearItemLevel(this);
             }

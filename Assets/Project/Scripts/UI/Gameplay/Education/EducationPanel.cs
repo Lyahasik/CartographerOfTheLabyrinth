@@ -1,14 +1,17 @@
-using OS;
 using UnityEngine;
 using Zenject;
 
 using FiniteStateMachine;
 using Gameplay.Education;
+using Audio;
+using OS;
 
 namespace UI.Gameplay.Education
 {
     public class EducationPanel : MonoBehaviour
     {
+        private const string _paperClipName = "Paper";
+        
         private DiContainer _container;
         private GameMashine _gameMashine;
     
@@ -34,6 +37,7 @@ namespace UI.Gameplay.Education
             _currentId = id;
         
             _lessonWindows[_currentId].SetActive(true);
+            AudioHandler.ActivateClip(_paperClipName);
         }
 
         public void DeactivateLesson()
@@ -53,6 +57,7 @@ namespace UI.Gameplay.Education
             }
         
             _gameMashine.Enter(_container.Instantiate<PlayingState>());
+            AudioHandler.ActivateClip(_paperClipName);
         }
     }
 }

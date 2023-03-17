@@ -13,9 +13,10 @@ namespace Environment.Level.Doors
     [RequireComponent(typeof(Animator))]
     public class Door : MonoBehaviour
     {
-        private LocalizedString _localizedString;
-        
+        protected const string _doorOpeningClipName = "DoorOpening";
         protected readonly int _openingId = Animator.StringToHash("Opening");
+        
+        private LocalizedString _localizedString;
 
         protected DoorsHandler _doorsHandler;
         protected PlayerInventory _playerInventory;

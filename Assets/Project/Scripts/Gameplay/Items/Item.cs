@@ -10,6 +10,8 @@ namespace Gameplay.Items
 {
     public class Item : MonoBehaviour
     {
+        protected const string _pickClipName = "Pick";
+        
         protected EducationHandler _educationHandler;
         protected PlayerInventory PlayerInventory;
         protected GameplayHandler GameplayHandler;

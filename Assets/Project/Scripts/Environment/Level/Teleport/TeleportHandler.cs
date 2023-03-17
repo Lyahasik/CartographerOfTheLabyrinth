@@ -7,11 +7,14 @@ using Gameplay.Player;
 using FiniteStateMachine;
 using Gameplay.Education;
 using Gameplay.Progress;
+using Audio;
 
 namespace Environment.Level.Teleport
 {
     public class TeleportHandler
     {
+        private const string _teleportClipName = "Teleport";
+        
         private DiContainer _container;
         private GameMashine _gameMashine;
         private EducationHandler _educationHandler;
@@ -65,6 +68,8 @@ namespace Environment.Level.Teleport
         {
             _educationHandler.ActivateLesson(LessonType.Lesson5);
             _teleportsData[levelId].IsActive = true;
+            AudioHandler.ActivateClip(_teleportClipName);
+
             _processingProgress.ActivateTeleport(levelId);
             _isFreeTeleport = true;
             OnActivate?.Invoke(levelId);
@@ -86,6 +91,7 @@ namespace Environment.Level.Teleport
             _playerWatcher.ResetPosition();
             
             _gameMashine.Enter(_container.Instantiate<PlayingState>());
+            AudioHandler.ActivateClip(_teleportClipName);
         }
     }
 }

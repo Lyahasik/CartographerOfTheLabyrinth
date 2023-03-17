@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using Gameplay.Player;
+using Audio;
 
 namespace Gameplay.Items
 {
@@ -16,6 +17,8 @@ namespace Gameplay.Items
             if (other.GetComponent<PlayerMovement>())
             {
                 PlayerInventory.AddItem(Type);
+                AudioHandler.ActivateClip(_pickClipName);
+                
                 ProcessingProgress.PickItem(Type, transform.position.GetHashCode());
                 GameplayHandler.ClearItemLevel(this);
             }

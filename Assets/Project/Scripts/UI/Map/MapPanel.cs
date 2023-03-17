@@ -2,11 +2,14 @@ using UnityEngine;
 using Zenject;
 
 using FiniteStateMachine;
+using Audio;
 
 namespace UI.Map
 {
     public class MapPanel : MonoBehaviour
     {
+        private const string _paperClipName = "Paper";
+        
         private DiContainer _container;
         private GameMashine _gameMashine;
 
@@ -25,6 +28,7 @@ namespace UI.Map
         public void Activate(bool value)
         {
             gameObject.SetActive(value);
+            AudioHandler.ActivateClip(_paperClipName);
         }
     }
 }

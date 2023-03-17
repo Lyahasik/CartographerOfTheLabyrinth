@@ -2,6 +2,7 @@ using UnityEngine;
 
 using Gameplay.Items;
 using Gameplay.Player;
+using Audio;
 
 namespace Environment.Level.Doors
 {
@@ -26,6 +27,7 @@ namespace Environment.Level.Doors
                     _key.SetActive(true);
                     _doorsHandler.OpenDoor(transform.position);
                     _animator.SetTrigger(_openingId);
+                    AudioHandler.ActivateClip(_doorOpeningClipName);
                     _playerInventory.UseItem(ItemType.DoorKey);
                 }
                 else

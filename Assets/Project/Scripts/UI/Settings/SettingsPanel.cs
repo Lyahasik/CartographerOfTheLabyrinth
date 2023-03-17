@@ -8,6 +8,8 @@ namespace UI.Settings
 {
     public class SettingsPanel : MonoBehaviour
     {
+        private const string _paperClipName = "Paper";
+        
         private DiContainer _container;
         private GameMashine _gameMashine;
 
@@ -26,6 +28,7 @@ namespace UI.Settings
         public void Activate(bool value)
         {
             gameObject.SetActive(value);
+            AudioHandler.ActivateClip(_paperClipName);
         }
 
         public void SetValueMusic(float value)
