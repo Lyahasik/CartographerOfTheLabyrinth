@@ -223,6 +223,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FogOfWar
       objectReference: {fileID: 0}
+    - target: {fileID: 1126764115503717343, guid: f5c7b2e32b3e8454e824fa070c0aa514,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5c7b2e32b3e8454e824fa070c0aa514, type: 3}
 --- !u!224 &7036294662655962532 stripped
@@ -276,12 +281,12 @@ PrefabInstance:
     - target: {fileID: 405338678773258921, guid: 08d070206f88dd742b520492dd44b43e,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 405338678773258921, guid: 08d070206f88dd742b520492dd44b43e,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 405338678773258921, guid: 08d070206f88dd742b520492dd44b43e,
         type: 3}
