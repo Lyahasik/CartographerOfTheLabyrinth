@@ -15,7 +15,8 @@ namespace Environment
 
         [Header("Materials")]
         public List<int> MaterialRanges;
-        public List<Material> Materials;
+        public List<Material> MaterialsSide;
+        public List<Material> MaterialsTop;
 
         [Header("Prefabs")]
         public List<EnvironmentPrefabData> BlocksData;

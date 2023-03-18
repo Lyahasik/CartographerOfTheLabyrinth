@@ -11,9 +11,11 @@ namespace Environment.Level.Blocks
 
         public EnvironmentObjectType Type => _type;
 
-        public Material Material
+        public void UpdateMaterials(Material side, Material top)
         {
-            set => _meshRenderer.material = value;
+            Material[] newMaterials = { side, top };
+
+            _meshRenderer.materials = newMaterials;
         }
 
         private void Awake()
