@@ -1,19 +1,23 @@
 using System;
 using System.Collections.Generic;
+using Audio;
 using Newtonsoft.Json;
 using UnityEngine;
 
 using Gameplay.Items;
+using Zenject;
 
 namespace Gameplay.Progress
 {
-    public class ProcessingProgress
+    public class ProcessingProgress : IInitializable
     {
         private const string _preStringNotUsed = "NotUsed";
         
         private const string _stringSavePlayerPosition = "PlayerPosition";
         private const string _stringSaveLessons = "Lessons";
         private const string _stringSaveLocaleId = "LocaleId";
+        private const string _stringSaveMusicValue = "MusicValue";
+        private const string _stringSaveSoundsValue = "SoundsValue";
         
         private const string _stringSaveDoors = "Doors";
         private const string _stringSaveActivateDoors = "ActivateDoors";
@@ -26,6 +30,8 @@ namespace Gameplay.Progress
         
         private HashSet<int> _lessons;
         private int _localeId;
+        private float _soundsValue;
+        private float _musicValue;
         
         private HashSet<int> _notUsedTeleportKeys;
         private HashSet<int> _activateTeleports;
@@ -37,6 +43,8 @@ namespace Gameplay.Progress
         public Dictionary<ItemType, int> NotUsedItems => _notUsedItems;
         public HashSet<int> Lessons => _lessons;
         public int LocaleId => _localeId;
+        public float MusicValue => _musicValue;
+        public float SoundsValue => _soundsValue;
         public HashSet<int> NotUsedTeleportKeys => _notUsedTeleportKeys;
         public HashSet<int> ActivateTeleports => _activateTeleports;
 
@@ -72,10 +80,15 @@ namespace Gameplay.Progress
 
         public ProcessingProgress()
         {
-            LoadData();
+            PreLoadData();
         }
 
-        private void LoadData()
+        public void Initialize()
+        {
+            PostLoadData();
+        }
+
+        private void PreLoadData()
         {
             _doors = JsonConvert.DeserializeObject<DoorData[]>(PlayerPrefs.GetString(_stringSaveDoors));
             _activateDoors = JsonConvert.DeserializeObject<ActivateDoorData[]>(PlayerPrefs.GetString(_stringSaveActivateDoors));
@@ -89,15 +102,31 @@ namespace Gameplay.Progress
             
             _lessons = JsonConvert.DeserializeObject<HashSet<int>>(PlayerPrefs.GetString(_stringSaveLessons));
             
-            string localeId = PlayerPrefs.GetString(_stringSaveLocaleId);
-            if (localeId == string.Empty)
-                localeId = "0";
-            _localeId = JsonConvert.DeserializeObject<int>(localeId);
+            _localeId = ProcessingValue(_stringSaveLocaleId, 0);
 
             _notUsedTeleportKeys = JsonConvert.DeserializeObject<HashSet<int>>(PlayerPrefs.GetString(_stringSaveNotUsedTeleportKeys));
             _activateTeleports = JsonConvert.DeserializeObject<HashSet<int>>(PlayerPrefs.GetString(_stringSaveActivateTeleports));
             
             IntegrityCheck();
+        }
+
+        private void PostLoadData()
+        {
+            _musicValue = ProcessingValue(_stringSaveMusicValue, 1f);
+            AudioHandler.SetValueMusic(_musicValue);
+            
+            _soundsValue = ProcessingValue(_stringSaveSoundsValue, 1f);
+            AudioHandler.SetValueSounds(_soundsValue);
+        }
+
+        private T ProcessingValue<T>(string key, T baseValue)
+        {
+            string localeId = PlayerPrefs.GetString(key);
+            
+            if (localeId == string.Empty)
+                return baseValue;
+            
+            return JsonConvert.DeserializeObject<T>(localeId);
         }
 
         private void IntegrityCheck()
@@ -212,8 +241,22 @@ namespace Gameplay.Progress
         public void SaveLocaleId(int id)
         {
             _localeId = id;
-            string json = JsonConvert.SerializeObject(id, new JsonSerializerSettings());
+            string json = JsonConvert.SerializeObject(_localeId, new JsonSerializerSettings());
             PlayerPrefs.SetString(_stringSaveLocaleId, json);
+        }
+
+        public void SaveMusicValue(float value)
+        {
+            _musicValue = value;
+            string json = JsonConvert.SerializeObject(_musicValue, new JsonSerializerSettings());
+            PlayerPrefs.SetString(_stringSaveMusicValue, json);
+        }
+
+        public void SaveSoundsValue(float value)
+        {
+            _soundsValue = value;
+            string json = JsonConvert.SerializeObject(_soundsValue, new JsonSerializerSettings());
+            PlayerPrefs.SetString(_stringSaveSoundsValue, json);
         }
 
         public void SaveLiftedItems(ItemType type)
