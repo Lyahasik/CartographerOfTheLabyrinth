@@ -36,7 +36,7 @@ namespace Environment.Level.Teleport
             _teleportPanel = teleportPanel;
         }
 
-        private void Start()
+        private void Awake()
         {
             _baseColor = _mesh.material.color;
         }
