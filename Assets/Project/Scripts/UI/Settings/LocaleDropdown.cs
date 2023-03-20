@@ -44,6 +44,7 @@ namespace UI.Settings
             _dropdown.options = options;
 
             _dropdown.value = selected;
+            LocaleSelected(selected);
             _dropdown.onValueChanged.AddListener(LocaleSelected);
         }
 
