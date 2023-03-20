@@ -1,10 +1,15 @@
 using System;
 using UnityEngine;
+using Zenject;
+
+using Gameplay.Progress;
 
 namespace Gameplay.FogOfWar
 {
     public class FogOfWar : MonoBehaviour
     {
+        private ProcessingProgress _processingProgress;
+        
         [SerializeField] private RenderTexture _renderTexture;
 
         private Texture2D _progressFogTexture;
@@ -12,6 +17,14 @@ namespace Gameplay.FogOfWar
 
         private float _delayUpdate = 3f;
         private float _nextUpdateTime;
+
+        public static Action<float> OnProgressPercentage;
+
+        [Inject]
+        public void Construct(ProcessingProgress processingProgress)
+        {
+            _processingProgress = processingProgress;
+        }
 
         private void Start()
         {
@@ -29,8 +42,8 @@ namespace Gameplay.FogOfWar
         private void LoadFog()
         {
             Texture2D texture = new Texture2D(_renderTexture.width, _renderTexture.height);
-        
-            string stringFog = PlayerPrefs.GetString("Fog");
+
+            string stringFog = _processingProgress.StringFog;
 
             if (stringFog == string.Empty)
                 return;
@@ -54,18 +67,27 @@ namespace Gameplay.FogOfWar
             _progressFogTexture.Apply();
             
             RenderTexture.active = currentRT;
-        
-            SaveFog();
+
+            CalculateProgress();
+            _processingProgress.SaveFog(_progressFogTexture);
 
             _nextUpdateTime = Time.time + _delayUpdate;
         }
 
-        private void SaveFog()
+        private void CalculateProgress()
         {
-            byte[] bytes = _progressFogTexture.EncodeToPNG();
-            string stringFog = Convert.ToBase64String(bytes);
-        
-            PlayerPrefs.SetString("Fog", stringFog);
+            int openPixels = 0;
+            Color[] pixels = _progressFogTexture.GetPixels();
+
+            foreach (Color pixel in pixels)
+            {
+                if (pixel.r > 0f)
+                    openPixels++;
+            }
+
+            float progressPercentage = openPixels / (float) pixels.Length * 100f;
+            //TODO сохранить в таблицу лидеров
+            OnProgressPercentage?.Invoke(progressPercentage);
         }
     }
 }

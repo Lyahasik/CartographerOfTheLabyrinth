@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Audio;
 using Newtonsoft.Json;
 using UnityEngine;
+using Zenject;
 
 using Gameplay.Items;
-using Zenject;
+using Audio;
 
 namespace Gameplay.Progress
 {
@@ -24,6 +24,8 @@ namespace Gameplay.Progress
         private const string _stringSavePowerPoints = "PowerPoints";
         private const string _stringSaveNotUsedTeleportKeys = "NotUsedTeleportKeys";
         private const string _stringSaveActivateTeleports = "ActivateTeleports";
+        
+        private const string _stringSaveFog = "Fog";
 
         private readonly Dictionary<ItemType, HashSet<int>> _liftedItems = new ();
         private readonly Dictionary<ItemType, int> _notUsedItems = new ();
@@ -35,6 +37,8 @@ namespace Gameplay.Progress
         
         private HashSet<int> _notUsedTeleportKeys;
         private HashSet<int> _activateTeleports;
+
+        private string _stringFog;
         
         private DoorData[] _doors;
         private ActivateDoorData[] _activateDoors;
@@ -77,6 +81,8 @@ namespace Gameplay.Progress
                 SavePowerPoints();
             }
         }
+        
+        public string StringFog => _stringFog;
 
         public ProcessingProgress()
         {
@@ -106,6 +112,8 @@ namespace Gameplay.Progress
 
             _notUsedTeleportKeys = JsonConvert.DeserializeObject<HashSet<int>>(PlayerPrefs.GetString(_stringSaveNotUsedTeleportKeys));
             _activateTeleports = JsonConvert.DeserializeObject<HashSet<int>>(PlayerPrefs.GetString(_stringSaveActivateTeleports));
+            
+            _stringFog = PlayerPrefs.GetString(_stringSaveFog);
             
             IntegrityCheck();
         }
@@ -274,6 +282,14 @@ namespace Gameplay.Progress
         {
             string json = JsonConvert.SerializeObject(_notUsedTeleportKeys, new JsonSerializerSettings());
             PlayerPrefs.SetString(_stringSaveNotUsedTeleportKeys, json);
+        }
+
+        public void SaveFog(Texture2D progressFogTexture)
+        {
+            byte[] bytes = progressFogTexture.EncodeToPNG();
+            string stringFog = Convert.ToBase64String(bytes);
+            
+            PlayerPrefs.SetString(_stringSaveFog, stringFog);
         }
     }
 }

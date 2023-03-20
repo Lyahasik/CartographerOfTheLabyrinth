@@ -69,15 +69,13 @@ MonoBehaviour:
   - m_Id: 388974551105536
     m_Localized: 'Welcome aspiring cartographer
 
-      
 
-      Explore the maze
-      to draw a map of the entire maze and climb the player rankings
 
-      
+      Explore the maze to draw
+      a map of the entire maze and climb the player rankings.
 
-      Have
-      a good game'
+      The map icon
+      shows % of explored area'
     m_Metadata:
       m_Items: []
   - m_Id: 389253434572800

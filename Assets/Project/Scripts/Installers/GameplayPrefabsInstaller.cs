@@ -5,6 +5,7 @@ using FiniteStateMachine;
 using Gameplay;
 using Gameplay.Buffs;
 using Gameplay.Education;
+using Gameplay.FogOfWar;
 using Gameplay.Items;
 using Gameplay.Player;
 using Gameplay.Progress;
@@ -18,6 +19,7 @@ namespace Installers
     
         public PlayerMovement Player;
         public PlayerWatcher PlayerWatcher;
+        public FogOfWar FogOfWar;
     
         public override void InstallBindings()
         {
@@ -62,6 +64,13 @@ namespace Installers
             Container
                 .BindFactory<ItemType, Item, ItemFactory>()
                 .FromFactory<ItemFactory>();
+
+            Container
+                .Bind<FogOfWar>()
+                .FromComponentInNewPrefab(FogOfWar)
+                .UnderTransform(_parent.transform)
+                .AsSingle()
+                .NonLazy();
 
             Container
                 .BindInterfacesAndSelfTo<ProcessingProgress>()

@@ -70,7 +70,8 @@ MonoBehaviour:
   - m_Id: 388974551105536
     m_Localized: "Haritac\u0131 aday\u0131na ho\u015F geldiniz\r\n\r\nT\xFCm labirentin
       bir haritas\u0131n\u0131 \xE7izmek ve oyuncu s\u0131ralamas\u0131nda y\xFCkselmek
-      i\xE7in labirenti ke\u015Ffedin.\r\n\r\nIyi oyunlar"
+      i\xE7in labirenti ke\u015Ffedin.\r\nHarita simgesi, ke\u015Ffedilen alan\u0131n
+      y\xFCzdesini g\xF6sterir"
     m_Metadata:
       m_Items: []
   - m_Id: 389253434572800
