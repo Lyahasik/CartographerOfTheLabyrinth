@@ -208,17 +208,13 @@ namespace Environment.Level
         private int GetMaterialTopId(int levelNumber)
         {
             if (levelNumber <= _settings.MaterialRanges[0])
-            {
                 return 0;
-            }
-            else if (levelNumber <= _settings.MaterialRanges[2])
-            {
+                
+            if (levelNumber <= _settings.MaterialRanges[2])
                 return 1;
-            }
-            else if (levelNumber <= _settings.MaterialRanges[6])
-            {
+            
+            if (levelNumber <= _settings.MaterialRanges[6])
                 return 2;
-            }
 
             return 3;
         }
