@@ -15,9 +15,9 @@ namespace Serialization.Gameplay.Items
 
         private void Awake()
         {
-            _itemData.LevelNumber = Int32.Parse(transform.parent.name.Replace("Level", String.Empty));
-            _itemData.Type = (int) _itemType;
-            _itemData.Position = new [] {transform.position.x, transform.position.z};
+            _itemData.LN = Int32.Parse(transform.parent.name.Replace("Level", String.Empty));
+            _itemData.T = (int) _itemType;
+            _itemData.P = new [] {transform.position.x, transform.position.z};
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Serialization.Environment.Level
         private void CollectLevelData()
         {
             LevelData data = new ();
-            data.Title = gameObject.name;
+            data.T = gameObject.name;
         
             CollectBlocksData(ref data);
             CollectItemsData(ref data);
@@ -46,7 +46,7 @@ namespace Serialization.Environment.Level
                 i++;
             }
 
-            data.ObjectsData = blocksData;
+            data.OD = blocksData;
         }
 
         private void CollectItemsData(ref LevelData data)
@@ -62,7 +62,7 @@ namespace Serialization.Environment.Level
                 i++;
             }
 
-            data.ItemsData = itemsData;
+            data.ID = itemsData;
         }
     }
 }

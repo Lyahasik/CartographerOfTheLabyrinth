@@ -62,15 +62,15 @@ namespace Environment.Level
 
         private void ProcessBlockPower(in EnvironmentObjectData objectData)
         {
-            if (objectData.Type != (int) EnvironmentObjectType.BlockPower)
+            if (objectData.T != (int) EnvironmentObjectType.BlockPower)
                 return;
         
             GameObject blockPower = _container.InstantiatePrefab(_settings.BlocksData
                 .Find(prefab => prefab.EnvironmentObjectType == EnvironmentObjectType.BlockPower).BlockPrefab);
         
-            Vector3 blockPosition = new Vector3(objectData.Position[0], 0f, objectData.Position[1]);
+            Vector3 blockPosition = new Vector3(objectData.P[0], 0f, objectData.P[1]);
             blockPower.transform.position = blockPosition;
-            Quaternion blockRotation = Quaternion.Euler(0f, objectData.Rotation, 0f);
+            Quaternion blockRotation = Quaternion.Euler(0f, objectData.R, 0f);
             blockPower.transform.rotation = blockRotation;
             
             SetParent(blockPower, objectData, true);
@@ -80,10 +80,10 @@ namespace Environment.Level
         {
             GameObject door = null;
 
-            if (CheckDoorLevel(objectData.LevelNumber))
+            if (CheckDoorLevel(objectData.LN))
                 return;
             
-            if (objectData.Type == (int) EnvironmentObjectType.ActivatedDoor)
+            if (objectData.T == (int) EnvironmentObjectType.ActivatedDoor)
             {
                 if (!_doorsHandler.IsActivateDoorNeedPut())
                     return;
@@ -91,17 +91,17 @@ namespace Environment.Level
                 door = _container.InstantiatePrefab(_settings.BlocksData
                     .Find(prefab => prefab.EnvironmentObjectType == EnvironmentObjectType.ActivatedDoor).BlockPrefab);
             }
-            else if (objectData.Type == (int) EnvironmentObjectType.LockedDoor)
+            else if (objectData.T == (int) EnvironmentObjectType.LockedDoor)
             {
-                if (!_doorsHandler.IsDoorNeedPut(new Vector3(objectData.Position[0], 0f, objectData.Position[1])))
+                if (!_doorsHandler.IsDoorNeedPut(new Vector3(objectData.P[0], 0f, objectData.P[1])))
                     return;
                 
                 door = _container.InstantiatePrefab(_settings.BlocksData
                     .Find(prefab => prefab.EnvironmentObjectType == EnvironmentObjectType.LockedDoor).BlockPrefab);
             }
-            else if (objectData.Type == (int) EnvironmentObjectType.ElectricDoor)
+            else if (objectData.T == (int) EnvironmentObjectType.ElectricDoor)
             {
-                if (!_doorsHandler.IsDoorNeedPut(new Vector3(objectData.Position[0], 0f, objectData.Position[1])))
+                if (!_doorsHandler.IsDoorNeedPut(new Vector3(objectData.P[0], 0f, objectData.P[1])))
                     return;
                 
                 door = _container.InstantiatePrefab(_settings.BlocksData
@@ -112,14 +112,14 @@ namespace Environment.Level
                 return;
             }
 
-            Vector3 doorPosition = new Vector3(objectData.Position[0], 0f, objectData.Position[1]);
+            Vector3 doorPosition = new Vector3(objectData.P[0], 0f, objectData.P[1]);
             door.transform.position = doorPosition;
-            Quaternion doorRotation = Quaternion.Euler(0f, objectData.Rotation, 0f);
+            Quaternion doorRotation = Quaternion.Euler(0f, objectData.R, 0f);
             door.transform.rotation = doorRotation;
 
             SetParent(door.gameObject, objectData, true);
             
-            door.GetComponentInChildren<Door>().Init(_levels[objectData.LevelNumber]);
+            door.GetComponentInChildren<Door>().Init(_levels[objectData.LN]);
         }
 
         private bool CheckDoorLevel(int levelNumber)
@@ -132,15 +132,15 @@ namespace Environment.Level
 
         private void ProcessTeleport(ChunkData chunkData, in EnvironmentObjectData objectData)
         {
-            if (objectData.Type != (int) EnvironmentObjectType.Teleport)
+            if (objectData.T != (int) EnvironmentObjectType.Teleport)
                 return;
         
             Teleport.Teleport teleport = _teleportPool.GetTeleport();
         
-            teleport.LevelId = objectData.LevelNumber - 1;
-            Vector3 teleportPosition = new Vector3(objectData.Position[0], 0f, objectData.Position[1]);
+            teleport.LevelId = objectData.LN - 1;
+            Vector3 teleportPosition = new Vector3(objectData.P[0], 0f, objectData.P[1]);
             teleport.transform.position = teleportPosition;
-            Quaternion teleportRotation = Quaternion.Euler(0f, objectData.Rotation, 0f);
+            Quaternion teleportRotation = Quaternion.Euler(0f, objectData.R, 0f);
             teleport.transform.rotation = teleportRotation;
             teleport.UpdateActivate();
         
@@ -151,15 +151,15 @@ namespace Environment.Level
 
         private void ProcessBlock(ChunkData chunkData, in EnvironmentObjectData objectData)
         {
-            if (objectData.Type < (int) EnvironmentObjectType.Square
-                || objectData.Type >= (int) EnvironmentObjectType.Teleport)
+            if (objectData.T < (int) EnvironmentObjectType.Square
+                || objectData.T >= (int) EnvironmentObjectType.Teleport)
                 return;
         
-            Block block = _environmentPool.GetBlock((EnvironmentObjectType) objectData.Type);
+            Block block = _environmentPool.GetBlock((EnvironmentObjectType) objectData.T);
         
-            Vector3 blockPosition = new Vector3(objectData.Position[0], 0f, objectData.Position[1]);
+            Vector3 blockPosition = new Vector3(objectData.P[0], 0f, objectData.P[1]);
             block.transform.position = blockPosition;
-            Quaternion blockRotation = Quaternion.Euler(0f, objectData.Rotation, 0f);
+            Quaternion blockRotation = Quaternion.Euler(0f, objectData.R, 0f);
             block.transform.rotation = blockRotation;
 
             UpdateBlockMaterials(block, objectData);
@@ -171,20 +171,20 @@ namespace Environment.Level
 
         private void SetParent(GameObject objectChunk, in EnvironmentObjectData environmentObjectData, bool isDoor = false)
         {
-            if (!_levels.ContainsKey(environmentObjectData.LevelNumber))
+            if (!_levels.ContainsKey(environmentObjectData.LN))
             {
                 CreateLevel(in environmentObjectData);
             }
             
-            objectChunk.transform.parent = _levels[environmentObjectData.LevelNumber].transform;
-            _levels[environmentObjectData.LevelNumber].AddObject(objectChunk, isDoor);
+            objectChunk.transform.parent = _levels[environmentObjectData.LN].transform;
+            _levels[environmentObjectData.LN].AddObject(objectChunk, isDoor);
         }
 
 
         private void UpdateBlockMaterials(Block block, in EnvironmentObjectData objectData)
         {
-            int materialSideId = GetMaterialSideId(objectData.LevelNumber);
-            int materialTopId = GetMaterialTopId(objectData.LevelNumber);
+            int materialSideId = GetMaterialSideId(objectData.LN);
+            int materialTopId = GetMaterialTopId(objectData.LN);
             
             if (materialSideId <= _settings.MaterialsSide.Count)
                 block.UpdateMaterials(_settings.MaterialsSide[materialSideId], _settings.MaterialsTop[materialTopId]);
@@ -222,11 +222,11 @@ namespace Environment.Level
         private void CreateLevel(in EnvironmentObjectData environmentObjectData)
         {
             Level level = _container
-                .InstantiateComponentOnNewGameObject<Level>($"Level{environmentObjectData.LevelNumber}");
+                .InstantiateComponentOnNewGameObject<Level>($"Level{environmentObjectData.LN}");
             level.transform.parent = _parentEnvironment.transform;
-            level.Number = environmentObjectData.LevelNumber;
+            level.Number = environmentObjectData.LN;
 
-            _levels.Add(environmentObjectData.LevelNumber, level);
+            _levels.Add(environmentObjectData.LN, level);
         }
 
         private ChunkData GetChunkData(in Vector2Int chunkId)

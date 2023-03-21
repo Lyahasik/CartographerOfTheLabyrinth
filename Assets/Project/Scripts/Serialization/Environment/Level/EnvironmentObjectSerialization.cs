@@ -14,10 +14,10 @@ namespace Serialization.Environment.Level
 
         private void Awake()
         {
-            _environmentObjectData.LevelNumber = Int32.Parse(transform.parent.name.Replace("Level", String.Empty));
-            _environmentObjectData.Type = (int) _environmentObjectType;
-            _environmentObjectData.Position = new [] {transform.position.x, transform.position.z};
-            _environmentObjectData.Rotation = transform.rotation.eulerAngles.y;
+            _environmentObjectData.LN = Int32.Parse(transform.parent.name.Replace("Level", String.Empty));
+            _environmentObjectData.T = (int) _environmentObjectType;
+            _environmentObjectData.P = new [] {transform.position.x, transform.position.z};
+            _environmentObjectData.R = transform.rotation.eulerAngles.y;
         }
     }
 }

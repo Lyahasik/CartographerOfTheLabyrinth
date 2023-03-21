@@ -77,11 +77,11 @@ namespace Environment
 
             foreach (LevelData levelData in _environmentData)
             {
-                foreach (EnvironmentObjectData objectData in levelData.ObjectsData)
+                foreach (EnvironmentObjectData objectData in levelData.OD)
                 {
                     CollectTeleport(teleportsData, objectData);
             
-                    Vector2Int chunkId = TransformPositionByChunkId(objectData.Position[0], objectData.Position[1]);
+                    Vector2Int chunkId = TransformPositionByChunkId(objectData.P[0], objectData.P[1]);
 
                     _chunks[chunkId.x][chunkId.y].Add(objectData);
                 }
@@ -92,12 +92,12 @@ namespace Environment
 
         private void CollectTeleport(List<TeleportData> teleportsData, EnvironmentObjectData objectData)
         {
-            if (objectData.Type != (int) EnvironmentObjectType.Teleport)
+            if (objectData.T != (int) EnvironmentObjectType.Teleport)
                 return;
 
             TeleportData teleportData;
-            teleportData.LevelId = objectData.LevelNumber - 1;
-            teleportData.Position = new Vector2(objectData.Position[0], objectData.Position[1]);
+            teleportData.LevelId = objectData.LN - 1;
+            teleportData.Position = new Vector2(objectData.P[0], objectData.P[1]);
             teleportData.IsActive = false;
     
             teleportsData.Add(teleportData);

@@ -56,12 +56,12 @@ namespace Gameplay
             {
                 List<ItemData> items = new ();
                 
-                foreach (ItemData itemData in levelData.ItemsData)
+                foreach (ItemData itemData in levelData.ID)
                 {
                     items.Add(itemData);
                 }
 
-                int levelNumber = Int32.Parse(levelData.Title.Replace("Level", String.Empty));
+                int levelNumber = Int32.Parse(levelData.T.Replace("Level", String.Empty));
                 _itemsDataLevel.Add(levelNumber, items);
             }
         }
@@ -72,12 +72,12 @@ namespace Gameplay
         
             foreach (ItemData itemData in _itemsDataLevel[levelNumber])
             {
-                Vector3 itemPosition = new Vector3(itemData.Position[0], 0f, itemData.Position[1]);
+                Vector3 itemPosition = new Vector3(itemData.P[0], 0f, itemData.P[1]);
                 
-                if (_processingProgress.ContainsLiftedItem((ItemType) itemData.Type, itemPosition.GetHashCode()))
+                if (_processingProgress.ContainsLiftedItem((ItemType) itemData.T, itemPosition.GetHashCode()))
                     continue;
                 
-                Item item = _gameplayPool.GetItem((ItemType) itemData.Type);
+                Item item = _gameplayPool.GetItem((ItemType) itemData.T);
                 item.transform.position = itemPosition;
                 item.transform.parent = parent;
                 item.Init();

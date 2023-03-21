@@ -1,9 +1,14 @@
 namespace Gameplay.Items
 {
+    /*
+     * LN - LevelNumber
+     * T - Type
+     * P - Position
+     */
     public struct ItemData
     {
-        public int LevelNumber;
-        public int Type;
-        public float[] Position;
+        public int LN;
+        public int T;
+        public float[] P;
     }
 }

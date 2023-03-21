@@ -1,10 +1,16 @@
 namespace Environment
 {
+    /*
+     * LN - LevelNumber
+     * T - Type
+     * P - Position
+     * R - Rotation
+     */
     public struct EnvironmentObjectData
     {
-        public int LevelNumber;
-        public int Type;
-        public float[] Position;
-        public float Rotation;
+        public int LN;
+        public int T;
+        public float[] P;
+        public float R;
     }
 }
