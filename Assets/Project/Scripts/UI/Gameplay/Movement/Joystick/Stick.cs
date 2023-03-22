@@ -9,7 +9,7 @@ namespace UI.Gameplay.Movement.Joystick
 
         private float _range;
         private Vector2 _beginPosition;
-        private Vector2 _downShiftPosition;
+        private Vector2 _beginLocalPosition;
         private Vector2 _dragShiftPosition;
 
         private bool _isDrag;
@@ -20,6 +20,7 @@ namespace UI.Gameplay.Movement.Joystick
         {
             _rectTransform = GetComponent<RectTransform>();
             _beginPosition = _rectTransform.position;
+            _beginLocalPosition = _rectTransform.localPosition;
         }
 
         private void Start()
@@ -29,14 +30,15 @@ namespace UI.Gameplay.Movement.Joystick
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            _downShiftPosition = (Vector2) _rectTransform.position - eventData.position;
-        
             _isDrag = true;
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            _dragShiftPosition = eventData.position - _beginPosition + _downShiftPosition;
+            if (!_isDrag)
+                return;
+            
+            _dragShiftPosition = eventData.position - _beginPosition;
             _dragShiftPosition = Vector3.ClampMagnitude(_dragShiftPosition, _range);
 
             _rectTransform.position = _beginPosition + _dragShiftPosition;
@@ -44,7 +46,7 @@ namespace UI.Gameplay.Movement.Joystick
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            _rectTransform.position = _beginPosition;
+            _rectTransform.localPosition = _beginLocalPosition;
             _dragShiftPosition = Vector2.zero;
 
             _isDrag = false;

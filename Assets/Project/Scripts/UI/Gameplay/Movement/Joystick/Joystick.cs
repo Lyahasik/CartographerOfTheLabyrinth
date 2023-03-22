@@ -26,7 +26,7 @@ namespace UI.Gameplay.Movement.Joystick
         private void TryProcessingDrag()
         {
             if (!_stick.IsDrag)
-                return;
+                OnDrag?.Invoke(Vector2.zero);
 
             Vector2 step = _stick.GetStep();
             Vector2 stepNormalized = new Vector2(step.x / _range, step.y / _range);
