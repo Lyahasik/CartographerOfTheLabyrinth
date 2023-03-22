@@ -41,7 +41,7 @@ namespace UI.Alerts
 
         private void Start()
         {
-            transform.SetSiblingIndex(0);
+            transform.SetSiblingIndex(1);
         }
 
         public void ActivateActivationWindow(int levelId)

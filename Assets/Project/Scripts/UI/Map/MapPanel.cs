@@ -20,6 +20,11 @@ namespace UI.Map
             _gameMashine = gameMashine;
         }
 
+        private void Start()
+        {
+            transform.SetSiblingIndex(0);
+        }
+
         public void Deactivate()
         {
             _gameMashine.Enter(_container.Instantiate<PlayingState>());

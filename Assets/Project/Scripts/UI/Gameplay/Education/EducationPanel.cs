@@ -27,6 +27,11 @@ namespace UI.Gameplay.Education
             _gameMashine = gameMashine;
         }
 
+        private void Start()
+        {
+            transform.SetSiblingIndex(2);
+        }
+
         public void Activate(bool value)
         {
             gameObject.SetActive(value);

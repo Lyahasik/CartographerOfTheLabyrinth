@@ -50,7 +50,7 @@ namespace UI.Map.Icons
         
             _rectTransform.localPosition = _initialPosition * _settings.PixelsPerUnit;
             if (_teleportHandler.TeleportIsActive(_levelId))
-                _image.color =  Color.blue;
+                _image.color =  Color.yellow;
         }
     
         private void OnDisable()
