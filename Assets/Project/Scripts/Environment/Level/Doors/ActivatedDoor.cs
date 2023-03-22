@@ -1,3 +1,5 @@
+using System.Collections;
+using UnityEngine.Localization.Settings;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,8 +18,10 @@ namespace Environment.Level.Doors
         
         private DoorDirectionType _directionType;
 
-        private void Start()
+        IEnumerator Start()
         {
+            yield return LocalizationSettings.InitializationOperation;
+            
             _localeEntryKey = "ActivatedDoorMessage";
             UpdateLocale();
             

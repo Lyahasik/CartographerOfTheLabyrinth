@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 using Gameplay.Items;
 using Gameplay.Player;
@@ -12,8 +14,10 @@ namespace Environment.Level.Doors
     {
         [SerializeField] private GameObject _key;
         
-        private void Start()
+        IEnumerator Start()
         {
+            yield return LocalizationSettings.InitializationOperation;
+            
             _localeEntryKey = "LockedDoorMessage";
             UpdateLocale();
         }

@@ -46,6 +46,8 @@ namespace UI.Settings
             _dropdown.value = selected;
             LocaleSelected(selected);
             _dropdown.onValueChanged.AddListener(LocaleSelected);
+            
+            _dropdown.interactable = true;
         }
 
         void LocaleSelected(int index)

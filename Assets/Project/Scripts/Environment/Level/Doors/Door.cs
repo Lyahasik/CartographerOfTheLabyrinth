@@ -2,6 +2,7 @@ using UnityEngine;
 using Zenject;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 using Gameplay.Player;
 using Localization;
@@ -42,7 +43,7 @@ namespace Environment.Level.Doors
             _animator = GetComponent<Animator>();
         }
 
-        private void OnEnable()
+        protected void OnEnable()
         {
             LocaleHadler.OnChange += UpdateLocale;
         }
@@ -54,9 +55,20 @@ namespace Environment.Level.Doors
 
         protected void UpdateLocale()
         {
-            _warningMessage = LocalizationSettings
+            UpdateString(LocalizationSettings
                 .StringDatabase
-                .GetLocalizedString("StringTable", _localeEntryKey);
+                .GetLocalizedStringAsync("StringTable", _localeEntryKey));
+        }
+        
+        private void UpdateString(AsyncOperationHandle<string> value)
+        {
+            if (!value.IsDone)
+            {
+                value.Completed += UpdateString;
+                return;
+            }
+
+            _warningMessage = value.Result;
         }
 
         public void Init(Level level)

@@ -3608,7 +3608,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 5808677069319684574}
   m_Template: {fileID: 9021330533286378396}
   m_CaptionText: {fileID: 8416715315697370487}
@@ -3619,7 +3619,7 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: "\u0420\u0443\u0441\u0441\u043A\u0438\u0439"
+    - m_Text: Loading...
       m_Image: {fileID: 0}
     - m_Text: Option B
       m_Image: {fileID: 0}

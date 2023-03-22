@@ -12,11 +12,11 @@ namespace Helpers
         {
             AotHelper.EnsureType<int>();
             AotHelper.EnsureType<float>();
-            AotHelper.EnsureType<DoorData>();
-            AotHelper.EnsureType<ActivateDoorData>();
-            AotHelper.EnsureType<PowerPointData>();
         
             AotHelper.EnsureList<int>();
+            AotHelper.EnsureList<DoorData>();
+            AotHelper.EnsureList<ActivateDoorData>();
+            AotHelper.EnsureList<PowerPointData>();
         
             AotHelper.EnsureDictionary<ItemType, int>();
         }

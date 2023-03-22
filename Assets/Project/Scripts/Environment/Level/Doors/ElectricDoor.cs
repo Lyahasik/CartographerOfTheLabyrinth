@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 using Gameplay.Player;
 using Helpers;
@@ -13,8 +15,10 @@ namespace Environment.Level.Doors
         private DoorDirectionType _directionType;
         private int _numberActivePower;
 
-        private void Start()
+        IEnumerator Start()
         {
+            yield return LocalizationSettings.InitializationOperation;
+            
             _localeEntryKey = "ElectricDoorMessage";
             UpdateLocale();
             
