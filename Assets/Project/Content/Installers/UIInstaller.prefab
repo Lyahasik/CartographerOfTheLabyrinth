@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementPanel: {fileID: 9193719305229282844, guid: 88c58b4b9249a2f4cad1038e90003b05,
     type: 3}
+  MouseHandler: {fileID: 1770305199936795045, guid: 9a927e955ae75e94a8fef3448470af9a,
+    type: 3}
   GameplayPanel: {fileID: 7808481318606113571, guid: 218f6d906b96a904ca5f5ebad2c1bbd8,
     type: 3}
   EducationPanel: {fileID: 3833195771548757088, guid: 6cfe24c9aa89ebb40ad62326ada7f921,

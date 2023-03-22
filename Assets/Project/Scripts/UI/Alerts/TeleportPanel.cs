@@ -13,6 +13,7 @@ namespace UI.Alerts
         private GameMashine _gameMashine;
         private GameplayHandler _gameplayHandler;
         private TeleportHandler _teleportHandler;
+        private MouseHandler _mouseHandler;
     
         [SerializeField] private GameObject _activationWindow;
         
@@ -31,12 +32,14 @@ namespace UI.Alerts
         public void Construct(DiContainer container,
             GameMashine gameMashine,
             GameplayHandler gameplayHandler,
-            TeleportHandler teleportHandler)
+            TeleportHandler teleportHandler,
+            MouseHandler mouseHandler)
         {
             _container = container;
             _gameMashine = gameMashine;
             _gameplayHandler = gameplayHandler;
             _teleportHandler = teleportHandler;
+            _mouseHandler = mouseHandler;
         }
 
         private void Start()
@@ -46,6 +49,7 @@ namespace UI.Alerts
 
         public void ActivateActivationWindow(int levelId)
         {
+            _mouseHandler.ActivateCursor();
             _activationWindow.SetActive(true);
             _levelId = levelId;
         }
@@ -53,6 +57,7 @@ namespace UI.Alerts
         public void DeactivateActivationWindow()
         {
             _activationWindow.SetActive(false);
+            _mouseHandler.DeactivateCursor();
         }
 
         public void ViewingAdsActivate()
@@ -66,22 +71,26 @@ namespace UI.Alerts
         
         public void ActivateStartTeleportWindow()
         {
+            _mouseHandler.ActivateCursor();
             _startTeleportWindow.SetActive(true);
         }
         
         public void DeactivateStartTeleportWindow()
         {
             _startTeleportWindow.SetActive(false);
+            _mouseHandler.DeactivateCursor();
         }
         
         public void ActivatePaidTeleportWindow()
         {
+            _mouseHandler.ActivateCursor();
             _paidTeleportWindow.SetActive(true);
         }
         
         public void DeactivatePaidTeleportWindow()
         {
             _paidTeleportWindow.SetActive(false);
+            _mouseHandler.DeactivateCursor();
         }
 
         public void OpenMap()

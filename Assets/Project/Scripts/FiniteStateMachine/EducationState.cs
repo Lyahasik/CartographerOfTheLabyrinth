@@ -1,4 +1,3 @@
-using UnityEngine;
 using Zenject;
 
 using UI.Gameplay.Education;
@@ -20,14 +19,6 @@ namespace FiniteStateMachine
             base.Enter(gameMashine);
         
             _educationPanel.Activate(true);
-        }
-
-        public override void HandleInput()
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                _gameMashine.ResetState();
-            }
         }
 
         public override void Exit()

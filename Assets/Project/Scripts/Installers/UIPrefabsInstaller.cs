@@ -2,6 +2,7 @@ using UnityEngine;
 using Zenject;
 
 using OS;
+using UI;
 using UI.Alerts;
 using UI.Gameplay;
 using UI.Gameplay.Education;
@@ -18,6 +19,8 @@ namespace Installers
         private GameObject _canvas;
 
         public MovementPanel MovementPanel;
+        public MouseHandler MouseHandler;
+        
         public GameplayPanel GameplayPanel;
         public EducationPanel EducationPanel;
         public SettingsPanel SettingsPanel;
@@ -30,6 +33,13 @@ namespace Installers
         {
             ParentInitialize();
             MovementControllerInitialize();
+            
+            Container
+                .Bind<MouseHandler>()
+                .FromComponentInNewPrefab(MouseHandler)
+                .UnderTransform(_canvas.transform)
+                .AsSingle()
+                .NonLazy();
         
             Container
                 .Bind<TeleportPanel>()

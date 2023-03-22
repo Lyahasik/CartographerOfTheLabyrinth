@@ -58,6 +58,13 @@ namespace UI.Gameplay
         }
 
         //TODO удалить
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+                ResetProgress();
+        }
+
         public void ResetProgress()
         {
             PlayerPrefs.DeleteAll();

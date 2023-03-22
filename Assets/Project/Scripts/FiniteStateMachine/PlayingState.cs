@@ -2,6 +2,7 @@ using UnityEngine;
 using Zenject;
 
 using Gameplay.Player;
+using UI;
 using UI.Alerts;
 using UI.Gameplay;
 
@@ -13,23 +14,27 @@ namespace FiniteStateMachine
         private TeleportPanel _teleportPanel;
         private GameplayPanel _gameplayPanel;
         private PlayerMovement _playerMovement;
+        private MouseHandler _mouseHandler;
 
         [Inject]
         public void Construct(DiContainer container,
             TeleportPanel teleportPanel,
             GameplayPanel gameplayPanel,
-            PlayerMovement playerMovement)
+            PlayerMovement playerMovement,
+            MouseHandler mouseHandler)
         {
             _container = container;
             _teleportPanel = teleportPanel;
             _gameplayPanel = gameplayPanel;
             _playerMovement = playerMovement;
+            _mouseHandler = mouseHandler;
         }
     
         public override void Enter(GameMashine gameMashine)
         {
             base.Enter(gameMashine);
         
+            _mouseHandler.DeactivateCursor();
             _playerMovement.IsFreeze = false;
             _gameplayPanel.gameObject.SetActive(true);
         }
@@ -57,6 +62,7 @@ namespace FiniteStateMachine
             _playerMovement.IsFreeze = true;
             _gameplayPanel.gameObject.SetActive(false);
             _teleportPanel.DeactivateAllWindows();
+            _mouseHandler.ActivateCursor();
         }
     }
 }
