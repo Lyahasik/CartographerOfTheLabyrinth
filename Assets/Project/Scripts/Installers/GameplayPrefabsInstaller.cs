@@ -10,6 +10,7 @@ using Gameplay.Items;
 using Gameplay.Player;
 using Gameplay.Progress;
 using OS;
+using Publish;
 
 namespace Installers
 {
@@ -20,6 +21,8 @@ namespace Installers
         public PlayerMovement Player;
         public PlayerWatcher PlayerWatcher;
         public FogOfWar FogOfWar;
+        
+        public PublishHandler PublishHandler;
     
         public override void InstallBindings()
         {
@@ -79,6 +82,13 @@ namespace Installers
         
             Container
                 .BindInterfacesAndSelfTo<EducationHandler>()
+                .AsSingle()
+                .NonLazy();
+        
+            Container
+                .BindInterfacesAndSelfTo<PublishHandler>()
+                .FromComponentInNewPrefab(PublishHandler)
+                .UnderTransform(_parent.transform)
                 .AsSingle()
                 .NonLazy();
         }

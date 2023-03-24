@@ -95,6 +95,18 @@ MonoBehaviour:
     m_Key: Lesson5
     m_Metadata:
       m_Items: []
+  - m_Id: 5026512368697344
+    m_Key: Estimate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5027036266627072
+    m_Key: IDontWant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5029131791237120
+    m_Key: RateGameWindow
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

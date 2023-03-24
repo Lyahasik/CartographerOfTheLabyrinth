@@ -86,7 +86,8 @@ namespace Gameplay.FogOfWar
             }
 
             float progressPercentage = openPixels / (float) pixels.Length * 100f;
-            //TODO сохранить в таблицу лидеров
+            
+            _processingProgress.UpdateLeaderbord((int) (progressPercentage * 100f));
             OnProgressPercentage?.Invoke(progressPercentage);
         }
     }

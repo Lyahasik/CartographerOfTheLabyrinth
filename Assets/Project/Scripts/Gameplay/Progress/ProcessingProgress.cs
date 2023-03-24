@@ -6,6 +6,7 @@ using Zenject;
 
 using Gameplay.Items;
 using Audio;
+using Publish;
 
 namespace Gameplay.Progress
 {
@@ -29,6 +30,8 @@ namespace Gameplay.Progress
 
         private readonly Dictionary<ItemType, HashSet<int>> _liftedItems = new ();
         private readonly Dictionary<ItemType, int> _notUsedItems = new ();
+
+        private PublishHandler _publishHandler;
         
         private HashSet<int> _lessons;
         private int _localeId;
@@ -87,6 +90,11 @@ namespace Gameplay.Progress
         public ProcessingProgress()
         {
             PreLoadData();
+        }
+
+        public void Construct(PublishHandler publishHandler)
+        {
+            _publishHandler = publishHandler;
         }
 
         public void Initialize()
@@ -290,6 +298,13 @@ namespace Gameplay.Progress
             string stringFog = Convert.ToBase64String(bytes);
             
             PlayerPrefs.SetString(_stringSaveFog, stringFog);
+        }
+
+        public void UpdateLeaderbord(int value)
+        {
+    #if !UNITY_EDITOR
+            _publishHandler.UpdateLeaderboard(value);
+    #endif
         }
     }
 }

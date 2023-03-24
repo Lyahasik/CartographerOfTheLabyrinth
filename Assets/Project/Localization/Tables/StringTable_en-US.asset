@@ -113,6 +113,21 @@ MonoBehaviour:
     m_Localized: While in a circle, you can teleport between all activated teleports.
     m_Metadata:
       m_Items: []
+  - m_Id: 5026512368697344
+    m_Localized: Rate game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5027036266627072
+    m_Localized: i don't want
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5029131791237120
+    m_Localized: 'Thanks for your interest in the game.
+
+      I would be grateful
+      for your rating'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -475,8 +475,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blob: {fileID: 5517271130989782795}
-  _speedMove: 20
-  _speedTurn: 150
+  _speedMove: 5
+  _speedTurn: 75
 --- !u!1 &4840013903489416874
 GameObject:
   m_ObjectHideFlags: 0

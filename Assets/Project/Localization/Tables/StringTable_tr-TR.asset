@@ -107,6 +107,19 @@ MonoBehaviour:
       aras\u0131nda \u0131\u015F\u0131nlanabilirsiniz"
     m_Metadata:
       m_Items: []
+  - m_Id: 5026512368697344
+    m_Localized: "Oyunu de\u011Ferlendir"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5027036266627072
+    m_Localized: istemiyorum
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5029131791237120
+    m_Localized: "Oyuna g\xF6sterdi\u011Finiz ilgi i\xE7in te\u015Fekk\xFCr ederiz.\r\nDerecelendirmeniz
+      i\xE7in minnettar olurum"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
