@@ -48,5 +48,7 @@ MonoBehaviour:
   PlayerWatcher: {fileID: 2666336241940882342, guid: a2c34ac9ca6b4f54faedf27accb9811a,
     type: 3}
   FogOfWar: {fileID: 2013212581, guid: 1eff2309a1b26e8408c4d3dec67611a1, type: 3}
+  ProcessingProgress: {fileID: 1332377551741315709, guid: ccaf644b97376094091291e29f1ea33c,
+    type: 3}
   PublishHandler: {fileID: 4528877181474224294, guid: e71a8528a303106419a0bcacf315ed67,
     type: 3}

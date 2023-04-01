@@ -29,6 +29,8 @@ namespace UI.Settings
 
         public void Deactivate()
         {
+            _processingProgress.MusicValue = _sliderMusic.value;
+            _processingProgress.SoundsValue = _sliderSounds.value;
             _gameMashine.Enter(_container.Instantiate<PlayingState>());
         }
         
@@ -44,13 +46,11 @@ namespace UI.Settings
         public void SetValueMusic(float value)
         {
             AudioHandler.SetValueMusic(value);
-            _processingProgress.SaveMusicValue(value);
         }
 
         public void SetValueSounds(float value)
         {
             AudioHandler.SetValueSounds(value);
-            _processingProgress.SaveSoundsValue(value);
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Gameplay.FogOfWar
 {
     public class FogOfWar : MonoBehaviour
     {
+        private GameplaySettings _gameplaySettings;
         private ProcessingProgress _processingProgress;
         
         [SerializeField] private RenderTexture _renderTexture;
@@ -15,14 +16,15 @@ namespace Gameplay.FogOfWar
         private Texture2D _progressFogTexture;
         private Rect _rectTexture;
 
-        private float _delayUpdate = 3f;
+        private bool _isLoaded;
         private float _nextUpdateTime;
 
         public static Action<float> OnProgressPercentage;
 
         [Inject]
-        public void Construct(ProcessingProgress processingProgress)
+        public void Construct(GameplaySettings gameplaySettings, ProcessingProgress processingProgress)
         {
+            _gameplaySettings = gameplaySettings;
             _processingProgress = processingProgress;
         }
 
@@ -31,7 +33,7 @@ namespace Gameplay.FogOfWar
             _progressFogTexture = new Texture2D(_renderTexture.width, _renderTexture.height);
             _rectTexture = new Rect(0, 0, _renderTexture.width, _renderTexture.height);
         
-            LoadFog();
+            // LoadFog();
         }
 
         private void Update()
@@ -39,11 +41,12 @@ namespace Gameplay.FogOfWar
             UpdateFog();
         }
 
-        private void LoadFog()
+        public void LoadFog(string stringFog)
         {
             Texture2D texture = new Texture2D(_renderTexture.width, _renderTexture.height);
+            _isLoaded = true;
 
-            string stringFog = _processingProgress.StringFog;
+            // string stringFog = _processingProgress.StringFog;
 
             if (stringFog == string.Empty)
                 return;
@@ -53,11 +56,13 @@ namespace Gameplay.FogOfWar
             texture.LoadImage(bytes);
         
             Graphics.Blit(texture, _renderTexture);
+            CalculateProgress();
         }
 
         private void UpdateFog()
         {
-            if (_nextUpdateTime > Time.time)
+            if (!_isLoaded
+                || _nextUpdateTime > Time.time)
                 return;
 
             RenderTexture currentRT = RenderTexture.active;  			
@@ -69,9 +74,12 @@ namespace Gameplay.FogOfWar
             RenderTexture.active = currentRT;
 
             CalculateProgress();
-            _processingProgress.SaveFog(_progressFogTexture);
+            // _processingProgress.SaveFog(_progressFogTexture);
+            byte[] bytes = _progressFogTexture.EncodeToPNG();
+            string stringFog = Convert.ToBase64String(bytes);
+            _processingProgress.StringFog = stringFog;
 
-            _nextUpdateTime = Time.time + _delayUpdate;
+            _nextUpdateTime = Time.time + _gameplaySettings.DelaySave;
         }
 
         private void CalculateProgress()

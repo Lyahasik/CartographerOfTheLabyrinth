@@ -2226,7 +2226,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4527001003641915966}
   - component: {fileID: 3833195771548757088}
-  - component: {fileID: 8259789162682138806}
   m_Layer: 5
   m_Name: EducationPanel
   m_TagString: Untagged
@@ -2280,17 +2279,6 @@ MonoBehaviour:
   - {fileID: 4527001001670677270}
   - {fileID: 5353263551987798099}
   - {fileID: 341462336490374722}
---- !u!210 &8259789162682138806
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4527001003641915967}
-  m_Enabled: 1
-  m_SortingLayerID: 735166785
-  m_SortingLayer: 1
-  m_SortingOrder: 0
 --- !u!1 &4815199007734509132
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,7 +22,7 @@ namespace Gameplay.Items
                 AudioHandler.ActivateClip(_pickClipName);
 
                 ProcessingProgress.PickItem(Type, transform.position.GetHashCode());
-                ProcessingProgress.PickTeleportKey();
+                ProcessingProgress.SaveProgressData();
                 GameplayHandler.ClearItemLevel(this);
             }
         }

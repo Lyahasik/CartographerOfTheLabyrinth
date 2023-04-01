@@ -7,7 +7,7 @@ using UI.Gameplay.Education;
 
 namespace Gameplay.Education
 {
-    public class EducationHandler : IInitializable
+    public class EducationHandler
     {
         private DiContainer _container;
         private GameMashine _gameMashine;
@@ -15,6 +15,15 @@ namespace Gameplay.Education
         private EducationPanel _educationPanel;
     
         private HashSet<int> _lessons;
+
+        public HashSet<int> Lessons
+        {
+            set
+            {
+                _lessons = value;
+                ActivateLesson(LessonType.Lesson0);
+            }
+        }
 
         [Inject]
         public void Construct(DiContainer container,
@@ -28,11 +37,11 @@ namespace Gameplay.Education
             _educationPanel = educationPanel;
         }
     
-        public void Initialize()
-        {
-            _lessons = _processingProgress.Lessons;
-            ActivateLesson(LessonType.Lesson0);
-        }
+        // public void Initialize()
+        // {
+        //     _lessons = _processingProgress.Lessons;
+        //     ActivateLesson(LessonType.Lesson0);
+        // }
 
         public void ActivateLesson(LessonType lessonType)
         {
@@ -45,7 +54,7 @@ namespace Gameplay.Education
             _educationPanel.ActivateLesson(id);
 
             _lessons.Add(id);
-            _processingProgress.SaveLessons();
+            _processingProgress.SaveProgressData();
         }
     }
 }

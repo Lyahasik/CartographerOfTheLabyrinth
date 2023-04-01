@@ -20,9 +20,9 @@ namespace UI.Map
             _gameMashine = gameMashine;
         }
 
-        private void Start()
+        private void Awake()
         {
-            transform.SetSiblingIndex(0);
+            transform.SetSiblingIndex(1);
         }
 
         public void Deactivate()

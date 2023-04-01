@@ -27,9 +27,9 @@ namespace UI.Gameplay.Education
             _gameMashine = gameMashine;
         }
 
-        private void Start()
+        private void Awake()
         {
-            transform.SetSiblingIndex(2);
+            transform.SetSiblingIndex(3);
         }
 
         public void Activate(bool value)

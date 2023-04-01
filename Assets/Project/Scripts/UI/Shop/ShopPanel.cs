@@ -44,13 +44,13 @@ namespace UI.Shop
         public void BuySpeedBuff(int number)
         {
             _playerInventory.AddItem(ItemType.SpeedBuff, number);
-            _processingProgress.SaveNotUsedItems(ItemType.SpeedBuff);
+            _processingProgress.SaveProgressData();
         }
 
         public void BuyVisibilityBuff(int number)
         {
             _playerInventory.AddItem(ItemType.VisibilityRangeBuff, number);
-            _processingProgress.SaveNotUsedItems(ItemType.VisibilityRangeBuff);
+            _processingProgress.SaveProgressData();
         }
 
         public void FreeSpeedBuff()

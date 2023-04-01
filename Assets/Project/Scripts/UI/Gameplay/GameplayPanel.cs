@@ -11,7 +11,7 @@ using Publish;
 
 namespace UI.Gameplay
 {
-    public class GameplayPanel : MonoBehaviour, IInitializable
+    public class GameplayPanel : MonoBehaviour
     {
         private DiContainer _container;
         private GameMashine _gameMashine;
@@ -50,14 +50,14 @@ namespace UI.Gameplay
             _mouseHandler = mouseHandler;
         }
         
-        IEnumerator Start()
+        public IEnumerator StartLocalization()
         {
             yield return LocalizationSettings.InitializationOperation;
             
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[_processingProgress.LocaleId];
         }
 
-        public void Initialize()
+        public void Init()
         {
             _iconSettings.Init(_container, _gameMashine);
             _iconMap.Init(_container, _gameMashine);

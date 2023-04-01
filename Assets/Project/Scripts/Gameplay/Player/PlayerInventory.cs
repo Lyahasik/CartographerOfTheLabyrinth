@@ -7,7 +7,7 @@ using Gameplay.Progress;
 
 namespace Gameplay.Player
 {
-    public class PlayerInventory : IInitializable
+    public class PlayerInventory
     {
         private ProcessingProgress _processingProgress;
         
@@ -22,15 +22,10 @@ namespace Gameplay.Player
             _processingProgress = processingProgress;
         }
 
-        public void Initialize()
+        public void InitItems(Dictionary<ItemType, int> notUsedItems, HashSet<int> notUsedTeleportKeys)
         {
-            InitItems();
-        }
-
-        private void InitItems()
-        {
-            _items = _processingProgress.NotUsedItems;
-            _teleportKeys = _processingProgress.NotUsedTeleportKeys;
+            _items = notUsedItems;
+            _teleportKeys = notUsedTeleportKeys;
             
             OnSetNumberItem?.Invoke(ItemType.SpeedBuff, _items[ItemType.SpeedBuff]);
             OnSetNumberItem?.Invoke(ItemType.VisibilityRangeBuff, _items[ItemType.VisibilityRangeBuff]);
@@ -48,7 +43,7 @@ namespace Gameplay.Player
             if (isContained)
             {
                 _teleportKeys.Remove(id);
-                _processingProgress.UseTeleportKey();
+                _processingProgress.SaveProgressData();
             }
 
             return isContained;
@@ -76,7 +71,7 @@ namespace Gameplay.Player
         public void UseItem(ItemType type)
         {
             _items[type]--;
-            _processingProgress.UseItem(type);
+            _processingProgress.SaveProgressData();;
             
             OnSetNumberItem?.Invoke(type, _items[type]);
         }

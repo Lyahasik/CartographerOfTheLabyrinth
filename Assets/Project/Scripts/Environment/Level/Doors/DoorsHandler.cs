@@ -27,9 +27,6 @@ namespace Environment.Level.Doors
 
         public bool IsDoorNeedPut(Vector3 position)
         {
-            if (_doors == null)
-                LoadDoors();
-
             int hash = position.GetHashCode();
 
             foreach (DoorData lockedDoorData in _doors)
@@ -45,9 +42,6 @@ namespace Environment.Level.Doors
 
         public bool IsActivateDoorNeedPut()
         {
-            if (_activateDoors == null)
-                LoadActivateDoors();
-            
             return !_isActivateDoorsOpen;
         }
 
@@ -118,21 +112,21 @@ namespace Environment.Level.Doors
             return _isActivateDoorsOpen;
         }
 
-        private void LoadDoors()
+        public void LoadDoors(DoorData[] doors)
         {
-            _doors = _processingProgress.Doors;
+            _doors = doors;
         }
 
-        private void LoadActivateDoors()
+        public void LoadActivateDoors(ActivateDoorData[] activateDoors)
         {
-            _activateDoors = _processingProgress.ActivateDoors;
+            _activateDoors = activateDoors;
 
             UpdateActivateDoorOpen();
         }
         
-        private void LoadPowerPoints()
+        public void LoadPowerPoints(PowerPointData[] powerPoints)
         {
-            _powerPoints = _processingProgress.PowerPoints;
+            _powerPoints = powerPoints;
         }
 
         private void UpdateActivateDoorOpen()
@@ -164,11 +158,6 @@ namespace Environment.Level.Doors
 
         public void ActivatePower(Vector3 position, int direction)
         {
-            if (_powerPoints == null)
-            {
-                LoadPowerPoints();
-            }
-            
             int hash = position.GetHashCode();
             
             for (int i = 0; i < _powerPoints.Length; i++)
@@ -192,11 +181,6 @@ namespace Environment.Level.Doors
 
         public bool IsActivePower(Vector3 position)
         {
-            if (_powerPoints == null)
-            {
-                LoadPowerPoints();
-            }
-            
             int hash = position.GetHashCode();
 
             foreach (PowerPointData powerPointData in _powerPoints)
@@ -210,11 +194,6 @@ namespace Environment.Level.Doors
 
         public int GetActivePowerInDirection(DoorDirectionType directionType)
         {
-            if (_powerPoints == null)
-            {
-                LoadPowerPoints();
-            }
-
             int countActivePower = 0;
 
             foreach (PowerPointData powerPointData in _powerPoints)

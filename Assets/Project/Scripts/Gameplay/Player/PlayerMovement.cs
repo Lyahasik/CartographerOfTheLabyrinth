@@ -10,7 +10,7 @@ namespace Gameplay.Player
 {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(Animator))]
-    public class PlayerMovement : MonoBehaviour, IInitializable
+    public class PlayerMovement : MonoBehaviour
     {
         private const float _baseScale = 1f;
         private const string _stepClipName = "Step";
@@ -32,7 +32,8 @@ namespace Gameplay.Player
 
         private Vector2Int _currentChunkId;
 
-        private bool _isFreeze;
+        private bool _isFreeze = true;
+        private bool _isUpdated;
         private float _nextSaveTime;
 
         public Blob Blob => _blob;
@@ -58,23 +59,25 @@ namespace Gameplay.Player
             _animator = GetComponent<Animator>();
         }
 
-        public void Initialize()
-        {
-            Vector3 position = transform.position;
-            _processingProgress.TryLoadPlayerPosition(ref position);
-            transform.position = position;
-            
-            _currentChunkId = _environmentHandler.TransformPositionByChunkId(transform.position.x, transform.position.z);
-            _environmentHandler.UpdateChunks(in _currentChunkId);
-        }
+        // public void Initialize()
+        // {
+        //     Vector3 position = transform.position;
+        //     _processingProgress.TryLoadPlayerPosition(ref position);
+        //     transform.position = position;
+        //     
+        //     _currentChunkId = _environmentHandler.TransformPositionByChunkId(transform.position.x, transform.position.z);
+        //     _environmentHandler.UpdateChunks(in _currentChunkId);
+        // }
 
         private void Update()
         {
-            if (_nextSaveTime > Time.time)
+            if (!_isUpdated
+                || _nextSaveTime > Time.time)
                 return;
             
-            _processingProgress.SavePlayerPosition(transform.position);
+            _processingProgress.AxesPosition = transform.position;
             _nextSaveTime = Time.time + _settings.DelaySave;
+            _isUpdated = false;
         }
 
         public void TakeStepMove(Vector2 stepMove)
@@ -90,6 +93,7 @@ namespace Gameplay.Player
                 return;
             }
             
+            _isUpdated = true;
             _animator.SetBool(_walkingId, true);
             AudioHandler.ActivateClip(_stepClipName);
             
@@ -104,11 +108,13 @@ namespace Gameplay.Player
 
         public void SetPosition(Vector3 newPosition)
         {
+            _isFreeze = false;
+            _isUpdated = true;
             _characterController.enabled = false;
-        
-            transform.position = newPosition;
-            _processingProgress.SavePlayerPosition(transform.position);
-        
+
+            if (newPosition != Vector3.zero)
+                transform.position = newPosition;
+
             _characterController.enabled = true;
         
             UpdateChunkId();

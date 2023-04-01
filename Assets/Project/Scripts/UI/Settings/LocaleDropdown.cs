@@ -52,7 +52,7 @@ namespace UI.Settings
 
         void LocaleSelected(int index)
         {
-            _processingProgress.SaveLocaleId(index);
+            _processingProgress.LocaleId = index;
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
             LocaleHadler.Change();
         }

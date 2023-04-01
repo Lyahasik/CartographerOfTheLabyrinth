@@ -9,7 +9,7 @@ using Environment.Level.Teleport;
 
 namespace Environment
 {
-    public class EnvironmentHandler : IInitializable
+    public class EnvironmentHandler
     {
         private const string _fullFileName = "EnvironmentData";
 
@@ -33,7 +33,7 @@ namespace Environment
             _teleportHandler = teleportHandler;
         }
 
-        public void Initialize()
+        public void InitEnvironment()
         {
             _halfNumberBlocksX = _settings.SizeChunk * _settings.CountChunksX / 2;
             _halfNumberBlocksZ = _settings.SizeChunk * _settings.CountChunksX / 2;

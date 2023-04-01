@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Newtonsoft.Json.Utilities;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ namespace Helpers
             AotHelper.EnsureList<ActivateDoorData>();
             AotHelper.EnsureList<PowerPointData>();
         
+            AotHelper.EnsureDictionary<ItemType, HashSet<int>>();
             AotHelper.EnsureDictionary<ItemType, int>();
         }
     }

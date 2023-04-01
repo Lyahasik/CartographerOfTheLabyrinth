@@ -42,9 +42,9 @@ namespace UI.Alerts
             _mouseHandler = mouseHandler;
         }
 
-        private void Start()
+        private void Awake()
         {
-            transform.SetSiblingIndex(1);
+            transform.SetSiblingIndex(2);
         }
 
         public void ActivateActivationWindow(int levelId)
