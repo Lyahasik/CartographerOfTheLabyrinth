@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using Gameplay.Progress;
-using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Publish
@@ -74,10 +71,6 @@ namespace Publish
         public void StartLoadData()
         {
             LoadDataExtern();
-            // ProcessingProgress.SettingsGameplay settingsGameplay = new ProcessingProgress.SettingsGameplay();
-            // settingsGameplay.Lessons = new HashSet<int> {3};
-            // string json = JsonConvert.SerializeObject(settingsGameplay, new JsonSerializerSettings());
-            // LoadData(json);
         }
 
         public void LoadData(string json)

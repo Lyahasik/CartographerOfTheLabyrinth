@@ -36,12 +36,6 @@ namespace Gameplay.Education
             _processingProgress = processingProgress;
             _educationPanel = educationPanel;
         }
-    
-        // public void Initialize()
-        // {
-        //     _lessons = _processingProgress.Lessons;
-        //     ActivateLesson(LessonType.Lesson0);
-        // }
 
         public void ActivateLesson(LessonType lessonType)
         {

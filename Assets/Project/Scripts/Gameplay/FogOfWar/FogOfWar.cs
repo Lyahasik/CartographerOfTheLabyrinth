@@ -32,8 +32,6 @@ namespace Gameplay.FogOfWar
         {
             _progressFogTexture = new Texture2D(_renderTexture.width, _renderTexture.height);
             _rectTexture = new Rect(0, 0, _renderTexture.width, _renderTexture.height);
-        
-            // LoadFog();
         }
 
         private void Update()
@@ -45,8 +43,6 @@ namespace Gameplay.FogOfWar
         {
             Texture2D texture = new Texture2D(_renderTexture.width, _renderTexture.height);
             _isLoaded = true;
-
-            // string stringFog = _processingProgress.StringFog;
 
             if (stringFog == string.Empty)
                 return;
@@ -74,7 +70,6 @@ namespace Gameplay.FogOfWar
             RenderTexture.active = currentRT;
 
             CalculateProgress();
-            // _processingProgress.SaveFog(_progressFogTexture);
             byte[] bytes = _progressFogTexture.EncodeToPNG();
             string stringFog = Convert.ToBase64String(bytes);
             _processingProgress.StringFog = stringFog;

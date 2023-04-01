@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameplaySettings:
     DelaySave: 3
-    MouseSensitivity: 2
+    MouseSensitivity: 0.5
     ScaleBoost: 2
     TimeBoost: 60
     FollowOffsetUp: {x: 0, y: 2.5, z: -2.5}

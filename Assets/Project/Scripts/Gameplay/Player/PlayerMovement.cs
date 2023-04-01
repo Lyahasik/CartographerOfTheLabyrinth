@@ -59,16 +59,6 @@ namespace Gameplay.Player
             _animator = GetComponent<Animator>();
         }
 
-        // public void Initialize()
-        // {
-        //     Vector3 position = transform.position;
-        //     _processingProgress.TryLoadPlayerPosition(ref position);
-        //     transform.position = position;
-        //     
-        //     _currentChunkId = _environmentHandler.TransformPositionByChunkId(transform.position.x, transform.position.z);
-        //     _environmentHandler.UpdateChunks(in _currentChunkId);
-        // }
-
         private void Update()
         {
             if (!_isUpdated
