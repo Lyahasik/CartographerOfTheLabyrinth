@@ -27,7 +27,7 @@ namespace FiniteStateMachine
             if (Input.GetKeyDown(KeyCode.Escape)
                 || Input.GetKeyDown(KeyCode.T))
             {
-                _gameMashine.ResetState();
+                _settingsPanel.Deactivate();
             }
         }
 

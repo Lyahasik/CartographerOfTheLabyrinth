@@ -1,7 +1,19 @@
 mergeInto(LibraryManager.library, {
 
-    AdsBlock: function () {
-    // window.alert("Ads block");
+    AdsFull: function () {
+        ysdk.adv.showFullscreenAdv({
+            callbacks: {
+                onClose: function(wasShown) {
+                    myGameInstance.SendMessage('PublishHandler(Clone)', 'CloseAds', json);
+                },
+                onError: function(error) {
+                    myGameInstance.SendMessage('PublishHandler(Clone)', 'CloseAds', json);
+                },
+                onOffline: function() {
+                    myGameInstance.SendMessage('PublishHandler(Clone)', 'CloseAds', json);
+                }
+            }
+        })
     },
 
     CheckRateGame: function () {
@@ -14,18 +26,18 @@ mergeInto(LibraryManager.library, {
     },
 
     LoadDataExtern: function () {
-            player.getData().then(_data => {
-                const json = JSON.stringify(_data);
-                console.log(json);
-                myGameInstance.SendMessage('PublishHandler(Clone)', 'LoadData', json);
+        player.getData().then(_data => {
+            const json = JSON.stringify(_data);
+            console.log(json);
+            myGameInstance.SendMessage('PublishHandler(Clone)', 'LoadData', json);
         })
     },
 
     SaveDataExtern: function (data) {
-            var dataString = UTF8ToString(data);
-            var json = JSON.parse(dataString);
-            console.log(json);
-            player.setData(json);
+        var dataString = UTF8ToString(data);
+        var json = JSON.parse(dataString);
+        console.log(json);
+        player.setData(json);
     },
 
     RateGame: function () {

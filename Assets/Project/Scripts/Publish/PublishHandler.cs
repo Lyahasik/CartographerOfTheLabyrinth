@@ -7,7 +7,7 @@ namespace Publish
     public class PublishHandler : MonoBehaviour
     {
         [DllImport("__Internal")]
-        private static extern void AdsBlock();
+        private static extern void AdsFull();
         [DllImport("__Internal")]
         private static extern void LoadDataExtern();
         [DllImport("__Internal")]
@@ -47,7 +47,7 @@ namespace Publish
                 _delayRegularAdsTime = Mathf.Clamp(_delayRegularAdsTime + _magnificationNumber, 0, _maxDelayRegularAdsTime);
         
 #if !UNITY_EDITOR
-        AdsBlock();
+        AdsFull();
 #endif
 
             _nextRegularAdsTime = Time.time + _delayRegularAdsTime;
@@ -81,6 +81,11 @@ namespace Publish
         public void SaveData(string data)
         {
             SaveDataExtern(data);
+        }
+
+        public void CloseAds()
+        {
+            
         }
     }
 }

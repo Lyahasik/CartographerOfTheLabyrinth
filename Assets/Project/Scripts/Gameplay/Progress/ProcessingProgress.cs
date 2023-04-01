@@ -45,21 +45,13 @@ namespace Gameplay.Progress
         public float MusicValue
         {
             get => _progressData.MusicValue;
-            set
-            {
-                _progressData.MusicValue = value;
-                SaveProgressData();
-            }
+            set => _progressData.MusicValue = value;
         }
         
         public float SoundsValue
         {
             get => _progressData.SoundsValue;
-            set
-            {
-                _progressData.SoundsValue = value;
-                SaveProgressData();
-            }
+            set => _progressData.SoundsValue = value;
         }
         
         public DoorData[] Doors

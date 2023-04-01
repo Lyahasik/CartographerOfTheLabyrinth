@@ -29,9 +29,15 @@ namespace UI.Settings
 
         public void Deactivate()
         {
+            bool isUpdated = _processingProgress.MusicValue != _sliderMusic.value
+                             || _processingProgress.SoundsValue != _sliderSounds.value;
+
             _processingProgress.MusicValue = _sliderMusic.value;
             _processingProgress.SoundsValue = _sliderSounds.value;
             _gameMashine.Enter(_container.Instantiate<PlayingState>());
+            
+            if (isUpdated)
+                _processingProgress.SaveProgressData();
         }
         
         public void Activate(bool value)
