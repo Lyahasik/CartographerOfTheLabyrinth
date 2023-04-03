@@ -13,6 +13,7 @@ namespace UI.Settings
             AudioHandler.OnSetValueSounds += SetValue;
             AudioHandler.OnActivateClip += TryActivateClip;
             AudioHandler.OnDeactivateClip += TryDeactivateClip;
+            AudioHandler.OnDeactivateAll += DeactivateAll;
         }
 
         private void OnDisable()
@@ -20,6 +21,7 @@ namespace UI.Settings
             AudioHandler.OnSetValueSounds -= SetValue;
             AudioHandler.OnActivateClip -= TryActivateClip;
             AudioHandler.OnDeactivateClip -= TryDeactivateClip;
+            AudioHandler.OnDeactivateAll -= DeactivateAll;
         }
 
         private void SetValue(float value)
@@ -53,6 +55,14 @@ namespace UI.Settings
                     source.Stop();
                     return;
                 }
+            }
+        }
+
+        private void DeactivateAll()
+        {
+            foreach (AudioSource source in _soundsSources)
+            {
+                source.Stop();
             }
         }
     }

@@ -1,16 +1,16 @@
 mergeInto(LibraryManager.library, {
 
-    AdsFull: function () {
+    AdsFull: function (delay) {
         ysdk.adv.showFullscreenAdv({
             callbacks: {
                 onClose: function(wasShown) {
-                    myGameInstance.SendMessage('PublishHandler(Clone)', 'CloseAds', json);
+                    myGameInstance.SendMessage('PublishHandler(Clone)', 'CloseAds');
                 },
                 onError: function(error) {
-                    myGameInstance.SendMessage('PublishHandler(Clone)', 'CloseAds', json);
+                    myGameInstance.SendMessage('PublishHandler(Clone)', 'CloseAds');
                 },
                 onOffline: function() {
-                    myGameInstance.SendMessage('PublishHandler(Clone)', 'CloseAds', json);
+                    myGameInstance.SendMessage('PublishHandler(Clone)', 'CloseAds');
                 }
             }
         })

@@ -9,6 +9,7 @@ namespace Audio
         
         public static event Action<string> OnActivateClip;
         public static event Action<string> OnDeactivateClip;
+        public static event Action OnDeactivateAll;
 
         public static void SetValueMusic(float value)
         {
@@ -28,6 +29,11 @@ namespace Audio
         public static void DeactivateClip(string name)
         {
             OnDeactivateClip?.Invoke(name);
+        }
+
+        public static void DeactivateAll()
+        {
+            OnDeactivateAll?.Invoke();
         }
     }
 }
