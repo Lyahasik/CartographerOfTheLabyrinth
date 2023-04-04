@@ -69,7 +69,7 @@ namespace Gameplay.FogOfWar
             
             RenderTexture.active = currentRT;
 
-            CalculateProgress();
+            CalculateProgress(true);
             byte[] bytes = _progressFogTexture.EncodeToPNG();
             string stringFog = Convert.ToBase64String(bytes);
             _processingProgress.StringFog = stringFog;
@@ -77,7 +77,7 @@ namespace Gameplay.FogOfWar
             _nextUpdateTime = Time.time + _gameplaySettings.DelaySave;
         }
 
-        private void CalculateProgress()
+        private void CalculateProgress(bool isSaving = false)
         {
             int openPixels = 0;
             Color[] pixels = _progressFogTexture.GetPixels();
@@ -90,8 +90,10 @@ namespace Gameplay.FogOfWar
 
             float progressPercentage = openPixels / (float) pixels.Length * 100f;
             
-            _processingProgress.UpdateLeaderbord((int) (progressPercentage * 100f));
             OnProgressPercentage?.Invoke(progressPercentage);
+            
+            if (isSaving)
+                _processingProgress.UpdateLeaderbord((int) (progressPercentage * 100f));
         }
     }
 }
