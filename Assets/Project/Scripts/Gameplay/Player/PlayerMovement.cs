@@ -82,6 +82,8 @@ namespace Gameplay.Player
                 AudioHandler.DeactivateClip(_stepClipName);
                 return;
             }
+
+            step = Vector3.ClampMagnitude(step, 1f);
             
             _isUpdated = true;
             _animator.SetBool(_walkingId, true);
