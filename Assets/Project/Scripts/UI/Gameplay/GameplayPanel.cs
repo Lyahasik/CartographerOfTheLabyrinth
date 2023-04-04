@@ -96,18 +96,5 @@ namespace UI.Gameplay
             _publishHandler.StartRateGame();
             _rateWindow.SetActive(false);
         }
-
-        //TODO удалить
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.R))
-                ResetProgress();
-        }
-
-        public void ResetProgress()
-        {
-            PlayerPrefs.DeleteAll();
-        }
     }
 }

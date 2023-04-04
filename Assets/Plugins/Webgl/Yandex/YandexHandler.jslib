@@ -72,7 +72,7 @@ mergeInto(LibraryManager.library, {
     SetLeaderBoard: function (value) {
         ysdk.getLeaderboards()
         .then(lb => {
-            lb.setLeaderboardScore('TestLeaders', value);
+            lb.setLeaderboardScore('Leaders', value);
         });
     }
 });
