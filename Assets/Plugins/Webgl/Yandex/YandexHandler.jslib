@@ -1,6 +1,6 @@
 mergeInto(LibraryManager.library, {
 
-    AdsFull: function (delay) {
+    AdsFullExtern: function () {
         ysdk.adv.showFullscreenAdv({
             callbacks: {
                 onClose: function(wasShown) {
@@ -14,6 +14,28 @@ mergeInto(LibraryManager.library, {
                 }
             }
         })
+    },
+
+    AdsActiveExtern: function (indexAward) {
+        ysdk.adv.showRewardedVideo({
+            callbacks: {
+              onRewarded: () => {
+                myGameInstance.SendMessage('PublishHandler(Clone)', 'GetAward', indexAward);
+            },
+            onClose: () => {
+                myGameInstance.SendMessage('PublishHandler(Clone)', 'CloseAds');  
+            }
+        }
+    })
+    },
+
+
+    BuyGoodsExtern: function (idGoods) {
+        var idString = UTF8ToString(idGoods);
+
+        payments.purchase({ id: idString }).then(purchase => {
+            myGameInstance.SendMessage('PublishHandler(Clone)', 'GetGoods', idString);
+        }).catch(err => {})
     },
 
     CheckRateGame: function () {

@@ -1,16 +1,22 @@
 using System;
 using System.Runtime.InteropServices;
-using Audio;
-using UI;
 using UnityEngine;
 using Zenject;
+
+using Audio;
+using UI;
 
 namespace Publish
 {
     public class PublishHandler : MonoBehaviour
     {
         [DllImport("__Internal")]
-        private static extern void AdsFull(float delay);
+        private static extern void AdsFullExtern();
+        [DllImport("__Internal")]
+        private static extern void AdsActiveExtern(int indexAward);
+        [DllImport("__Internal")]
+        private static extern void BuyGoodsExtern(string idGoods);
+        
         [DllImport("__Internal")]
         private static extern void LoadDataExtern();
         [DllImport("__Internal")]
@@ -22,6 +28,9 @@ namespace Publish
     
         [DllImport("__Internal")]
         private static extern void SetLeaderBoard(int value);
+
+        public static event Action<int> OnActivateAward; 
+        public static event Action<string> OnGetGoods; 
 
         private const string _musicClipName = "Music";
 
@@ -67,16 +76,55 @@ namespace Publish
             if (_delayRegularAdsTime != _maxDelayRegularAdsTime)
                 _delayRegularAdsTime = Mathf.Clamp(_delayRegularAdsTime + _magnificationNumber, 0, _maxDelayRegularAdsTime);
 
+            PrepareAds();
+            
+            AdsFullExtern();
+        }
+
+        public void AdsActive(int indexAward)
+        {
+            PrepareAds();
+            
+            AdsActiveExtern(indexAward);
+        }
+
+        private void PrepareAds()
+        {
             if (!_mouseHandler.IsActive)
             {
                 _isChangedCursor = true;
                 _mouseHandler.ActivateCursor();
             }
-
+            
             AudioHandler.DeactivateAll();
             Time.timeScale = 0f;
+        }
+
+        public void CloseAds()
+        {
+            if (_isChangedCursor)
+            {
+                _isChangedCursor = false;
+                _mouseHandler.DeactivateCursor();
+            }
             
-            AdsFull(_delayRegularAdsTime);
+            Time.timeScale = 1f;
+            AudioHandler.ActivateClip(_musicClipName);
+        }
+
+        public void GetAward(int index)
+        {
+            OnActivateAward?.Invoke(index);
+        }
+
+        public void BayGoods(string idGoods)
+        {
+            BuyGoodsExtern(idGoods);
+        }
+
+        public void GetGoods(string idGoods)
+        {
+            OnGetGoods?.Invoke(idGoods);
         }
 
         public void StartCheckRateGame()
@@ -107,18 +155,6 @@ namespace Publish
         public void SaveData(string data)
         {
             SaveDataExtern(data);
-        }
-
-        public void CloseAds()
-        {
-            if (_isChangedCursor)
-            {
-                _isChangedCursor = false;
-                _mouseHandler.DeactivateCursor();
-            }
-            
-            Time.timeScale = 1f;
-            AudioHandler.ActivateClip(_musicClipName);
         }
     }
 }
