@@ -93,7 +93,7 @@ namespace Gameplay.FogOfWar
             OnProgressPercentage?.Invoke(progressPercentage);
             
             if (isSaving)
-                _processingProgress.UpdateLeaderbord((int) (progressPercentage * 100f));
+                _processingProgress.Percentage = (int) (progressPercentage * 100f);
         }
     }
 }

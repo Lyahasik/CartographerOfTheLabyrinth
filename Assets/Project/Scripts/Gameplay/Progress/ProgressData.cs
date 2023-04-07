@@ -23,5 +23,6 @@ namespace Gameplay.Progress
         public int IsUpdate;
         public float[] AxesPosition;
         public string StringFog;
+        public int Percentage;
     }
 }

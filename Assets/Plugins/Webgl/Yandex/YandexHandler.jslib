@@ -38,21 +38,17 @@ mergeInto(LibraryManager.library, {
         }).catch(err => {})
     },
 
-    CheckRateGame: function () {
-        ysdk.feedback.canReview()
-        .then(({ value, reason }) => {
-            if (value) {
-                myGameInstance.SendMessage('GameplayPanel(Clone)', 'OpenRateWindow');
-            }
-        })
-    },
-
     LoadDataExtern: function () {
-        player.getData().then(_data => {
+        if (player && player.getMode() !== 'lite') {
+            player.getData().then(_data => {
             const json = JSON.stringify(_data);
             console.log(json);
             myGameInstance.SendMessage('PublishHandler(Clone)', 'LoadData', json);
         })
+        } else {
+            myGameInstance.SendMessage('PublishHandler(Clone)', 'LoadData', 'local');
+        }
+        
     },
 
     SaveDataExtern: function (data) {
@@ -60,6 +56,15 @@ mergeInto(LibraryManager.library, {
         var json = JSON.parse(dataString);
         console.log(json);
         player.setData(json);
+    },
+
+    CheckRateGame: function () {
+        ysdk.feedback.canReview()
+        .then(({ value, reason }) => {
+            if (value) {
+                myGameInstance.SendMessage('GameplayPanel(Clone)', 'OpenRateWindow');
+            }
+        })
     },
 
     RateGame: function () {
@@ -70,6 +75,9 @@ mergeInto(LibraryManager.library, {
     },
 
     SetLeaderBoard: function (value) {
+        if (!player || player.getMode() === 'lite')
+            return;
+
         ysdk.getLeaderboards()
         .then(lb => {
             lb.setLeaderboardScore('Leaders', value);
