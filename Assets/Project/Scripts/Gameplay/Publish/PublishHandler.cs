@@ -4,7 +4,7 @@ using UnityEngine;
 using Zenject;
 
 using FiniteStateMachine;
-using UI;
+using UI.Gameplay;
 
 namespace Publish
 {
@@ -32,32 +32,34 @@ namespace Publish
         public static event Action<int> OnActivateAward; 
         public static event Action<string> OnGetGoods; 
 
-        private const string _musicClipName = "Music";
+        private const float _delayStartRegularAds = 3f;
 
         private DiContainer _container;
-        private MouseHandler _mouseHandler;
         private GameMashine _gameMashine;
+        private GameplayPanel _gameplayPanel;
 
         public static event Action<string> OnLoadData; 
 
-        private int _magnificationNumber = 15;
-        private int _maxDelayRegularAdsTime = 90;
+        private int _magnificationNumber = 120;
+        private int _maxDelayRegularAdsTime = 300;
         private int _delayRegularAdsTime = 60;
         private float _nextRegularAdsTime;
         
         private int _delayFullscreenAdsTime = 60;
         private float _nextFullscreenAdsTime;
 
-        private bool _isChangedCursor;
+        private GameState _nextGameState;
+        private bool _isActive;
+        private bool _isRegular;
 
         [Inject]
         public void Construct(DiContainer container,
-            MouseHandler mouseHandler,
-            GameMashine gameMashine)
+            GameMashine gameMashine,
+            GameplayPanel gameplayPanel)
         {
-            _mouseHandler = mouseHandler;
             _gameMashine = gameMashine;
             _container = container;
+            _gameplayPanel = gameplayPanel;
         }
 
         public void Start()
@@ -67,30 +69,42 @@ namespace Publish
     
         public void Update()
         {
-            RegularAds();
+            PrepareRegularAds();
         }
 
-        private void RegularAds()
+        private void PrepareRegularAds()
         {
 #if UNITY_EDITOR
         return;
 #endif
             
-            // if (_nextRegularAdsTime > Time.time
-            //     || _nextFullscreenAdsTime > Time.time)
-            //     return;
-            //
-            // _gameMashine.Enter(_container.Instantiate<PublishState>());
-            //
-            // if (_delayRegularAdsTime != _maxDelayRegularAdsTime)
-            //     _delayRegularAdsTime = Mathf.Clamp(_delayRegularAdsTime + _magnificationNumber, 0, _maxDelayRegularAdsTime);
-            //
-            // PrepareAds();
-            //
-            // AdsFullExtern();
+            if (_nextRegularAdsTime > Time.time
+                || _nextFullscreenAdsTime > Time.time)
+                return;
+            
+            _gameplayPanel.ViewWarningStartAds();
+
+            _nextGameState = _gameMashine.CurrentState;
+            _gameMashine.Enter(_container.Instantiate<PublishState>());
+            
+            if (_delayRegularAdsTime != _maxDelayRegularAdsTime)
+                _delayRegularAdsTime = Mathf.Clamp(_delayRegularAdsTime + _magnificationNumber, 0, _maxDelayRegularAdsTime);
+            
+            _nextRegularAdsTime = Time.time + _delayStartRegularAds;
+            
+            Invoke(nameof(StartRegularAds), _delayStartRegularAds);
         }
 
-        public void ViewFullscreenAds()
+        private void StartRegularAds()
+        {
+            _isRegular = true;
+            
+            PrepareAds();
+            
+            AdsFullExtern();
+        }
+
+        public void ViewFullscreenAds(GameState nextGameState)
         {
 #if UNITY_EDITOR
         return;
@@ -98,18 +112,21 @@ namespace Publish
 
             if (_nextFullscreenAdsTime > Time.time)
             {
-                _gameMashine.Enter(_container.Instantiate<PlayingState>());
+                _gameMashine.Enter(nextGameState);
                 return;
             }
+
+            _nextGameState = nextGameState;
 
             PrepareAds();
             
             AdsFullExtern();
         }
 
-        public void ViewVideoAds(int indexAward)
+        public void ViewVideoAds(GameState nextGameState, int indexAward)
         {
             _gameMashine.Enter(_container.Instantiate<PublishState>());
+            _nextGameState = nextGameState;
             
             PrepareAds();
             
@@ -118,17 +135,30 @@ namespace Publish
 
         private void PrepareAds()
         {
+            _isActive = true;
             Time.timeScale = 0f;
         }
 
         public void CloseAds()
         {
-            _gameMashine.ResetState();
+            if (!_isActive)
+                return;
+            
+            if (!_isRegular)
+                _gameMashine.Enter(_container.Instantiate<PlayingState>());
+            else
+                _isRegular = false;
             
             Time.timeScale = 1f;
+            _isActive = false;
             
             _nextRegularAdsTime = Time.time + _delayRegularAdsTime;
             _nextFullscreenAdsTime = Time.time + _delayFullscreenAdsTime;
+        }
+
+        public void NextState()
+        {
+            _gameMashine.Enter(_nextGameState);
         }
 
         public void GetAward(int index)

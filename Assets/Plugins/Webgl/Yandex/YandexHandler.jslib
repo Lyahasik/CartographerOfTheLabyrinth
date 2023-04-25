@@ -10,12 +10,15 @@ mergeInto(LibraryManager.library, {
             .showFullscreenAdv({
                 callbacks: {
                     onClose: function(wasShown) {
+                        console.error('onClose full');
                         myGameInstance.SendMessage('PublishHandler(Clone)', 'CloseAds');
                     },
                     onError: function(error) {
+                        console.error('onError full');
                         myGameInstance.SendMessage('PublishHandler(Clone)', 'CloseAds');
                     },
                     onOffline: function() {
+                        console.error('onOffline full');
                         myGameInstance.SendMessage('PublishHandler(Clone)', 'CloseAds');
                     }
                 }

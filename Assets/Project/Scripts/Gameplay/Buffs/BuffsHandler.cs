@@ -23,6 +23,13 @@ namespace Gameplay.Buffs
         private bool _isActiveVisibilityRangeBuff;
         private float _elapsedTimeVisibilityRangeBuff;
 
+        private bool _isFreeze;
+
+        public bool IsFreeze
+        {
+            set => _isFreeze = value;
+        }
+
         [Inject]
         public void Construct(GameplaySettings settings,
             PlayerInventory playerInventory, 
@@ -37,6 +44,9 @@ namespace Gameplay.Buffs
 
         public void Tick()
         {
+            if (_isFreeze)
+                return;
+            
             ProcessInput();
             UpdateBuffs();
         }
@@ -78,6 +88,9 @@ namespace Gameplay.Buffs
 
         public float PercentageCompletionSpeedBuff()
         {
+            if (_isFreeze)
+                return _elapsedTimeSpeedBuff / _settings.TimeBoost;
+            
             if (!_isActiveSpeedBuff)
                 return 0;
 
@@ -88,6 +101,9 @@ namespace Gameplay.Buffs
 
         public float PercentageCompletionVisibilityRangeBuff()
         {
+            if (_isFreeze)
+                return _elapsedTimeVisibilityRangeBuff / _settings.TimeFollowOffsetUp;
+            
             if (!_isActiveVisibilityRangeBuff)
                 return 0;
 

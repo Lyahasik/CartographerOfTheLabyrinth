@@ -13,6 +13,9 @@ namespace UI.Gameplay
 
         private void Update()
         {
+#if UNITY_EDITOR
+            return;
+#endif
             UpdateTimeAction(_buffsHandler.PercentageCompletionVisibilityRangeBuff());
         }
 

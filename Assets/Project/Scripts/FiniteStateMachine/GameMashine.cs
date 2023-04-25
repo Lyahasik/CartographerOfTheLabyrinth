@@ -9,6 +9,8 @@ namespace FiniteStateMachine
         private GameState _currentState;
         private GameState _previousState;
 
+        public GameState CurrentState => _currentState;
+
         [Inject]
         public void Construct(DiContainer container)
         {

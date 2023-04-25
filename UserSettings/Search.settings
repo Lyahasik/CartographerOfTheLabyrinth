@@ -1,13 +1,13 @@
 trackSelection = true
 fetchPreview = true
-defaultFlags = 0
+defaultFlags = 264
 keepOpen = false
 queryFolder = "Assets"
 onBoardingDoNotAskAgain = true
 showPackageIndexes = false
-showStatusBar = false
+showStatusBar = true
 scopes = {
-	"last_search.B655092D" = "st:continu"
+	"last_search.B655092D" = "st:`"
 	"OpenInspectorPreview.B655092D" = "0"
 	"currentGroup.B655092D" = "all"
 }
@@ -66,7 +66,12 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"st:Continue"
 	"st:"
+	"st:count{}"
+	"StringTable:"
+	"last{}"
+	"st:alias{}count{}"
 	"st:alias{}"
 ]
 searchItemFavorites = [

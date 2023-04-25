@@ -1,4 +1,3 @@
-using UnityEngine;
 using Zenject;
 
 using Audio;
@@ -24,34 +23,15 @@ namespace FiniteStateMachine
         {
             base.Enter(gameMashine);
             
-            // if (!_mouseHandler.IsActive)
-            // {
-            //     _isChangedCursor = true;
             _mouseHandler.ActivateCursor();
-            // // }
-            //
+            
             AudioHandler.DeactivateAll();
-            // Time.timeScale = 0f;
-        }
-
-        public override void HandleInput()
-        {
-            if (Input.GetKeyDown(KeyCode.Escape)
-                || Input.GetKeyDown(KeyCode.G))
-            {
-                _gameMashine.ResetState();
-            }
         }
 
         public override void Exit()
         {
-            // if (_isChangedCursor)
-            // {
-            //     _isChangedCursor = false;
-                _mouseHandler.DeactivateCursor();
-            // }
+            _mouseHandler.DeactivateCursor();
             
-            // Time.timeScale = 1f;
             AudioHandler.ActivateClip(_musicClipName);
         }
     }

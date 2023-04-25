@@ -2,6 +2,7 @@ using UnityEngine;
 using Zenject;
 
 using Gameplay.Player;
+using Gameplay.Buffs;
 using UI;
 using UI.Alerts;
 using UI.Gameplay;
@@ -14,6 +15,7 @@ namespace FiniteStateMachine
         private TeleportPanel _teleportPanel;
         private GameplayPanel _gameplayPanel;
         private PlayerMovement _playerMovement;
+        private BuffsHandler _buffsHandler;
         private MouseHandler _mouseHandler;
 
         [Inject]
@@ -21,12 +23,14 @@ namespace FiniteStateMachine
             TeleportPanel teleportPanel,
             GameplayPanel gameplayPanel,
             PlayerMovement playerMovement,
+            BuffsHandler buffsHandler,
             MouseHandler mouseHandler)
         {
             _container = container;
             _teleportPanel = teleportPanel;
             _gameplayPanel = gameplayPanel;
             _playerMovement = playerMovement;
+            _buffsHandler = buffsHandler;
             _mouseHandler = mouseHandler;
         }
     
@@ -36,6 +40,8 @@ namespace FiniteStateMachine
         
             _mouseHandler.DeactivateCursor();
             _playerMovement.IsFreeze = false;
+            _buffsHandler.IsFreeze = false;
+            
             _gameplayPanel.gameObject.SetActive(true);
         }
 
@@ -60,7 +66,8 @@ namespace FiniteStateMachine
         public override void Exit()
         {
             _playerMovement.IsFreeze = true;
-            _gameplayPanel.gameObject.SetActive(false);
+            _buffsHandler.IsFreeze = true;
+            
             _teleportPanel.DeactivateAllWindows();
         }
     }

@@ -32,9 +32,8 @@ namespace UI.Map
 
         public void Deactivate()
         {
-            _gameMashine.Enter(_container.Instantiate<PlayingState>());
             _gameMashine.Enter(_container.Instantiate<PublishState>());
-            _publishHandler.ViewFullscreenAds();
+            _publishHandler.ViewFullscreenAds(_container.Instantiate<PlayingState>());
         }
         
         public void Activate(bool value)

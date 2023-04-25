@@ -52,9 +52,8 @@ namespace UI.Shop
 
         public void Deactivate()
         {
-            _gameMashine.Enter(_container.Instantiate<PlayingState>());
             _gameMashine.Enter(_container.Instantiate<PublishState>());
-            _publishHandler.ViewFullscreenAds();
+            _publishHandler.ViewFullscreenAds(_container.Instantiate<PlayingState>());
         }
         
         public void Activate(bool value)
@@ -113,12 +112,12 @@ namespace UI.Shop
 
         public void FreeSpeedBuff()
         {
-            _publishHandler.ViewVideoAds(_indexAdsSpeedBuff);
+            _publishHandler.ViewVideoAds(_container.Instantiate<ShopState>(), _indexAdsSpeedBuff);
         }
 
         public void FreeVisibilityBuff()
         {
-            _publishHandler.ViewVideoAds(_indexAdsVisibilityBuff);
+            _publishHandler.ViewVideoAds(_container.Instantiate<ShopState>(), _indexAdsVisibilityBuff);
         }
     }
 }

@@ -107,6 +107,10 @@ MonoBehaviour:
     m_Key: RateGameWindow
     m_Metadata:
       m_Items: []
+  - m_Id: 17014888776990720
+    m_Key: WarningAdsStart
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

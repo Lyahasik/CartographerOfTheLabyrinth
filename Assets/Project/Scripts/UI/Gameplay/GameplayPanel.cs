@@ -31,6 +31,7 @@ namespace UI.Gameplay
 
         [Header("Publish")]
         [SerializeField] private GameObject _rateWindow;
+        [SerializeField] private GameObject _warningStartAdsWindow;
 
         [Inject]
         public void Construct(DiContainer container,
@@ -95,6 +96,17 @@ namespace UI.Gameplay
         {
             _publishHandler.StartRateGame();
             _rateWindow.SetActive(false);
+        }
+
+        public void ViewWarningStartAds()
+        {
+            _warningStartAdsWindow.SetActive(true);
+        }
+
+        public void ContinueGame()
+        {
+            _publishHandler.NextState();
+            _warningStartAdsWindow.SetActive(false);
         }
     }
 }
