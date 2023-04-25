@@ -1,5 +1,6 @@
 using Zenject;
 
+using UI;
 using UI.Gameplay.Education;
 
 namespace FiniteStateMachine
@@ -7,17 +8,20 @@ namespace FiniteStateMachine
     public class EducationState : GameState
     {
         private EducationPanel _educationPanel;
+        private MouseHandler _mouseHandler;
 
         [Inject]
-        public void Construct(EducationPanel mapPanel)
+        public void Construct(EducationPanel mapPanel, MouseHandler mouseHandler)
         {
             _educationPanel = mapPanel;
+            _mouseHandler = mouseHandler;
         }
     
         public override void Enter(GameMashine gameMashine)
         {
             base.Enter(gameMashine);
         
+            _mouseHandler.ActivateCursor();
             _educationPanel.Activate(true);
         }
 

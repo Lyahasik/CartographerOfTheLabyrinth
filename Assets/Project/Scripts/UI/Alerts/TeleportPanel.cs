@@ -81,7 +81,7 @@ namespace UI.Alerts
 
         public void ViewingAdsActivate()
         {
-            _publishHandler.AdsActive(_indexAdsTeleportActivate);
+            _publishHandler.ViewVideoAds(_indexAdsTeleportActivate);
         }
 
         public void GetAwardActivateTeleport(int indexAward)
@@ -127,7 +127,7 @@ namespace UI.Alerts
 
         public void ViewingAdsTeleport()
         {
-            _publishHandler.AdsActive(_indexAdsTeleport);
+            _publishHandler.ViewVideoAds(_indexAdsTeleport);
         }
 
         public void GetAwardTeleport(int indexAward)

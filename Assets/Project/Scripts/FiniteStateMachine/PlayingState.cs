@@ -62,7 +62,6 @@ namespace FiniteStateMachine
             _playerMovement.IsFreeze = true;
             _gameplayPanel.gameObject.SetActive(false);
             _teleportPanel.DeactivateAllWindows();
-            _mouseHandler.ActivateCursor();
         }
     }
 }

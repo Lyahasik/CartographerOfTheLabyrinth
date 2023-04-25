@@ -4,6 +4,7 @@ using Zenject;
 using FiniteStateMachine;
 using Audio;
 using Gameplay.Progress;
+using Publish;
 using UnityEngine.UI;
 
 namespace UI.Settings
@@ -15,16 +16,21 @@ namespace UI.Settings
         private DiContainer _container;
         private GameMashine _gameMashine;
         private ProcessingProgress _processingProgress;
+        private PublishHandler _publishHandler;
 
         [SerializeField] private Slider _sliderMusic;
         [SerializeField] private Slider _sliderSounds;
 
         [Inject]
-        public void Construct(DiContainer container, GameMashine gameMashine, ProcessingProgress processingProgress)
+        public void Construct(DiContainer container,
+            GameMashine gameMashine,
+            ProcessingProgress processingProgress,
+            PublishHandler publishHandler)
         {
             _container = container;
             _gameMashine = gameMashine;
             _processingProgress = processingProgress;
+            _publishHandler = publishHandler;
         }
 
         public void Deactivate()
@@ -35,7 +41,9 @@ namespace UI.Settings
             _processingProgress.MusicValue = _sliderMusic.value;
             _processingProgress.SoundsValue = _sliderSounds.value;
             _gameMashine.Enter(_container.Instantiate<PlayingState>());
-            
+            _gameMashine.Enter(_container.Instantiate<PublishState>());
+            _publishHandler.ViewFullscreenAds();
+
             if (isUpdated)
                 _processingProgress.SaveProgressData();
         }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using Zenject;
 
+using UI;
 using UI.Shop;
 
 namespace FiniteStateMachine
@@ -8,17 +9,20 @@ namespace FiniteStateMachine
     public class ShopState : GameState
     {
         private ShopPanel _shopPanel;
+        private MouseHandler _mouseHandler;
 
         [Inject]
-        public void Construct(ShopPanel shopPanel)
+        public void Construct(ShopPanel shopPanel, MouseHandler mouseHandler)
         {
             _shopPanel = shopPanel;
+            _mouseHandler = mouseHandler;
         }
     
         public override void Enter(GameMashine gameMashine)
         {
             base.Enter(gameMashine);
         
+            _mouseHandler.ActivateCursor();
             _shopPanel.Activate(true);
         }
 
@@ -27,7 +31,7 @@ namespace FiniteStateMachine
             if (Input.GetKeyDown(KeyCode.Escape)
                 || Input.GetKeyDown(KeyCode.G))
             {
-                _gameMashine.ResetState();
+                _shopPanel.Deactivate();
             }
         }
 

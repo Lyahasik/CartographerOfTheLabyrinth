@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using Zenject;
 
-using Audio;
+using FiniteStateMachine;
 using UI;
 
 namespace Publish
@@ -34,27 +34,35 @@ namespace Publish
 
         private const string _musicClipName = "Music";
 
+        private DiContainer _container;
         private MouseHandler _mouseHandler;
+        private GameMashine _gameMashine;
 
         public static event Action<string> OnLoadData; 
 
-        private int _magnificationNumber = 120;
-        private int _maxDelayRegularAdsTime = 300;
+        private int _magnificationNumber = 15;
+        private int _maxDelayRegularAdsTime = 90;
         private int _delayRegularAdsTime = 60;
         private float _nextRegularAdsTime;
+        
+        private int _delayFullscreenAdsTime = 60;
+        private float _nextFullscreenAdsTime;
 
         private bool _isChangedCursor;
 
         [Inject]
-        public void Construct(MouseHandler mouseHandler)
+        public void Construct(DiContainer container,
+            MouseHandler mouseHandler,
+            GameMashine gameMashine)
         {
             _mouseHandler = mouseHandler;
+            _gameMashine = gameMashine;
+            _container = container;
         }
 
         public void Start()
         {
             _nextRegularAdsTime = Time.time + _delayRegularAdsTime;
-            _delayRegularAdsTime += _magnificationNumber;
         }
     
         public void Update()
@@ -68,21 +76,41 @@ namespace Publish
         return;
 #endif
             
-            if (_nextRegularAdsTime > Time.time)
-                return;
-            
-            _nextRegularAdsTime = Time.time + _delayRegularAdsTime;
+            // if (_nextRegularAdsTime > Time.time
+            //     || _nextFullscreenAdsTime > Time.time)
+            //     return;
+            //
+            // _gameMashine.Enter(_container.Instantiate<PublishState>());
+            //
+            // if (_delayRegularAdsTime != _maxDelayRegularAdsTime)
+            //     _delayRegularAdsTime = Mathf.Clamp(_delayRegularAdsTime + _magnificationNumber, 0, _maxDelayRegularAdsTime);
+            //
+            // PrepareAds();
+            //
+            // AdsFullExtern();
+        }
 
-            if (_delayRegularAdsTime != _maxDelayRegularAdsTime)
-                _delayRegularAdsTime = Mathf.Clamp(_delayRegularAdsTime + _magnificationNumber, 0, _maxDelayRegularAdsTime);
+        public void ViewFullscreenAds()
+        {
+#if UNITY_EDITOR
+        return;
+#endif
+
+            if (_nextFullscreenAdsTime > Time.time)
+            {
+                _gameMashine.Enter(_container.Instantiate<PlayingState>());
+                return;
+            }
 
             PrepareAds();
             
             AdsFullExtern();
         }
 
-        public void AdsActive(int indexAward)
+        public void ViewVideoAds(int indexAward)
         {
+            _gameMashine.Enter(_container.Instantiate<PublishState>());
+            
             PrepareAds();
             
             AdsActiveExtern(indexAward);
@@ -90,26 +118,17 @@ namespace Publish
 
         private void PrepareAds()
         {
-            if (!_mouseHandler.IsActive)
-            {
-                _isChangedCursor = true;
-                _mouseHandler.ActivateCursor();
-            }
-            
-            AudioHandler.DeactivateAll();
             Time.timeScale = 0f;
         }
 
         public void CloseAds()
         {
-            if (_isChangedCursor)
-            {
-                _isChangedCursor = false;
-                _mouseHandler.DeactivateCursor();
-            }
+            _gameMashine.ResetState();
             
             Time.timeScale = 1f;
-            AudioHandler.ActivateClip(_musicClipName);
+            
+            _nextRegularAdsTime = Time.time + _delayRegularAdsTime;
+            _nextFullscreenAdsTime = Time.time + _delayFullscreenAdsTime;
         }
 
         public void GetAward(int index)

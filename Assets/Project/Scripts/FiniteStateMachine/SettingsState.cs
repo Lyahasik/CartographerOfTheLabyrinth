@@ -1,6 +1,7 @@
 using UnityEngine;
 using Zenject;
 
+using UI;
 using UI.Settings;
 
 namespace FiniteStateMachine
@@ -8,17 +9,20 @@ namespace FiniteStateMachine
     public class SettingsState : GameState
     {
         private SettingsPanel _settingsPanel;
+        private MouseHandler _mouseHandler;
 
         [Inject]
-        public void Construct(SettingsPanel settingsPanel)
+        public void Construct(SettingsPanel settingsPanel, MouseHandler mouseHandler)
         {
             _settingsPanel = settingsPanel;
+            _mouseHandler = mouseHandler;
         }
     
         public override void Enter(GameMashine gameMashine)
         {
             base.Enter(gameMashine);
         
+            _mouseHandler.ActivateCursor();
             _settingsPanel.Activate(true);
         }
 

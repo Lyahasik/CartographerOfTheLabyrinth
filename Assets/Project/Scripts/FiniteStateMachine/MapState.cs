@@ -1,6 +1,7 @@
 using UnityEngine;
 using Zenject;
 
+using UI;
 using UI.Map;
 using UI.Alerts;
 
@@ -10,18 +11,23 @@ namespace FiniteStateMachine
     {
         private MapPanel _mapPanel;
         private TeleportPanel _teleportPanel;
+        private MouseHandler _mouseHandler;
 
         [Inject]
-        public void Construct(MapPanel mapPanel, TeleportPanel teleportPanel)
+        public void Construct(MapPanel mapPanel,
+            TeleportPanel teleportPanel,
+            MouseHandler mouseHandler)
         {
             _mapPanel = mapPanel;
             _teleportPanel = teleportPanel;
+            _mouseHandler = mouseHandler;
         }
     
         public override void Enter(GameMashine gameMashine)
         {
             base.Enter(gameMashine);
         
+            _mouseHandler.ActivateCursor();
             _mapPanel.Activate(true);
         }
 
@@ -30,7 +36,7 @@ namespace FiniteStateMachine
             if (Input.GetKeyDown(KeyCode.Escape)
                 || Input.GetKeyDown(KeyCode.M))
             {
-                _gameMashine.ResetState();
+                _mapPanel.Deactivate();
             }
         }
 
