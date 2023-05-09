@@ -40,8 +40,16 @@ namespace UI.Settings
 
             _processingProgress.MusicValue = _sliderMusic.value;
             _processingProgress.SoundsValue = _sliderSounds.value;
-            _gameMashine.Enter(_container.Instantiate<PublishState>());
-            _publishHandler.ViewFullscreenAds(_container.Instantiate<PlayingState>());
+            
+            if (_publishHandler.AllowedShowFullscreen())
+            {
+                _gameMashine.Enter(_container.Instantiate<PublishState>());
+                _publishHandler.ViewFullscreenAds(_container.Instantiate<PlayingState>());
+            }
+            else
+            {
+                _gameMashine.Enter(_container.Instantiate<PlayingState>());
+            }
 
             if (isUpdated)
                 _processingProgress.SaveProgressData();

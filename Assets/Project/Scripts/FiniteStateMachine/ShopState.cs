@@ -1,6 +1,7 @@
 using UnityEngine;
 using Zenject;
 
+using Audio;
 using UI;
 using UI.Shop;
 
@@ -20,6 +21,7 @@ namespace FiniteStateMachine
     
         public override void Enter(GameMashine gameMashine)
         {
+            AudioHandler.DeactivateAll();
             base.Enter(gameMashine);
         
             _mouseHandler.ActivateCursor();

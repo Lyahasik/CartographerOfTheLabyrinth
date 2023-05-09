@@ -1,14 +1,12 @@
 using Zenject;
+using UnityEngine;
 
-using Audio;
 using UI;
 
 namespace FiniteStateMachine
 {
     public class PublishState : GameState
     {
-        private const string _musicClipName = "Music";
-        
         private MouseHandler _mouseHandler;
 
         private bool _isChangedCursor;
@@ -24,15 +22,15 @@ namespace FiniteStateMachine
             base.Enter(gameMashine);
             
             _mouseHandler.ActivateCursor();
-            
-            AudioHandler.DeactivateAll();
+
+            AudioListener.volume = 0f;
         }
 
         public override void Exit()
         {
             _mouseHandler.DeactivateCursor();
             
-            AudioHandler.ActivateClip(_musicClipName);
+            AudioListener.volume = 1f;
         }
     }
 }

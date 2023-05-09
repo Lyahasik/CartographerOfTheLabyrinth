@@ -90,7 +90,8 @@ namespace Environment.Level.Teleport
             _playerMovement.SetPosition(teleportPoint);
             _playerWatcher.ResetPosition();
             
-            _gameMashine.Enter(_container.Instantiate<PlayingState>());
+            if (_gameMashine.CurrentState is not PublishState)
+                _gameMashine.Enter(_container.Instantiate<PlayingState>());
             AudioHandler.ActivateClip(_teleportClipName);
         }
     }

@@ -5,6 +5,7 @@ using Zenject;
 
 using FiniteStateMachine;
 using Gameplay.Buffs;
+using Gameplay.Items;
 using Gameplay.Player;
 using Gameplay.Progress;
 using Publish;
@@ -13,6 +14,9 @@ namespace UI.Gameplay
 {
     public class GameplayPanel : MonoBehaviour
     {
+        private const int _indexAdsSpeedBuff = 0;
+        private const int _indexAdsVisibilityBuff = 1;
+        
         private DiContainer _container;
         private GameMashine _gameMashine;
         private ProcessingProgress _processingProgress;
@@ -68,6 +72,30 @@ namespace UI.Gameplay
             _iconVisibilityRangeUpBuff.Init(_buffsHandler, _playerInventory);
         }
 
+        private void OnEnable()
+        {
+            PublishHandler.OnActivateAward += BuyOneSpeedBuff;
+            PublishHandler.OnActivateAward += BuyOneVisibilityBuff;
+        }
+
+        private void OnDisable()
+        {
+            PublishHandler.OnActivateAward -= BuyOneSpeedBuff;
+            PublishHandler.OnActivateAward -= BuyOneVisibilityBuff;
+        }
+        
+        public void BuyOneSpeedBuff(int index)
+        {
+            if (index == _indexAdsSpeedBuff)
+                _playerInventory.AddItem(ItemType.SpeedBuff);
+        }
+
+        public void BuyOneVisibilityBuff(int index)
+        {
+            if (index == _indexAdsVisibilityBuff)
+                _playerInventory.AddItem(ItemType.VisibilityRangeBuff);
+        }
+
         public void TryOpenRateWindow()
         {
             StartCoroutine(DelayedOpenRateWindow());
@@ -103,10 +131,10 @@ namespace UI.Gameplay
             _warningStartAdsWindow.SetActive(true);
         }
 
-        public void ContinueGame()
-        {
-            _publishHandler.NextState();
-            _warningStartAdsWindow.SetActive(false);
-        }
+        // public void ContinueGame()
+        // {
+        //     _publishHandler.NextState();
+        //     _warningStartAdsWindow.SetActive(false);
+        // }
     }
 }

@@ -22,16 +22,19 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ad7a8bd03819f934c865426aa87c0ebe
     m_Address: "T\xFCrk\xE7e"
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7e2032cbaa7088744b9a186f98b12531
     m_Address: English
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 01979444b35c55543b442b4cd37f2e54, type: 2}
   m_SchemaSet:

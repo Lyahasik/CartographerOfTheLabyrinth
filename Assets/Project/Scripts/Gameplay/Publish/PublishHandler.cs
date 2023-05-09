@@ -50,7 +50,6 @@ namespace Publish
 
         private GameState _nextGameState;
         private bool _isActive;
-        private bool _isRegular;
 
         [Inject]
         public void Construct(DiContainer container,
@@ -72,13 +71,19 @@ namespace Publish
             PrepareRegularAds();
         }
 
+        public bool AllowedShowFullscreen()
+        {
+            return _nextFullscreenAdsTime <= Time.time;
+        }
+
         private void PrepareRegularAds()
         {
 #if UNITY_EDITOR
         return;
 #endif
             
-            if (_nextRegularAdsTime > Time.time
+            if (_isActive
+                || _nextRegularAdsTime > Time.time
                 || _nextFullscreenAdsTime > Time.time)
                 return;
             
@@ -90,17 +95,13 @@ namespace Publish
             if (_delayRegularAdsTime != _maxDelayRegularAdsTime)
                 _delayRegularAdsTime = Mathf.Clamp(_delayRegularAdsTime + _magnificationNumber, 0, _maxDelayRegularAdsTime);
             
-            _nextRegularAdsTime = Time.time + _delayStartRegularAds;
+            PrepareAds();
             
             Invoke(nameof(StartRegularAds), _delayStartRegularAds);
         }
 
         private void StartRegularAds()
         {
-            _isRegular = true;
-            
-            PrepareAds();
-            
             AdsFullExtern();
         }
 
@@ -110,11 +111,11 @@ namespace Publish
         return;
 #endif
 
-            if (_nextFullscreenAdsTime > Time.time)
-            {
-                _gameMashine.Enter(nextGameState);
-                return;
-            }
+            // if (_nextFullscreenAdsTime > Time.time)
+            // {
+            //     _gameMashine.Enter(nextGameState);
+            //     return;
+            // }
 
             _nextGameState = nextGameState;
 
@@ -136,7 +137,6 @@ namespace Publish
         private void PrepareAds()
         {
             _isActive = true;
-            Time.timeScale = 0f;
         }
 
         public void CloseAds()
@@ -144,21 +144,12 @@ namespace Publish
             if (!_isActive)
                 return;
             
-            if (!_isRegular)
-                _gameMashine.Enter(_container.Instantiate<PlayingState>());
-            else
-                _isRegular = false;
-            
-            Time.timeScale = 1f;
+            _gameMashine.Enter(_nextGameState);
+                
             _isActive = false;
             
             _nextRegularAdsTime = Time.time + _delayRegularAdsTime;
             _nextFullscreenAdsTime = Time.time + _delayFullscreenAdsTime;
-        }
-
-        public void NextState()
-        {
-            _gameMashine.Enter(_nextGameState);
         }
 
         public void GetAward(int index)

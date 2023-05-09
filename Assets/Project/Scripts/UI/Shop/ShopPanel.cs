@@ -38,22 +38,25 @@ namespace UI.Shop
 
         private void OnEnable()
         {
-            PublishHandler.OnActivateAward += BuyOneSpeedBuff;
-            PublishHandler.OnActivateAward += BuyOneVisibilityBuff;
             PublishHandler.OnGetGoods += BuyGoods;
         }
 
         private void OnDisable()
         {
-            PublishHandler.OnActivateAward -= BuyOneSpeedBuff;
-            PublishHandler.OnActivateAward -= BuyOneVisibilityBuff;
             PublishHandler.OnGetGoods -= BuyGoods;
         }
 
         public void Deactivate()
         {
-            _gameMashine.Enter(_container.Instantiate<PublishState>());
-            _publishHandler.ViewFullscreenAds(_container.Instantiate<PlayingState>());
+            if (_publishHandler.AllowedShowFullscreen())
+            {
+                _gameMashine.Enter(_container.Instantiate<PublishState>());
+                _publishHandler.ViewFullscreenAds(_container.Instantiate<PlayingState>());
+            }
+            else
+            {
+                _gameMashine.Enter(_container.Instantiate<PlayingState>());
+            }
         }
         
         public void Activate(bool value)
@@ -96,18 +99,6 @@ namespace UI.Shop
         {
             _playerInventory.AddItem(ItemType.VisibilityRangeBuff, number);
             _processingProgress.SaveProgressData();
-        }
-
-        public void BuyOneSpeedBuff(int index)
-        {
-            if (index == _indexAdsSpeedBuff)
-                BuySpeedBuff(1);
-        }
-
-        public void BuyOneVisibilityBuff(int index)
-        {
-            if (index == _indexAdsVisibilityBuff)
-                BuyVisibilityBuff(1);
         }
 
         public void FreeSpeedBuff()
